@@ -6,6 +6,7 @@ Bilingo is a cross-platform (iOS/Android) app that helps users learn new languag
 
 - Mohamed Nasif Nuha - 1189191
 - Lalana Chamika Thanthirigama - 1227349
+- Pratik Byathnal - 1247949
 
 ## Data Source
 
@@ -21,3 +22,7 @@ Single-user input: Firebase Realtime Database
 - Users can track their progress and see visual feedback (e.g., percentage completed)
 - Users can earn achievement badges when reaching milestones like completing lessons or maintaining streaks
 - Users can view a word of the day with its meaning and example usage
+- Users can save specific words, phrases, or lessons as favorites or bookmarks for quick access
+- Users can view a weekly or monthly progress report showing lessons completed
+- Users can switch the app to dark/light mode
+- Users can have a visually appealing splash screen when starting the app
