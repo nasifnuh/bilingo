@@ -2,7 +2,7 @@
 
 Bilingo is a cross-platform (iOS/Android) app that helps users learn new languages. Track your progress and improve your skills at your own pace.
 
-## Group 2
+## Group S 1 G 2
 
 - Mohamed Nasif Nuha - 1189191
 - Lalana Chamika Thanthirigama - 1227349
