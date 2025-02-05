@@ -1,24 +1,18 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { Text } from "react-native";
 
 import Button from "@components/Button";
+import Layout from "@/layout";
 
 const LoginScreen = ({ navigation }) => {
   return (
-    <View style={styles.container}>
-      <Text>Login Screen</Text>
-      <Button label="Signup" onPress={() => navigation.navigate("Signup")} />
-    </View>
+    <Layout>
+      <>
+        <Text>Login Screen</Text>
+        <Button label="Signup" onPress={() => navigation.navigate("Signup")} />
+      </>
+    </Layout>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    padding: 20,
-  },
-});
 
 export default LoginScreen;
