@@ -1,13 +1,13 @@
-// screens/LoginScreen.js
+import React from "react";
+import { View, Text, StyleSheet } from "react-native";
 
-import React, { useState } from "react";
-import { View, Button, Text, StyleSheet } from "react-native";
+import Button from "@components/Button";
 
 const LoginScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <Text>Login Screen</Text>
-      <Button title="Signup" onPress={() => navigation.navigate("Signup")} />
+      <Button label="Signup" onPress={() => navigation.navigate("Signup")} />
     </View>
   );
 };
