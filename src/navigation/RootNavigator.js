@@ -4,7 +4,7 @@ import AuthNavigator from "@navigation/AuthNavigator";
 import AppStackNavigator from "@/navigation/AppStackNavigator";
 
 const RootNavigator = () => {
-  const [userLoggedIn, setUserLoggedIn] = useState(true);
+  const [userLoggedIn, setUserLoggedIn] = useState(false);
 
   return (
     <NavigationContainer>
