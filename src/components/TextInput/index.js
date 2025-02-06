@@ -7,7 +7,7 @@ import {
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
-import colors from "@constants/colors";
+import Colors from "@constants/colors";
 
 import styles from "./styles";
 
@@ -42,14 +42,14 @@ const TextInput = ({
           secureTextEntry={isSecure}
           keyboardType={keyboardType}
           editable={!disabled}
-          placeholderTextColor={error ? colors.crimsonRed : colors.silverGray}
+          placeholderTextColor={error ? Colors.crimsonRed : Colors.silverGray}
         />
         {secureTextEntry && (
           <TouchableOpacity onPress={toggleSecureText} style={styles.icon}>
             <Ionicons
               name={isSecure ? "eye-off" : "eye"}
               size={24}
-              color={colors.silverGray}
+              color={Colors.silverGray}
             />
           </TouchableOpacity>
         )}

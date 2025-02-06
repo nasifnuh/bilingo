@@ -3,7 +3,7 @@ import { TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { Octicons } from "@expo/vector-icons";
 
-import colors from "@constants/colors";
+import Colors from "@constants/colors";
 
 const BackButton = ({ screenName }) => {
   const navigation = useNavigation();
@@ -18,7 +18,7 @@ const BackButton = ({ screenName }) => {
 
   return (
     <TouchableOpacity onPress={handlePress}>
-      <Octicons name="chevron-left" size={24} color={colors.darkGray} />
+      <Octicons name="chevron-left" size={24} color={Colors.darkGray} />
     </TouchableOpacity>
   );
 };

@@ -1,7 +1,7 @@
 import React from "react";
 import { TouchableOpacity, Text, ActivityIndicator, View } from "react-native";
 
-import colors from "@constants/colors";
+import Colors from "@constants/colors";
 
 import styles from "./styles";
 
@@ -44,7 +44,7 @@ const Button = ({
       {loading ? (
         <View style={styles.loading}>
           <ActivityIndicator
-            color={variant === "contained" ? colors.white : colors.silverGray}
+            color={variant === "contained" ? Colors.white : Colors.silverGray}
           />
         </View>
       ) : (

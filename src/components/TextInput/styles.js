@@ -1,15 +1,15 @@
 import { StyleSheet } from "react-native";
-import colors from "@constants/colors";
+import Colors from "@constants/colors";
 
 const styles = StyleSheet.create({
   container: { width: "100%" },
   label: {
     fontFamily: "BalooChettan-B",
     fontSize: 14,
-    color: colors.black,
+    color: Colors.black,
     marginBottom: 8,
   },
-  errorLabel: { color: colors.crimsonRed },
+  errorLabel: { color: Colors.crimsonRed },
   inputContainer: {
     flexDirection: "row",
     alignItems: "center",
@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     paddingHorizontal: 15,
     fontSize: 14,
-    backgroundColor: colors.offWhite,
+    backgroundColor: Colors.offWhite,
     flex: 1,
   },
   icon: {
@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
   },
   errorText: {
     fontSize: 12,
-    color: colors.crimsonRed,
+    color: Colors.crimsonRed,
     marginTop: 4,
   },
 });

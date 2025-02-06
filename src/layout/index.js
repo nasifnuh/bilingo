@@ -2,7 +2,7 @@ import React from "react";
 import { SafeAreaView, ScrollView } from "react-native";
 import { StatusBar } from "expo-status-bar";
 
-import colors from "@constants/colors";
+import Colors from "@constants/colors";
 
 import { styles } from "./styles";
 
@@ -14,7 +14,7 @@ const Layout = ({
 }) => {
   return (
     <>
-      <StatusBar style="dark" backgroundColor={colors.white} />
+      <StatusBar style="dark" backgroundColor={Colors.white} />
       <SafeAreaView style={styles.safeArea}>
         <ScrollView
           contentContainerStyle={[

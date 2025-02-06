@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
 
-import colors from "@constants/colors";
+import Colors from "@constants/colors";
 
 const styles = StyleSheet.create({
   button: {
@@ -11,29 +11,29 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   contained: {
-    backgroundColor: colors.royalPurple,
+    backgroundColor: Colors.royalPurple,
   },
   outlined: {
     borderWidth: 1,
-    borderColor: colors.royalPurple,
+    borderColor: Colors.royalPurple,
     backgroundColor: "transparent",
   },
   label: {
-    color: colors.white,
+    color: Colors.white,
     fontSize: 18,
     fontFamily: "BalooChettan-EB",
   },
   labelOutlined: {
-    color: colors.royalPurple,
+    color: Colors.royalPurple,
   },
   labelOutlinedDisabled: {
-    color: colors.silverGray,
+    color: Colors.silverGray,
   },
   containedDisabled: {
-    backgroundColor: colors.silverGray,
+    backgroundColor: Colors.silverGray,
   },
   outlinedDisabled: {
-    borderColor: colors.silverGray,
+    borderColor: Colors.silverGray,
   },
   loading: {
     justifyContent: "center",
