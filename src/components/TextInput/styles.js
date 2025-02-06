@@ -27,11 +27,6 @@ const styles = StyleSheet.create({
     right: 15,
     padding: 5,
   },
-  errorText: {
-    fontSize: 12,
-    color: Colors.crimsonRed,
-    marginTop: 4,
-  },
 });
 
 export default styles;

@@ -54,7 +54,6 @@ const TextInput = ({
           </TouchableOpacity>
         )}
       </View>
-      {error && <Text style={styles.errorText}>{error}</Text>}
     </View>
   );
 };

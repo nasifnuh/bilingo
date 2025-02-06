@@ -9,7 +9,7 @@ export const styles = StyleSheet.create({
     marginTop: StatusBar.currentHeight,
   },
   scrollViewContent: {
-    flex: 1,
+    flexGrow: 1,
     paddingHorizontal: 25,
   },
 });

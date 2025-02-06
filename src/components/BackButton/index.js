@@ -5,7 +5,7 @@ import { Octicons } from "@expo/vector-icons";
 
 import Colors from "@constants/colors";
 
-const BackButton = ({ screenName }) => {
+const BackButton = ({ screenName, style = {} }) => {
   const navigation = useNavigation();
 
   const handlePress = () => {
@@ -17,7 +17,7 @@ const BackButton = ({ screenName }) => {
   };
 
   return (
-    <TouchableOpacity onPress={handlePress}>
+    <TouchableOpacity onPress={handlePress} style={style}>
       <Octicons name="chevron-left" size={24} color={Colors.darkGray} />
     </TouchableOpacity>
   );
