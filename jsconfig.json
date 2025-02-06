@@ -13,7 +13,10 @@
       "@screens/*": ["src/screens/*"],
       "@services/*": ["src/services/*"],
       "@translations/*": ["src/translations/*"],
-      "@utils/*": ["src/utils/*"]
+      "@utils/*": ["src/utils/*"],
+
+      "@firebase/auth": ["./node_modules/@firebase/auth/dist/index.rn.d.ts"]
     }
-  }
+  },
+  "extends": "expo/tsconfig.base"
 }
