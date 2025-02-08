@@ -1,12 +1,9 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 
-import Button from "@components/Button";
-
-const SignupScreen = ({ navigation }) => (
+const Landing = () => (
   <View style={styles.container}>
-    <Text>Signup Screen</Text>
-    <Button label="Login" onPress={() => navigation.navigate("Login")} />
+    <Text>Landing Screen</Text>
   </View>
 );
 
@@ -19,4 +16,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SignupScreen;
+export default Landing;

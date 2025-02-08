@@ -1,10 +1,9 @@
 import React from "react";
-import { View, Button, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 
-const HomeScreen = ({ navigation }) => (
+const Home = () => (
   <View style={styles.container}>
     <Text>Home Screen</Text>
-    <Button title="Lesson" onPress={() => navigation.navigate("Lesson")} />
   </View>
 );
 
@@ -17,4 +16,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default HomeScreen;
+export default Home;

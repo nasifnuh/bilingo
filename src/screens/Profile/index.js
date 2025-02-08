@@ -1,9 +1,9 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 
-const FavoritesScreen = () => (
+const Profile = () => (
   <View style={styles.container}>
-    <Text>Favorites Screen</Text>
+    <Text>Profile Screen</Text>
   </View>
 );
 
@@ -16,4 +16,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default FavoritesScreen;
+export default Profile;
