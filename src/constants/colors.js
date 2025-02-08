@@ -10,6 +10,7 @@ export default {
 
   white: "#FFFFFF",
   offWhite: "#F3F3F4",
+  grayish: "#D1D1D6",
   silverGray: "#ACADB4",
   darkGray: "#4F4F4F",
   charcoal: "#1E1C1C",

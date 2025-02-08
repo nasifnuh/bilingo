@@ -35,7 +35,7 @@ const TextInput = ({
       )}
       <View style={styles.inputContainer}>
         <DefaultTextInput
-          style={styles.input}
+          style={[styles.input, disabled && styles.inputDisabled]}
           placeholder={placeholder}
           value={value}
           onChangeText={onChangeText}
