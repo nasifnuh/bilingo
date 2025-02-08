@@ -1,8 +1,10 @@
 export default {
   royalPurple: "#7832B3", // primary theme color
   lavenderMist: "#9A56A2",
+  pastelPurple: "#F1EAF7",
   freshGreen: "#67B741",
   skyBlue: "#1D94EE",
+  pastelBlue: "#EEF3FD",
   goldenOrange: "#FD991D",
   crimsonRed: "#EE1E21",
 

@@ -7,6 +7,7 @@ import Colors from "@constants/colors";
 import { styles } from "./styles";
 
 const Layout = ({
+  headerComponent,
   children,
   safeAreaStyle,
   contentContainerStyle,
@@ -16,6 +17,7 @@ const Layout = ({
     <>
       <StatusBar style="dark" backgroundColor={Colors.white} />
       <SafeAreaView style={styles.safeArea}>
+        {headerComponent}
         <ScrollView
           contentContainerStyle={[
             styles.scrollViewContent,
