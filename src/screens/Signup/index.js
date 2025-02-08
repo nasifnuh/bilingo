@@ -1,8 +1,11 @@
 import React from "react";
 import { View, Text, Image } from "react-native";
-import { useNavigation } from "@react-navigation/native";
 import { Formik } from "formik";
 import * as Yup from "yup";
+
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { ref, set } from "firebase/database";
+import { auth, database } from "@services/firebaseConfig";
 
 import Layout from "@/layout";
 import BackButton from "@components/BackButton";
@@ -19,8 +22,6 @@ const validationSchema = Yup.object().shape({
 });
 
 const Signup = () => {
-  const navigation = useNavigation();
-
   return (
     <Layout>
       <View style={styles.container}>
@@ -36,10 +37,23 @@ const Signup = () => {
           }}
           validationSchema={validationSchema}
           onSubmit={async (values, { setSubmitting }) => {
+            setSubmitting(true);
+
             try {
-              setSubmitting(true);
+              const credentials = await createUserWithEmailAndPassword(
+                auth,
+                values.email,
+                values.password
+              );
+              const userId = credentials.user.uid;
+
+              await set(ref(database, `users/${userId}`), {
+                name: values.name,
+                email: values.email,
+                joinedDate: new Date().toISOString(),
+              });
             } catch (error) {
-              alert(error);
+              alert(error.message);
             } finally {
               setSubmitting(false);
             }
