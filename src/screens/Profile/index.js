@@ -3,6 +3,9 @@ import { View, Text } from "react-native";
 import { Formik } from "formik";
 import * as Yup from "yup";
 
+import { signOut } from "firebase/auth";
+import { auth } from "@services/firebaseConfig";
+
 import Layout from "@/layout";
 import Button from "@components/Button";
 import TextInput from "@components/TextInput";
@@ -18,6 +21,14 @@ const validationSchema = Yup.object().shape({
 const Profile = () => {
   const [editing, setEditing] = useState(false);
 
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+
   return (
     <Layout headerComponent={<Text style={styles.headerLabel}>Profile</Text>}>
       <View style={styles.container}>
@@ -28,7 +39,17 @@ const Profile = () => {
             password: "",
           }}
           validationSchema={validationSchema}
-          onSubmit={async (values) => {}}
+          onSubmit={async (values, { setSubmitting }) => {
+            setSubmitting(true);
+
+            try {
+              console.log("values: ", values);
+            } catch (error) {
+              alert(error);
+            } finally {
+              setSubmitting(false);
+            }
+          }}
         >
           {({
             handleChange,
@@ -82,6 +103,11 @@ const Profile = () => {
             </View>
           )}
         </Formik>
+        <Button
+          label="Logout"
+          onPress={handleLogout}
+          style={styles.logoutButton}
+        />
       </View>
     </Layout>
   );

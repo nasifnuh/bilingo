@@ -20,4 +20,7 @@ export const styles = StyleSheet.create({
     marginTop: 40,
     marginBottom: 10,
   },
+  logoutButton: {
+    marginTop: "auto",
+  },
 });
