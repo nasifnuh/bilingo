@@ -22,4 +22,10 @@ export const styles = StyleSheet.create({
     color: Colors.black,
     marginBottom: 30,
   },
+  form: {
+    gap: 24,
+  },
+  signupButton: {
+    marginTop: 40,
+  },
 });
