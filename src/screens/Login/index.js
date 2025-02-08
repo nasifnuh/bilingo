@@ -3,6 +3,9 @@ import { View, Text, Image } from "react-native";
 import { Formik } from "formik";
 import * as Yup from "yup";
 
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "@services/firebaseConfig";
+
 import Layout from "@/layout";
 import BackButton from "@components/BackButton";
 import Button from "@components/Button";
@@ -31,7 +34,21 @@ const Login = () => {
             password: "",
           }}
           validationSchema={validationSchema}
-          onSubmit={async (values) => {}}
+          onSubmit={async (values, { setSubmitting }) => {
+            setSubmitting(true);
+
+            try {
+              await signInWithEmailAndPassword(
+                auth,
+                values.email,
+                values.password
+              );
+            } catch (error) {
+              alert(error.message);
+            } finally {
+              setSubmitting(false);
+            }
+          }}
         >
           {({
             handleChange,
