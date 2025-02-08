@@ -22,6 +22,9 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.offWhite,
     flex: 1,
   },
+  inputDisabled: {
+    backgroundColor: Colors.grayish,
+  },
   icon: {
     position: "absolute",
     right: 15,
