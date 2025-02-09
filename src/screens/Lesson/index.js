@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, Image, TouchableOpacity, Alert } from "react-native";
 import * as Progress from "react-native-progress";
 import { useNavigation } from "@react-navigation/native";
 import { FontAwesome } from "@expo/vector-icons";
 
-import { ref, get, set } from "firebase/database";
+import { ref, get, set, remove } from "firebase/database";
 import { auth, database } from "@services/firebaseConfig";
 
 import Layout from "@/layout";
@@ -27,6 +27,28 @@ const Lesson = ({ route }) => {
   const [favorite, setFavorite] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
   const [isCorrect, setIsCorrect] = useState(null);
+
+  const handleFavorites = async () => {
+    if (!auth.currentUser) return;
+
+    const userId = auth.currentUser.uid;
+    const lessonId = lesson.id;
+    const favRef = ref(database, `users/${userId}/favorites/${lessonId}`);
+
+    try {
+      const snapshot = await get(favRef);
+
+      if (snapshot.exists()) {
+        await remove(favRef);
+        setFavorite(false);
+      } else {
+        await set(favRef, true);
+        setFavorite(true);
+      }
+    } catch (error) {
+      Alert.alert("Error", "Failed to update favorite, try again!");
+    }
+  };
 
   const handleContinue = async () => {
     const questions = lesson;
@@ -85,11 +107,13 @@ const Lesson = ({ route }) => {
             borderWidth={0}
             borderRadius={8}
           />
-          {favorite ? (
-            <FontAwesome name="heart" size={24} color={Colors.crimsonRed} />
-          ) : (
-            <FontAwesome name="heart-o" size={24} color={Colors.crimsonRed} />
-          )}
+          <TouchableOpacity onPress={handleFavorites}>
+            {favorite ? (
+              <FontAwesome name="heart" size={24} color={Colors.crimsonRed} />
+            ) : (
+              <FontAwesome name="heart-o" size={24} color={Colors.crimsonRed} />
+            )}
+          </TouchableOpacity>
         </View>
       }
     >
