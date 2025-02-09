@@ -1,19 +1,23 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
-const Home = () => (
-  <View style={styles.container}>
-    <Text>Home Screen</Text>
-  </View>
-);
+import Layout from "@/layout";
+import HomePanel from "@components/HomePanel";
+import CourseUnit from "@/components/CourseUnit";
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    padding: 20,
-  },
-});
+import { styles } from "./styles";
+
+const Home = () => {
+  const navigation = useNavigation();
+
+  return (
+    <Layout headerComponent={<HomePanel />}>
+      <View style={styles.container}>
+        <CourseUnit units={[1, 2, 3]} />
+      </View>
+    </Layout>
+  );
+};
 
 export default Home;
