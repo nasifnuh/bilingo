@@ -17,12 +17,20 @@ import Layout from "@/layout";
 import Button from "@components/Button";
 import TextInput from "@components/TextInput";
 
+import Colors from "@constants/colors";
 import { styles } from "./styles";
 
 const validationSchema = Yup.object().shape({
-  name: Yup.string().required(),
-  email: Yup.string().email().required(),
-  password: Yup.string().min(6),
+  name: Yup.string()
+    .matches(/^[a-zA-Z\s]+$/, "only letters and spaces")
+    .required("required"),
+  email: Yup.string()
+    .matches(
+      /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
+      "invalid email"
+    )
+    .required("required"),
+  password: Yup.string().min(6, "min 6 characters"),
 });
 
 const Profile = () => {
@@ -165,38 +173,40 @@ const Profile = () => {
                 onChangeText={handleChange("name")}
                 value={values.name}
                 placeholder="Enter your name"
-                error={errors.name && touched.name}
+                error={errors.name}
+                touched={touched.name}
                 disabled={!editing || isSubmitting}
               />
               <TextInput
                 label="Email"
                 onChangeText={handleChange("email")}
                 value={values.email}
-                placeholder="Enter your email"
-                keyboardType="email-address"
-                error={errors.email && touched.email}
-                disabled={!editing || isSubmitting}
+                disabled={true}
               />
               <TextInput
                 label="Password"
                 onChangeText={handleChange("password")}
                 value={values.password}
                 secureTextEntry={true}
-                error={errors.password && touched.password}
+                error={errors.password}
+                touched={touched.password}
                 disabled={!editing || isSubmitting}
               />
 
               <View>
                 <Button
+                  variant={editing ? "contained" : "outlined"}
                   label={editing ? "Save Changes" : "Edit Profile"}
                   onPress={() => (editing ? handleSubmit() : setEditing(true))}
                   loading={isSubmitting}
-                  style={styles.editButton}
+                  customBoxStyle={styles.editButton}
                 />
                 <Button
                   label="Delete Profile"
                   variant="outlined"
                   onPress={handleDeleteProfile}
+                  customBoxStyle={{ borderColor: Colors.crimsonRed }}
+                  customLabelStyle={{ color: Colors.crimsonRed }}
                 />
               </View>
             </View>
@@ -205,7 +215,7 @@ const Profile = () => {
         <Button
           label="Logout"
           onPress={handleLogout}
-          style={styles.logoutButton}
+          customBoxStyle={styles.logoutButton}
         />
       </View>
     </Layout>

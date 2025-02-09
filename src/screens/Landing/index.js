@@ -26,13 +26,13 @@ const Landing = () => {
           <Button
             label="Let’s goo"
             onPress={() => navigation.navigate("Signup")}
-            style={styles.signupButton}
+            customBoxStyle={styles.signupButton}
           />
           <Button
             label="I Already Have A Profile"
             onPress={() => navigation.navigate("Login")}
             variant="outlined"
-            style={styles.loginButton}
+            customBoxStyle={styles.loginButton}
           />
         </View>
       </View>

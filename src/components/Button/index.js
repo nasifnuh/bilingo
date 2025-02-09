@@ -11,12 +11,13 @@ const Button = ({
   onPress,
   loading = false,
   disabled = false,
-  style = {},
+  customBoxStyle = {},
+  customLabelStyle = {},
 }) => {
   const buttonStyle =
     variant === "contained"
-      ? [styles.button, styles.contained, style]
-      : [styles.button, styles.outlined, style];
+      ? [styles.button, styles.contained]
+      : [styles.button, styles.outlined];
 
   const labelStyle =
     variant === "contained"
@@ -39,7 +40,7 @@ const Button = ({
     <TouchableOpacity
       onPress={onPress}
       disabled={disabled || loading}
-      style={[buttonStyle, disabledStyle]}
+      style={[buttonStyle, disabledStyle, customBoxStyle]}
     >
       {loading ? (
         <View style={styles.loading}>
@@ -48,7 +49,7 @@ const Button = ({
           />
         </View>
       ) : (
-        <Text style={labelStyle}>{label}</Text>
+        <Text style={[labelStyle, customLabelStyle]}>{label}</Text>
       )}
     </TouchableOpacity>
   );

@@ -16,9 +16,16 @@ import MascotImage from "@assets/images/mascot_love.png";
 import { styles } from "./styles";
 
 const validationSchema = Yup.object().shape({
-  name: Yup.string().required(),
-  email: Yup.string().email().required(),
-  password: Yup.string().required(),
+  name: Yup.string()
+    .matches(/^[a-zA-Z\s]+$/, "only letters and spaces")
+    .required("required"),
+  email: Yup.string()
+    .matches(
+      /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
+      "invalid email"
+    )
+    .required("required"),
+  password: Yup.string().min(6, "min 6 characters").required("required"),
 });
 
 const Signup = () => {
@@ -90,7 +97,8 @@ const Signup = () => {
                 onChangeText={handleChange("name")}
                 value={values.name}
                 placeholder="Enter your name"
-                error={errors.name && touched.name}
+                error={errors.name}
+                touched={touched.name}
               />
               <TextInput
                 label="Email"
@@ -98,7 +106,8 @@ const Signup = () => {
                 value={values.email}
                 placeholder="Enter your email"
                 keyboardType="email-address"
-                error={errors.email && touched.email}
+                error={errors.email}
+                touched={touched.email}
               />
               <TextInput
                 label="Password"
@@ -106,14 +115,15 @@ const Signup = () => {
                 value={values.password}
                 placeholder="Enter your password"
                 secureTextEntry={true}
-                error={errors.password && touched.password}
+                error={errors.password}
+                touched={touched.password}
               />
 
               <Button
                 label="Signup"
                 onPress={handleSubmit}
                 loading={isSubmitting}
-                style={styles.signupButton}
+                customBoxStyle={styles.signupButton}
               />
             </View>
           )}

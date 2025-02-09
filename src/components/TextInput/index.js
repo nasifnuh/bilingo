@@ -20,6 +20,7 @@ const TextInput = ({
   keyboardType = "default",
   disabled = false,
   error,
+  touched,
   style = {},
 }) => {
   const [isSecure, setIsSecure] = useState(secureTextEntry);
@@ -31,7 +32,10 @@ const TextInput = ({
   return (
     <View style={[styles.container, style]}>
       {label && (
-        <Text style={[styles.label, error && styles.errorLabel]}>{label}</Text>
+        <Text style={[styles.label, error && touched && styles.errorLabel]}>
+          {label}
+          {error && touched && <Text>&nbsp;&nbsp;({error})</Text>}
+        </Text>
       )}
       <View style={styles.inputContainer}>
         <DefaultTextInput
@@ -42,7 +46,9 @@ const TextInput = ({
           secureTextEntry={isSecure}
           keyboardType={keyboardType}
           editable={!disabled}
-          placeholderTextColor={error ? Colors.crimsonRed : Colors.silverGray}
+          placeholderTextColor={
+            error && touched ? Colors.crimsonRed : Colors.silverGray
+          }
         />
         {secureTextEntry && (
           <TouchableOpacity onPress={toggleSecureText} style={styles.icon}>
