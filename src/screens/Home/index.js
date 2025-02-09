@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
-import { get, ref } from "firebase/database";
+import { get, ref, onValue} from "firebase/database";
 import { database, auth } from "@services/firebaseConfig";
 
 import Layout from "@/layout";
@@ -14,7 +14,19 @@ import { styles } from "./styles";
 const Home = () => {
   const navigation = useNavigation();
 
+  const [units, setUnits] = useState([]);
   const [currentLanguage, setCurrentLanguage] = useState();
+
+  useEffect(() => {
+    const unitsRef = ref(database, `courses/${currentLanguage}/chapters/`);
+
+    const getCourseData = onValue(unitsRef, (snapshot) => {
+      const data = snapshot.val();
+      setUnits(data ? Object.values(data) : []);
+    });
+
+    return () => getCourseData();
+  }, [navigation, currentLanguage]);
 
   useEffect(() => {
     const checkUserLanguage = async () => {
@@ -46,7 +58,7 @@ const Home = () => {
   return (
     <Layout headerComponent={<HomePanel language={currentLanguage} />}>
       <View style={styles.container}>
-        <CourseUnit units={[1, 2, 3]} />
+        <CourseUnit units={units} />
       </View>
     </Layout>
   );

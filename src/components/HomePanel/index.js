@@ -17,11 +17,11 @@ const HomePanel = ({ language }) => {
       </TouchableOpacity>
       <View style={styles.group}>
         <Text style={styles.icon}>🔥</Text>
-        <Text style={[styles.text, { color: Colors.goldenOrange }]}>123</Text>
+        <Text style={[styles.text, { color: Colors.goldenOrange }]}>0</Text>
       </View>
       <View style={styles.group}>
         <Text style={styles.icon}>💎</Text>
-        <Text style={[styles.text, { color: Colors.skyBlue }]}>123</Text>
+        <Text style={[styles.text, { color: Colors.skyBlue }]}>0</Text>
       </View>
       <View style={styles.group}>
         <Text style={styles.icon}>🔔</Text>

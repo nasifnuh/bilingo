@@ -9,10 +9,10 @@ import { styles } from "./styles";
 const CourseUnit = ({ units }) => {
   return (
     <View style={styles.container}>
-      {units.map((unit, index) => (
-        <View key={index} style={styles.unitContainer}>
-          <ChapterCard />
-          <LessonCard lessons={[1, 2, 3]} />
+      {units.map((unit) => (
+        <View key={unit.id} style={styles.unitContainer}>
+          <ChapterCard unit={unit.unit} name={unit.name} color={unit.color} />
+          <LessonCard lessons={unit.lessons} color={unit.color} />
         </View>
       ))}
     </View>
