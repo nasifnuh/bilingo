@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, Image } from "react-native";
+import { View, Text, Image, Alert } from "react-native";
 import { Formik } from "formik";
 import * as Yup from "yup";
 
@@ -54,7 +54,18 @@ const Signup = () => {
                 language: null,
               });
             } catch (error) {
-              alert(error.message);
+              let message = "An error occurred. Please try again.";
+
+              if (error.code === "auth/email-already-in-use") {
+                message =
+                  "This email is already in use. Please use a different email.";
+              } else if (error.code === "auth/weak-password") {
+                message = "Password is too weak. Use at least 6 characters.";
+              } else if (error.code === "auth/invalid-email") {
+                message = "Invalid email format";
+              }
+
+              Alert.alert("Signup Failed", message);
             } finally {
               setSubmitting(false);
             }
@@ -75,7 +86,6 @@ const Signup = () => {
                 value={values.name}
                 placeholder="Enter your name"
                 error={errors.name && touched.name}
-                disabled={isSubmitting}
               />
               <TextInput
                 label="Email"
@@ -84,7 +94,6 @@ const Signup = () => {
                 placeholder="Enter your email"
                 keyboardType="email-address"
                 error={errors.email && touched.email}
-                disabled={isSubmitting}
               />
               <TextInput
                 label="Password"
@@ -93,7 +102,6 @@ const Signup = () => {
                 placeholder="Enter your password"
                 secureTextEntry={true}
                 error={errors.password && touched.password}
-                disabled={isSubmitting}
               />
 
               <Button
