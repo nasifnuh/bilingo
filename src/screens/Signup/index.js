@@ -27,7 +27,7 @@ const Signup = () => {
       <View style={styles.container}>
         <BackButton />
         <Image source={MascotImage} style={styles.image} />
-        <Text style={styles.title}>Create an Account</Text>
+        <Text style={styles.title}>Create a Profile</Text>
 
         <Formik
           initialValues={{
@@ -53,6 +53,11 @@ const Signup = () => {
                 joinedDate: new Date().toISOString(),
                 language: null,
               });
+
+              Alert.alert(
+                "Signup Successful",
+                "Your profile has been created!"
+              );
             } catch (error) {
               let message = "An error occurred. Please try again.";
 
