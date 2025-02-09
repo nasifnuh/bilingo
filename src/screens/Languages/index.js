@@ -22,8 +22,8 @@ const Languages = () => {
 
         <View style={styles.languages}>
           {[
-            { id: "1", name: "French", icon: "france" },
-            { id: "2", name: "Chinese", icon: "china" },
+            { id: "1", name: "french", icon: "france" },
+            { id: "2", name: "chinese", icon: "china" },
           ].map((language) => (
             <LanguageCard
               key={language.id}
