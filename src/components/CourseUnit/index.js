@@ -11,8 +11,8 @@ const CourseUnit = ({ units }) => {
     <View style={styles.container}>
       {units.map((unit) => (
         <View key={unit.id} style={styles.unitContainer}>
-          <ChapterCard unit={unit.unit} name={unit.name} />
-          <LessonCard lessons={unit.lessons} />
+          <ChapterCard unit={unit.unit} name={unit.name} color={unit.color} />
+          <LessonCard lessons={unit.lessons} color={unit.color} />
         </View>
       ))}
     </View>
