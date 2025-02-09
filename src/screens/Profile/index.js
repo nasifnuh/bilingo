@@ -8,8 +8,9 @@ import {
   updateEmail,
   updatePassword,
   updateProfile,
+  deleteUser,
 } from "firebase/auth";
-import { ref, get, update } from "firebase/database";
+import { ref, get, update, remove } from "firebase/database";
 import { auth, database } from "@services/firebaseConfig";
 
 import Layout from "@/layout";
@@ -55,6 +56,46 @@ const Profile = () => {
 
     fetchUserData();
   }, []);
+
+  const handleDeleteProfile = async () => {
+    const user = auth.currentUser;
+
+    if (!user) {
+      Alert.alert("Error", "No authenticated user found");
+      return;
+    }
+
+    Alert.alert(
+      "Confirm Deletion",
+      "Are you sure you want to delete your profile? This action cannot be undone.",
+      [
+        { text: "Cancel", style: "cancel" },
+        {
+          text: "Delete",
+          style: "destructive",
+          onPress: async () => {
+            try {
+              await remove(ref(database, `users/${user.uid}`));
+              await deleteUser(user);
+              await signOut(auth);
+
+              Alert.alert("Profile Deleted", "Your profile has been deleted.");
+            } catch (error) {
+              if (error.code === "auth/requires-recent-login") {
+                Alert.alert(
+                  "Re-authentication Required",
+                  "Please log in again to delete your profile."
+                );
+              } else {
+                Alert.alert("Error", error.message);
+              }
+              console.error("Delete error: ", error);
+            }
+          },
+        },
+      ]
+    );
+  };
 
   const handleLogout = async () => {
     try {
@@ -155,7 +196,7 @@ const Profile = () => {
                 <Button
                   label="Delete Profile"
                   variant="outlined"
-                  onPress={() => console.log("Handle Delete")}
+                  onPress={handleDeleteProfile}
                 />
               </View>
             </View>
