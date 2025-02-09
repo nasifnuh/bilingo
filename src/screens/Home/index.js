@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { View } from "react-native";
-import { useNavigation } from "@react-navigation/native";
 import { ref, onValue } from "firebase/database";
 
 import Layout from "@/layout";
@@ -18,6 +17,7 @@ const Home = () => {
 
     const unsubscribe = onValue(unitsRef, (snapshot) => {
       const data = snapshot.val();
+      console.log("data: ", data)
       setUnits(data ? Object.values(data) : []);
     });
 
