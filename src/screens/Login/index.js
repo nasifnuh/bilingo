@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, Image } from "react-native";
+import { View, Text, Image, Alert } from "react-native";
 import { Formik } from "formik";
 import * as Yup from "yup";
 
@@ -44,7 +44,13 @@ const Login = () => {
                 values.password
               );
             } catch (error) {
-              alert(error.message);
+              let message = "An error occurred. Please try again.";
+
+              if (error.code === "auth/invalid-credential") {
+                message = "Invalid credentials.";
+              }
+
+              Alert.alert("Login Failed", message);
             } finally {
               setSubmitting(false);
             }
@@ -66,7 +72,6 @@ const Login = () => {
                 placeholder="Enter your email"
                 keyboardType="email-address"
                 error={errors.email && touched.email}
-                disabled={isSubmitting}
               />
               <TextInput
                 label="Password"
@@ -75,7 +80,6 @@ const Login = () => {
                 placeholder="Enter your password"
                 secureTextEntry={true}
                 error={errors.password && touched.password}
-                disabled={isSubmitting}
               />
 
               <Button

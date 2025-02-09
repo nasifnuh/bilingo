@@ -29,7 +29,7 @@ const Landing = () => {
             style={styles.signupButton}
           />
           <Button
-            label="I Already Have An Account"
+            label="I Already Have A Profile"
             onPress={() => navigation.navigate("Login")}
             variant="outlined"
             style={styles.loginButton}
