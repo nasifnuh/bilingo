@@ -66,10 +66,9 @@ const Lesson = ({ route }) => {
         setFavorite(true);
       }
     } catch (error) {
-      Alert.alert("Error", "Failed to update favorite, try again!");
+      Alert.alert("Error", "Failed to update favorite, try again.");
     }
   };
-  
   const handleContinue = async () => {
     const questions = lesson;
 
