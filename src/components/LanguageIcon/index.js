@@ -4,14 +4,14 @@ import { Image } from "react-native";
 import { styles } from "./styles";
 
 const icons = {
-  uk: require("../../../assets/images/flags/uk.png"),
-  france: require("../../../assets/images/flags/france.png"),
-  china: require("../../../assets/images/flags/china.png"),
-  japan: require("../../../assets/images/flags/japan.png"),
-  korea: require("../../../assets/images/flags/korea.png"),
-  germany: require("../../../assets/images/flags/germany.png"),
-  russia: require("../../../assets/images/flags/russia.png"),
-  spain: require("../../../assets/images/flags/spain.png"),
+  chinese: require("../../../assets/images/flags/chinese.png"),
+  english: require("../../../assets/images/flags/english.png"),
+  french: require("../../../assets/images/flags/french.png"),
+  german: require("../../../assets/images/flags/german.png"),
+  japanese: require("../../../assets/images/flags/japanese.png"),
+  korean: require("../../../assets/images/flags/korean.png"),
+  russian: require("../../../assets/images/flags/russian.png"),
+  spanish: require("../../../assets/images/flags/spanish.png"),
 };
 
 const LanguageIcon = ({ icon, style }) => {

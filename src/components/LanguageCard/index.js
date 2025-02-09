@@ -12,10 +12,10 @@ import { styles } from "./styles";
 const LanguageCard = ({ icon, name }) => {
   const navigation = useNavigation();
 
-  const handleSelection = async (lang) => {
+  const handleSelection = async (language) => {
     const userId = auth.currentUser?.uid;
     if (userId) {
-      await update(ref(database, `users/${userId}`), { language: lang });
+      await update(ref(database, `users/${userId}`), { language });
     }
 
     navigation.navigate("App");
@@ -24,7 +24,7 @@ const LanguageCard = ({ icon, name }) => {
   return (
     <TouchableOpacity
       style={styles.container}
-      onPress={() => handleSelection(name)}
+      onPress={() => handleSelection(icon)}
     >
       <LanguageIcon icon={icon} />
       <Text style={styles.label}>{name}</Text>
