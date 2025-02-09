@@ -1,7 +1,11 @@
 import React, { useState } from "react";
-import { View, Text, Image, TouchableOpacity } from "react-native";
+import { View, Text, Image, TouchableOpacity, Alert } from "react-native";
 import * as Progress from "react-native-progress";
+import { useNavigation } from "@react-navigation/native";
 import { FontAwesome } from "@expo/vector-icons";
+
+import { ref, get, set } from "firebase/database";
+import { auth, database } from "@services/firebaseConfig";
 
 import Layout from "@/layout";
 import BackButton from "@components/BackButton";
@@ -15,6 +19,7 @@ const icons = {
 };
 
 const Lesson = ({ route }) => {
+  const navigation = useNavigation();
   const { lesson } = route.params;
 
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -28,7 +33,25 @@ const Lesson = ({ route }) => {
 
     const nextIndex = currentIndex + 1;
     if (nextIndex === questions.questions.length) {
-      alert("Lesson Done!");
+      if (auth.currentUser) {
+        const userId = auth.currentUser.uid;
+        const progressRef = ref(database, `users/${userId}/progress/`);
+
+        const snapshot = await get(progressRef);
+        let currentProgress = snapshot.val() || [];
+
+        if (!currentProgress.includes(questions.id)) {
+          currentProgress.push(questions.id);
+          await set(progressRef, currentProgress);
+        }
+
+        setProgress(1);
+        setSelectedOption(null);
+        setIsCorrect(null);
+        Alert.alert("Hoorayy!", "Lesson completed successfully!");
+        navigation.goBack();
+        return;
+      }
     } else {
       setCurrentIndex(nextIndex);
       setProgress(nextIndex / questions.questions.length);
@@ -129,7 +152,7 @@ const Lesson = ({ route }) => {
           <Button
             label="Continue"
             onPress={handleContinue}
-            disabled={selectedOption === null}
+            disabled={selectedOption === null || !isCorrect}
           />
         </View>
       </View>
