@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { View, Text, Image, TouchableOpacity } from "react-native";
-import { useNavigation } from "@react-navigation/native";
 import * as Progress from "react-native-progress";
 import { FontAwesome } from "@expo/vector-icons";
 
@@ -15,38 +14,61 @@ const icons = {
   girl: require("../../../assets/images/icons/girl.png"),
 };
 
-const Header = ({ progress, favorite }) => {
-  return (
-    <View style={styles.header}>
-      <BackButton />
-      <Progress.Bar
-        animated={true}
-        progress={progress}
-        width={250}
-        height={15}
-        color={Colors.royalPurple}
-        unfilledColor={Colors.offWhite}
-        borderWidth={0}
-        borderRadius={8}
-      />
-      {favorite ? (
-        <FontAwesome name="heart" size={24} color={Colors.crimsonRed} />
-      ) : (
-        <FontAwesome name="heart-o" size={24} color={Colors.crimsonRed} />
-      )}
-    </View>
-  );
-};
+const Lesson = ({ route }) => {
+  const { lesson } = route.params;
 
-const Lesson = () => {
-  const navigation = useNavigation();
-
-  const [progress, setProgress] = useState(0.5);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [progress, setProgress] = useState(0);
   const [favorite, setFavorite] = useState(false);
+  const [selectedOption, setSelectedOption] = useState(null);
+  const [isCorrect, setIsCorrect] = useState(null);
+
+  const handleContinue = async () => {
+    const questions = lesson;
+
+    const nextIndex = currentIndex + 1;
+    if (nextIndex === questions.questions.length) {
+      alert("Lesson Done!");
+    } else {
+      setCurrentIndex(nextIndex);
+      setProgress(nextIndex / questions.questions.length);
+      setSelectedOption(null);
+      setIsCorrect(null);
+    }
+  };
+
+  const handleSelectOption = (option) => {
+    const question = lesson.questions[currentIndex];
+    setSelectedOption(option);
+    if (question.answer === option) {
+      setIsCorrect(true);
+    } else {
+      setIsCorrect(false);
+    }
+  };
 
   return (
     <Layout
-      headerComponent={<Header progress={progress} favorite={favorite} />}
+      headerComponent={
+        <View style={styles.header}>
+          <BackButton />
+          <Progress.Bar
+            animated={true}
+            progress={progress}
+            width={250}
+            height={15}
+            color={Colors.royalPurple}
+            unfilledColor={Colors.offWhite}
+            borderWidth={0}
+            borderRadius={8}
+          />
+          {favorite ? (
+            <FontAwesome name="heart" size={24} color={Colors.crimsonRed} />
+          ) : (
+            <FontAwesome name="heart-o" size={24} color={Colors.crimsonRed} />
+          )}
+        </View>
+      }
     >
       <View style={styles.container}>
         <Text style={styles.generalLabel}>Select the correct translation</Text>
@@ -55,34 +77,59 @@ const Lesson = () => {
           <Image source={icons["girl"]} style={styles.image} />
           <View style={styles.questionCard}>
             <Text style={styles.questionText}>
-              What language would you like to learn?
+              {lesson.questions[currentIndex].question}
             </Text>
           </View>
         </View>
 
         <View style={styles.answerContainer}>
-          {["fille", "je", "femme", "other"].map((option, index) => {
-            return (
-              <TouchableOpacity
-                key={index}
-                style={[styles.answerOption, styles.correctOption]}
-              >
-                <Text style={[styles.answerText, styles.correctAnswerText]}>
-                  {option}
-                </Text>
-              </TouchableOpacity>
-            );
-          })}
+          {Object.values(lesson.questions[currentIndex].options).map(
+            (option, index) => {
+              const isSelected = option === selectedOption;
+              const isOptionCorrect =
+                isSelected && isCorrect !== null && isCorrect === true;
+              const isOptionWrong =
+                isSelected && isCorrect !== null && isCorrect === false;
+              return (
+                <TouchableOpacity
+                  key={index}
+                  style={[
+                    styles.answerOption,
+                    isOptionCorrect && styles.correctOption,
+                    isOptionWrong && styles.wrongOption,
+                  ]}
+                  onPress={() => handleSelectOption(option)}
+                >
+                  <Text
+                    style={[
+                      styles.answerText,
+                      isOptionCorrect && styles.correctAnswerText,
+                      isOptionWrong && styles.wrongAnswerText,
+                    ]}
+                  >
+                    {option}
+                  </Text>
+                </TouchableOpacity>
+              );
+            }
+          )}
         </View>
 
         <View style={styles.buttonContainer}>
-          <Text style={[styles.feedbackText, styles.correctAnswerText]}>
-            Correct Answer
-          </Text>
+          {isCorrect !== null && (
+            <Text
+              style={[
+                styles.feedbackText,
+                isCorrect ? styles.correctAnswerText : styles.wrongAnswerText,
+              ]}
+            >
+              {isCorrect ? "Correct Answer" : "Wrong Answer"}
+            </Text>
+          )}
           <Button
             label="Continue"
-            onPress={() => navigation.navigate("Signup")}
-            disabled={false}
+            onPress={handleContinue}
+            disabled={selectedOption === null}
           />
         </View>
       </View>

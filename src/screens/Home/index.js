@@ -1,48 +1,33 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-
-import { get, ref } from "firebase/database";
-import { database, auth } from "@services/firebaseConfig";
+import { ref, onValue } from "firebase/database";
 
 import Layout from "@/layout";
 import HomePanel from "@components/HomePanel";
 import CourseUnit from "@/components/CourseUnit";
+import { database } from "@services/firebaseConfig";
 
 import { styles } from "./styles";
 
 const Home = () => {
-  const navigation = useNavigation();
+  const [units, setUnits] = useState([]);
 
   useEffect(() => {
-    const checkUserLanguage = async () => {
-      try {
-        const user = auth.currentUser;
-        if (user) {
-          const userId = user.uid;
-          const snapshot = await get(ref(database, `users/${userId}`));
+    const unitsRef = ref(database, "courses/english/chapters/");
 
-          if (snapshot.exists()) {
-            const userData = snapshot.val();
-            const language = userData.language;
+    const unsubscribe = onValue(unitsRef, (snapshot) => {
+      const data = snapshot.val();
+      setUnits(data ? Object.values(data) : []);
+    });
 
-            if (!language) {
-              navigation.replace("Languages");
-            }
-          }
-        }
-      } catch (error) {
-        console.error("Error checking language:", error);
-      }
-    };
-
-    checkUserLanguage();
-  }, [navigation]);
+    return () => unsubscribe();
+  }, []);
 
   return (
     <Layout headerComponent={<HomePanel />}>
       <View style={styles.container}>
-        <CourseUnit units={[1, 2, 3]} />
+        <CourseUnit units={units} />
       </View>
     </Layout>
   );

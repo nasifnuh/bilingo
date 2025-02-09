@@ -12,18 +12,18 @@ const LessonCard = ({ lessons }) => {
 
   return (
     <View style={styles.container}>
-      {lessons.map((lesson, index) => (
+      {lessons.map((lesson) => (
         <TouchableOpacity
-          key={index}
+          key={lesson.id}
           style={styles.lessonContainer}
-          onPress={() => navigation.navigate("Lesson")}
+          onPress={() => navigation.navigate("Lesson", { lesson: lesson })}
         >
           <View style={styles.unit}>
-            <Text style={styles.unitLabel}>A</Text>
+            <Text style={styles.unitLabel}>{lesson.unit}</Text>
             {/* <FontAwesome6 name="check" size={24} color={Colors.silverGray} /> */}
           </View>
           <View style={styles.lesson}>
-            <Text style={styles.lessonLabel}>Saying Hello and Goodbye</Text>
+            <Text style={styles.lessonLabel}>{lesson.name}</Text>
           </View>
         </TouchableOpacity>
       ))}
