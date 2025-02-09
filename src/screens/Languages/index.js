@@ -1,5 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, Image } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+
+import { ref, onValue } from "firebase/database";
+import { database } from "@services/firebaseConfig";
 
 import Layout from "@/layout";
 import LanguageCard from "@components/LanguageCard";
@@ -8,6 +12,22 @@ import MascotLearn from "@assets/images/mascot_learn.png";
 import { styles } from "./styles";
 
 const Languages = () => {
+  const navigation = useNavigation();
+
+  const [languages, setLanguages] = useState([]);
+
+  useEffect(() => {
+    const langRef = ref(database, `courses/`);
+
+    const getLanguages = onValue(langRef, (snapshot) => {
+      if (snapshot.exists()) {
+        setLanguages(snapshot.val());
+      }
+    });
+
+    return () => getLanguages();
+  }, [navigation]);
+
   return (
     <Layout>
       <View style={styles.container}>
@@ -21,12 +41,9 @@ const Languages = () => {
         </View>
 
         <View style={styles.languages}>
-          {[
-            { id: "1", name: "french", icon: "france" },
-            { id: "2", name: "chinese", icon: "china" },
-          ].map((language) => (
+          {Object.values(languages).map((language, index) => (
             <LanguageCard
-              key={language.id}
+              key={index}
               icon={language.icon}
               name={language.name}
             />

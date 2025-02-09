@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
@@ -14,6 +14,8 @@ import { styles } from "./styles";
 const Home = () => {
   const navigation = useNavigation();
 
+  const [currentLanguage, setCurrentLanguage] = useState();
+
   useEffect(() => {
     const checkUserLanguage = async () => {
       try {
@@ -25,6 +27,8 @@ const Home = () => {
           if (snapshot.exists()) {
             const userData = snapshot.val();
             const language = userData.language;
+
+            setCurrentLanguage(language);
 
             if (!language) {
               navigation.replace("Languages");
@@ -40,7 +44,7 @@ const Home = () => {
   }, [navigation]);
 
   return (
-    <Layout headerComponent={<HomePanel />}>
+    <Layout headerComponent={<HomePanel language={currentLanguage} />}>
       <View style={styles.container}>
         <CourseUnit units={[1, 2, 3]} />
       </View>

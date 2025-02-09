@@ -1,15 +1,20 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 import LanguageIcon from "@components/LanguageIcon";
 
 import Colors from "@constants/colors";
 import { styles } from "./styles";
 
-const HomePanel = () => {
+const HomePanel = ({ language }) => {
+  const navigation = useNavigation();
+
   return (
     <View style={styles.container}>
-      <LanguageIcon icon="france" />
+      <TouchableOpacity onPress={() => navigation.navigate("Languages")}>
+        <LanguageIcon icon={language} />
+      </TouchableOpacity>
       <View style={styles.group}>
         <Text style={styles.icon}>🔥</Text>
         <Text style={[styles.text, { color: Colors.goldenOrange }]}>123</Text>
