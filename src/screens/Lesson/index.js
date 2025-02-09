@@ -28,6 +28,26 @@ const Lesson = ({ route }) => {
   const [selectedOption, setSelectedOption] = useState(null);
   const [isCorrect, setIsCorrect] = useState(null);
 
+  useEffect(() => {
+    const checkFavorite = async () => {
+      if (!auth.currentUser) return;
+
+      const userId = auth.currentUser.uid;
+      const favRef = ref(database, `users/${userId}/favorites/${lesson.id}`);
+
+      try {
+        const snapshot = await get(favRef);
+        if (snapshot.exists()) {
+          setFavorite(true);
+        }
+      } catch (error) {
+        Alert.alert("Error", "Failed to check favorite status");
+      }
+    };
+
+    checkFavorite();
+  }, [lesson.id]);
+
   const handleFavorites = async () => {
     if (!auth.currentUser) return;
 
@@ -49,7 +69,7 @@ const Lesson = ({ route }) => {
       Alert.alert("Error", "Failed to update favorite, try again!");
     }
   };
-
+  
   const handleContinue = async () => {
     const questions = lesson;
 
