@@ -51,6 +51,7 @@ const Signup = () => {
                 name: values.name,
                 email: values.email,
                 joinedDate: new Date().toISOString(),
+                language: null,
               });
             } catch (error) {
               alert(error.message);
