@@ -4,6 +4,7 @@ import { LineChart } from "react-native-chart-kit";
 import { Dimensions } from "react-native";
 import { get, ref } from "firebase/database";
 import { database, auth } from "@services/firebaseConfig";
+import colors from "@constants/colors";
 
 const screenWidth = Dimensions.get("window").width;
 
@@ -40,11 +41,12 @@ const Stats = () => {
   }, []);
 
   const chartData = {
-    labels: xpData.map(item => item.date),
+    labels: xpData.map(item => item.xp),
     datasets: [
       {
         data: xpData.map(item => item.xp),
-        strokeWidth: 2,
+        strokeWidth: 3,
+        color: (opacity = 1) => colors.pastelPurple,
       },
     ],
   };
@@ -59,26 +61,32 @@ const Stats = () => {
             width={screenWidth - 40}
             height={220}
             chartConfig={{
-              backgroundColor: "#e26a00",
-              backgroundGradientFrom: "#fb8c00",
-              backgroundGradientTo: "#ffa726",
+              backgroundColor: colors.royalPurple,
+              backgroundGradientFrom: colors.royalPurple,
+              backgroundGradientTo: colors.royalPurple,
               decimalPlaces: 2,
               color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
               labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
               style: {
                 borderRadius: 16,
               },
-              propsForDots: {
-                r: "6",
-                strokeWidth: "2",
-                stroke: "#ffa726",
-              },
+              // propsForDots: {
+              //   r: "6",
+              //   strokeWidth: "1",
+              //   fill: colors.skyBlue,
+              //   stroke: colors.skyBlue,
+              // },
             }}
             bezier
             style={{
               marginVertical: 8,
               borderRadius: 16,
             }}
+            fromZero
+            withInnerLines={false}
+            withOuterLines={false}
+            withVerticalLabels={false}
+            withHorizontalLabels={false}
           />
         ) : (
           <Text>Loading data...</Text>
