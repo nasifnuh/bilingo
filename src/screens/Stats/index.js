@@ -14,6 +14,8 @@ const Stats = () => {
   const [period, setPeriod] = useState("Monthly");
   const [languages, setLanguages] = useState([]);
   const [selectedLanguage, setSelectedLanguage] = useState("english");
+  const [todaysXp, setTodaysXp] = useState(0);
+  const [totalXp, setTotalXp] = useState(0);
 
   useEffect(() => {
     const fetchLanguages = async () => {
@@ -57,6 +59,13 @@ const Stats = () => {
             }));
             setXpData(formattedData);
             console.log("Data fetched successfully:", formattedData);
+
+            // Calculate today's XP and total XP
+            const today = new Date().toISOString().split('T')[0];
+            const todaysXp = formattedData.find(item => item.date === today)?.xp || 0;
+            const totalXp = formattedData.reduce((acc, item) => acc + item.xp, 0);
+            setTodaysXp(todaysXp);
+            setTotalXp(totalXp);
           } else {
             console.log("No data available");
           }
@@ -151,6 +160,17 @@ const Stats = () => {
             <Picker.Item label="Weekly" value="Weekly" />
           </Picker>
         </View>
+        <View style={styles.overviewContainer}>
+          <Text style={styles.overviewTitle}>Overview</Text>
+          <View style={styles.overviewItem}>
+            <Text style={styles.overviewLabel}>Today's XP</Text>
+            <Text style={styles.overviewValue}>{todaysXp}</Text>
+          </View>
+          <View style={styles.overviewItem}>
+            <Text style={styles.overviewLabel}>Total XP</Text>
+            <Text style={styles.overviewValue}>{totalXp}</Text>
+          </View>
+        </View>
         {selectedMonth && <Text style={styles.monthText}>{selectedMonth}</Text>}
         {filteredData.length > 0 ? (
           <>
@@ -230,6 +250,32 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     width: "100%",
     paddingHorizontal: 20,
+  },
+  overviewContainer: {
+    width: "100%",
+    padding: 20,
+    backgroundColor: colors.pastelPurple,
+    borderRadius: 16,
+    marginVertical: 10,
+  },
+  overviewTitle: {
+    fontSize: 18,
+    fontWeight: "bold",
+    marginBottom: 10,
+  },
+  overviewItem: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginBottom: 10,
+  },
+  overviewLabel: {
+    fontSize: 16,
+    color: colors.royalPurple,
+  },
+  overviewValue: {
+    fontSize: 16,
+    fontWeight: "bold",
+    color: colors.royalPurple,
   },
   monthText: {
     fontSize: 18,
