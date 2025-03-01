@@ -1,6 +1,10 @@
-import React, { useState } from "react";
-import { View, Text, Switch, TouchableOpacity } from "react-native";
+import React, { useState, useEffect } from "react";
+import { View, Text, Alert, Switch, TouchableOpacity } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
+import * as Notifications from "expo-notifications";
+
+import { ref, get, update } from "firebase/database";
+import { auth, database } from "@services/firebaseConfig";
 
 import Layout from "@/layout";
 import BackButton from "@/components/BackButton";
@@ -14,6 +18,82 @@ const Notification = () => {
   const [showPicker, setShowPicker] = useState(false);
   const [notificationsEnabled, setNotificationsEnabled] = useState(false);
   const [notificationTime, setNotificationTime] = useState("08:00");
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const user = auth.currentUser;
+      if (user) {
+        const userRef = ref(database, `users/${user.uid}`);
+        try {
+          const snapshot = await get(userRef);
+          if (snapshot.exists()) {
+            const data = snapshot.val();
+            setNotificationsEnabled(data.notificationsEnabled || false);
+            setNotificationTime(data.notificationTime || "08:00");
+          }
+        } catch (error) {
+          console.error("Error fetching user data: ", error);
+        }
+      }
+    };
+
+    fetchUserData();
+  }, []);
+
+  const scheduleNotification = async (time) => {
+    const [hours, minutes] = time.split(":").map(Number);
+
+    const now = new Date();
+
+    const scheduledTime = new Date();
+    scheduledTime.setHours(hours, minutes, 0, 0);
+
+    if (scheduledTime <= now) {
+      scheduledTime.setDate(scheduledTime.getDate() + 1);
+    }
+
+    await Notifications.cancelAllScheduledNotificationsAsync();
+
+    await Notifications.scheduleNotificationAsync({
+      content: {
+        title: "Reminder",
+        body: "This is your daily reminder to practice!",
+        sound: true,
+      },
+      trigger: {
+        hour: hours,
+        minute: minutes,
+        repeats: true,
+      },
+    });
+  };
+
+  const handleNotification = async () => {
+    const user = auth.currentUser;
+
+    try {
+      if (!user) throw new Error("No authenticated user found");
+
+      const updates = {};
+
+      updates["/notificationsEnabled"] = notificationsEnabled;
+      updates["/notificationTime"] = notificationTime;
+
+      if (Object.keys(updates).length > 0) {
+        await update(ref(database, `users/${user.uid}`), updates);
+      }
+
+      if (notificationsEnabled) {
+        await scheduleNotification(notificationTime);
+      } else {
+        await Notifications.cancelAllScheduledNotificationsAsync();
+      }
+    } catch (error) {
+      Alert.alert("Error", error.message);
+    } finally {
+      setEditing(false);
+    }
+  };
 
   return (
     <Layout
@@ -84,9 +164,7 @@ const Notification = () => {
           <Button
             variant={editing ? "contained" : "outlined"}
             label={editing ? "Save" : "Edit"}
-            onPress={() =>
-              editing ? () => console.log("Handle this") : setEditing(true)
-            }
+            onPress={() => (editing ? handleNotification() : setEditing(true))}
             customBoxStyle={styles.editButton}
           />
         </View>
