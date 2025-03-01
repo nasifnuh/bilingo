@@ -1,11 +1,92 @@
-import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import React, { useEffect, useState } from "react";
+import { View, Text, StyleSheet, ScrollView } from "react-native";
+import { LineChart } from "react-native-chart-kit";
+import { Dimensions } from "react-native";
+import { get, ref } from "firebase/database";
+import { database, auth } from "@services/firebaseConfig";
 
-const Stats = () => (
-  <View style={styles.container}>
-    <Text>Stats Screen</Text>
-  </View>
-);
+const screenWidth = Dimensions.get("window").width;
+
+const Stats = () => {
+  const [xpData, setXpData] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      console.log("Fetching data...");
+      try {
+        const user = auth.currentUser;
+        if (user) {
+          const userId = user.uid;
+          const language = "english"; // Replace with dynamic language selection
+          const snapshot = await get(ref(database, `/users/${userId}/xp/${language}`));
+          const data = snapshot.val();
+          if (data) {
+            const formattedData = Object.keys(data).map(date => ({
+              date: date.replace(/"/g, ""),
+              xp: data[date]
+            }));
+            setXpData(formattedData);
+            console.log("Data fetched successfully:", formattedData);
+          } else {
+            console.log("No data available");
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const chartData = {
+    labels: xpData.map(item => item.date),
+    datasets: [
+      {
+        data: xpData.map(item => item.xp),
+        strokeWidth: 2,
+      },
+    ],
+  };
+
+  return (
+    <ScrollView>
+      <View style={styles.container}>
+        <Text>Stats Screen</Text>
+        {xpData.length > 0 ? (
+          <LineChart
+            data={chartData}
+            width={screenWidth - 40}
+            height={220}
+            chartConfig={{
+              backgroundColor: "#e26a00",
+              backgroundGradientFrom: "#fb8c00",
+              backgroundGradientTo: "#ffa726",
+              decimalPlaces: 2,
+              color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+              labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+              style: {
+                borderRadius: 16,
+              },
+              propsForDots: {
+                r: "6",
+                strokeWidth: "2",
+                stroke: "#ffa726",
+              },
+            }}
+            bezier
+            style={{
+              marginVertical: 8,
+              borderRadius: 16,
+            }}
+          />
+        ) : (
+          <Text>Loading data...</Text>
+        )}
+      </View>
+    </ScrollView>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
