@@ -12,6 +12,34 @@ const screenWidth = Dimensions.get("window").width;
 const Stats = () => {
   const [xpData, setXpData] = useState([]);
   const [period, setPeriod] = useState("Monthly");
+  const [languages, setLanguages] = useState([]);
+  const [selectedLanguage, setSelectedLanguage] = useState("english");
+
+  useEffect(() => {
+    const fetchLanguages = async () => {
+      console.log("Fetching languages...");
+      try {
+        const user = auth.currentUser;
+        if (user) {
+          const userId = user.uid;
+          const snapshot = await get(ref(database, `/users/${userId}/xp`));
+          const data = snapshot.val();
+          if (data) {
+            const availableLanguages = Object.keys(data);
+            setLanguages(availableLanguages);
+            setSelectedLanguage(availableLanguages[0]);
+            console.log("Languages fetched successfully:", availableLanguages);
+          } else {
+            console.log("No languages available");
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching languages:", error);
+      }
+    };
+
+    fetchLanguages();
+  }, []);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -20,8 +48,7 @@ const Stats = () => {
         const user = auth.currentUser;
         if (user) {
           const userId = user.uid;
-          const language = "english"; // Replace with dynamic language selection
-          const snapshot = await get(ref(database, `/users/${userId}/xp/${language}`));
+          const snapshot = await get(ref(database, `/users/${userId}/xp/${selectedLanguage}`));
           const data = snapshot.val();
           if (data) {
             const formattedData = Object.keys(data).map(date => ({
@@ -40,7 +67,7 @@ const Stats = () => {
     };
 
     fetchData();
-  }, []);
+  }, [selectedLanguage]);
 
   const getFilteredData = () => {
     const now = new Date();
@@ -105,14 +132,25 @@ const Stats = () => {
     <ScrollView>
       <View style={styles.container}>
         <Text>Stats Screen</Text>
-        <Picker
-          selectedValue={period}
-          style={{ height: 50, width: 150 }}
-          onValueChange={(itemValue) => setPeriod(itemValue)}
-        >
-          <Picker.Item label="Monthly" value="Monthly" />
-          <Picker.Item label="Weekly" value="Weekly" />
-        </Picker>
+        <View style={styles.pickerContainer}>
+          <Picker
+            selectedValue={selectedLanguage}
+            style={{ height: 50, width: 150 }}
+            onValueChange={(itemValue) => setSelectedLanguage(itemValue)}
+          >
+            {languages.map((language) => (
+              <Picker.Item key={language} label={language} value={language} />
+            ))}
+          </Picker>
+          <Picker
+            selectedValue={period}
+            style={{ height: 50, width: 150 }}
+            onValueChange={(itemValue) => setPeriod(itemValue)}
+          >
+            <Picker.Item label="Monthly" value="Monthly" />
+            <Picker.Item label="Weekly" value="Weekly" />
+          </Picker>
+        </View>
         {selectedMonth && <Text style={styles.monthText}>{selectedMonth}</Text>}
         {filteredData.length > 0 ? (
           <>
@@ -186,6 +224,12 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     padding: 20,
+  },
+  pickerContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    width: "100%",
+    paddingHorizontal: 20,
   },
   monthText: {
     fontSize: 18,
