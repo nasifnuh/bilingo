@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { View } from "react-native";
 
 import ChapterCard from "@/components/CourseUnit/ChapterCard";
 import LessonCard from "@/components/CourseUnit/LessonCard";
@@ -12,7 +12,7 @@ const CourseUnit = ({ units }) => {
       {units.map((unit) => (
         <View key={unit.id} style={styles.unitContainer}>
           <ChapterCard unit={unit.unit} name={unit.name} color={unit.color} />
-          <LessonCard lessons={unit.lessons} color={unit.color} />
+          <LessonCard lessons={unit.lessons} />
         </View>
       ))}
     </View>

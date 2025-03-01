@@ -57,7 +57,7 @@ const Signup = () => {
               await set(ref(database, `users/${userId}`), {
                 name: values.name,
                 email: values.email,
-                joinedDate: new Date().toISOString(),
+                joinedDate: new Date().toISOString().split("T")[0],
                 language: null,
               });
 
