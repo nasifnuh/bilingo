@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, ScrollView } from "react-native";
 import { LineChart, ContributionGraph } from "react-native-chart-kit";
 import { Dimensions } from "react-native";
 import { get, ref } from "firebase/database";
+import BackButton from "@components/BackButton";
 import { database, auth } from "@services/firebaseConfig";
 import colors from "@constants/colors";
 import { Picker } from "@react-native-picker/picker";
@@ -11,7 +12,7 @@ const screenWidth = Dimensions.get("window").width;
 
 const Stats = () => {
   const [xpData, setXpData] = useState([]);
-  const [period, setPeriod] = useState("Monthly");
+  const [period, setPeriod] = useState("Weekly");
   const [languages, setLanguages] = useState([]);
   const [selectedLanguage, setSelectedLanguage] = useState("english");
   const [todaysXp, setTodaysXp] = useState(0);
@@ -138,103 +139,114 @@ const Stats = () => {
   };
 
   return (
-    <ScrollView>
-      <View style={styles.container}>
-        <Text>Stats Screen</Text>
-        <View style={styles.pickerContainer}>
-          <Picker
-            selectedValue={selectedLanguage}
-            style={{ height: 50, width: 150 }}
-            onValueChange={(itemValue) => setSelectedLanguage(itemValue)}
-          >
-            {languages.map((language) => (
-              <Picker.Item key={language} label={language} value={language} />
-            ))}
-          </Picker>
-          <Picker
-            selectedValue={period}
-            style={{ height: 50, width: 150 }}
-            onValueChange={(itemValue) => setPeriod(itemValue)}
-          >
-            <Picker.Item label="Monthly" value="Monthly" />
-            <Picker.Item label="Weekly" value="Weekly" />
-          </Picker>
-        </View>
-        <View style={styles.overviewContainer}>
-          <Text style={styles.overviewTitle}>Overview</Text>
-          <View style={styles.overviewItem}>
-            <Text style={styles.overviewLabel}>Today's XP</Text>
-            <Text style={styles.overviewValue}>{todaysXp}</Text>
-          </View>
-          <View style={styles.overviewItem}>
-            <Text style={styles.overviewLabel}>Total XP</Text>
-            <Text style={styles.overviewValue}>{totalXp}</Text>
-          </View>
-        </View>
-        {selectedMonth && <Text style={styles.monthText}>{selectedMonth}</Text>}
-        {filteredData.length > 0 ? (
-          <>
-            <LineChart
-              data={chartData}
-              width={screenWidth - 40}
-              height={220}
-              chartConfig={{
-                backgroundColor: colors.pastelPurple,
-                backgroundGradientFrom: colors.pastelPurple,
-                backgroundGradientTo: colors.pastelPurple,
-                decimalPlaces: 0,
-                color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-                labelColor: (opacity = 1) => colors.royalPurple, // Axis text color
-                style: {
-                  borderRadius: 16,
-                },
-                propsForDots: {
-                  r: "4",
-                  strokeWidth: "2",
-                  stroke: colors.royalPurple,
-                },
-                formatXLabel: (label) => label, // Format date labels
-                formatYLabel: (label) => `${label} XP`, // Format Y-axis labels
-              }}
-              bezier
-              style={{
-                marginVertical: 8,
-                borderRadius: 16,
-                alignSelf: 'center', // Center the chart
-              }}
-              fromZero
-              withInnerLines={false}
-              withOuterLines={false}
-            />
-            <ContributionGraph
-              values={contributionData}
-              endDate={new Date()}
-              numDays={105}
-              width={screenWidth - 40}
-              height={220}
-              chartConfig={{
-                backgroundColor: colors.pastelPurple,
-                backgroundGradientFrom: colors.pastelPurple,
-                backgroundGradientTo: colors.pastelPurple,
-                color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-                labelColor: (opacity = 1) => colors.royalPurple, // Axis text color
-                style: {
-                  borderRadius: 16,
-                },
-                getColor: (count) => getColor(count),
-              }}
-              style={{
-                marginVertical: 8,
-                borderRadius: 16,
-                alignSelf: 'center', // Center the chart
-              }}
-            />
-          </>
-        ) : (
-          <Text>Loading data...</Text>
-        )}
+    <View>
+      <View style={styles.header}>
+        <BackButton />
+        <Text style={styles.headerLabel}>Stats Screen</Text>
       </View>
+      <ScrollView>
+        <View style={styles.container}>
+          <View style={styles.pickerContainer}>
+            <View style={styles.pickerWrapper}>
+              <Picker
+                selectedValue={selectedLanguage}
+                style={styles.picker}
+                onValueChange={(itemValue) => setSelectedLanguage(itemValue)}
+              >
+                {languages.map((language) => (
+                  <Picker.Item key={language} label={language} value={language} />
+                ))}
+              </Picker>
+            </View>
+            <View style={styles.pickerWrapper}>
+              <Picker
+                selectedValue={period}
+                style={styles.picker}
+                onValueChange={(itemValue) => setPeriod(itemValue)}
+              >
+                <Picker.Item label="Monthly" value="Monthly" />
+                <Picker.Item label="Weekly" value="Weekly" />
+              </Picker>
+            </View>
+          </View>
+          <View style={styles.overviewContainer}>
+            <Text style={styles.overviewTitle}>Overview</Text>
+            <View style={styles.overviewItem}>
+              <Text style={styles.overviewLabel}>Today's XP</Text>
+              <Text style={styles.overviewValue}>{todaysXp}</Text>
+            </View>
+            <View style={styles.overviewItem}>
+              <Text style={styles.overviewLabel}>Total XP</Text>
+              <Text style={styles.overviewValue}>{totalXp}</Text>
+            </View>
+          </View>
+          {selectedMonth && <Text style={styles.monthText}>{selectedMonth}</Text>}
+          {filteredData.length > 0 ? (
+            <>
+              <LineChart
+                data={chartData}
+                width={screenWidth - 40}
+                height={220}
+                chartConfig={{
+                  backgroundColor: colors.pastelPurple,
+                  backgroundGradientFrom: colors.pastelPurple,
+                  backgroundGradientTo: colors.pastelPurple,
+                  decimalPlaces: 0,
+                  color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+                  labelColor: (opacity = 1) => colors.royalPurple, // Axis text color
+                  style: {
+                    borderRadius: 16,
+                  },
+                  propsForDots: {
+                    r: "4",
+                    strokeWidth: "2",
+                    stroke: colors.royalPurple,
+                  },
+                  formatXLabel: (label) => label, // Format date labels
+                  formatYLabel: (label) => `${label} XP`, // Format Y-axis labels
+                }}
+                bezier
+                style={{
+                  marginVertical: 8,
+                  borderRadius: 16,
+                  alignSelf: 'center', // Center the chart
+                }}
+                fromZero
+                withInnerLines={false}
+                withOuterLines={false}
+              />
+              <ContributionGraph
+                values={contributionData}
+                endDate={new Date()}
+                numDays={105}
+                width={screenWidth - 40}
+                height={220}
+                chartConfig={{
+                  backgroundColor: colors.pastelPurple,
+                  backgroundGradientFrom: colors.pastelPurple,
+                  backgroundGradientTo: colors.pastelPurple,
+                  color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+                  labelColor: (opacity = 1) => colors.royalPurple, // Axis text color
+                  style: {
+                    borderRadius: 16,
+                  },
+                  getColor: (count) => getColor(count),
+                }}
+                style={{
+                  marginVertical: 8,
+                  borderRadius: 16,
+                  alignSelf: 'center', // Center the chart
+                }}
+              />
+            </>
+          ) : (
+            <Text>Loading data...</Text>
+          )}
+        </View>
     </ScrollView>
+    </View>
+    
+    
   );
 };
 
@@ -245,11 +257,36 @@ const styles = StyleSheet.create({
     alignItems: "center",
     padding: 20,
   },
+  header: {
+      display: "flex",
+      flexDirection: "row",
+      alignItems: "center",
+      paddingHorizontal: 25,
+      height: 36,
+    },
+    headerLabel: {
+      flex: 1,
+      textAlign: "center",
+      fontFamily: "BalooChettan-B",
+      fontSize: 18,
+      color: colors.black,
+    },
   pickerContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
     width: "100%",
     paddingHorizontal: 20,
+    marginBottom: 20,
+  },
+  pickerWrapper: {
+    borderWidth: 2,
+    borderColor: colors.royalPurple,
+    borderRadius: 16,
+    overflow: "hidden",
+  },
+  picker: {
+    height: 50,
+    width: 150,
   },
   overviewContainer: {
     width: "100%",
