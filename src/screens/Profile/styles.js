@@ -7,20 +7,60 @@ export const styles = StyleSheet.create({
     paddingVertical: 18,
     flex: 1,
   },
-  headerLabel: {
-    textAlign: "center",
+  headerContainer: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
+    position: "relative",
+    backgroundColor: Colors.offWhite,
+    marginHorizontal: -25,
+    paddingHorizontal: 25,
+    height: 200,
+  },
+  settingsButton: { position: "absolute", right: 25, top: 15 },
+  avatar: { width: 150, height: 150, position: "absolute", bottom: 0 },
+  section: {
+    marginTop: 24,
+  },
+  sectionLabel: {
     fontFamily: "BalooChettan-B",
-    fontSize: 18,
-    color: Colors.black,
+    fontSize: 26,
   },
-  form: {
-    gap: 24,
+  sectionSubLabel: {
+    fontFamily: "BalooChettan-M",
+    fontSize: 16,
   },
-  editButton: {
-    marginTop: 40,
-    marginBottom: 10,
+  overviewInfoContainer: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginTop: 10,
+    gap: 5,
   },
-  logoutButton: {
-    marginTop: "auto",
+  overviewInfoBox: {
+    display: "flex",
+    alignItems: "flex-start",
+    justifyContent: "center",
+    flex: 1,
+    padding: 12,
+    borderRadius: 16,
+    borderWidth: 2,
+    borderColor: Colors.silverGray,
+  },
+  overviewInfoSubBox: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  overviewInfoLabel: {
+    fontSize: 14,
+  },
+  overviewInfo: {
+    marginLeft: 6,
+    fontFamily: "BalooChettan-B",
+    fontSize: 22,
+  },
+  overviewInfoSubLabel: {
+    fontSize: 14,
   },
 });
