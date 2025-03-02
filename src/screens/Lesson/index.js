@@ -4,7 +4,7 @@ import * as Progress from "react-native-progress";
 import { useNavigation } from "@react-navigation/native";
 import { FontAwesome } from "@expo/vector-icons";
 
-import { ref, get, set, remove } from "firebase/database";
+import { ref, get, set, update, remove } from "firebase/database";
 import { auth, database } from "@services/firebaseConfig";
 
 import Layout from "@/layout";
@@ -69,6 +69,7 @@ const Lesson = ({ route }) => {
       Alert.alert("Error", "Failed to update favorite, try again.");
     }
   };
+
   const handleContinue = async () => {
     const questions = lesson;
 
@@ -77,6 +78,7 @@ const Lesson = ({ route }) => {
       if (auth.currentUser) {
         const userId = auth.currentUser.uid;
         const progressRef = ref(database, `users/${userId}/progress/`);
+        const userRef = ref(database, `users/${userId}`);
 
         const snapshot = await get(progressRef);
         let currentProgress = snapshot.val() || [];
@@ -86,11 +88,31 @@ const Lesson = ({ route }) => {
           await set(progressRef, currentProgress);
         }
 
+        const today = new Date().toISOString().split("T")[0];
+
+        const userSnapshot = await get(userRef);
+        const userData = userSnapshot.val() || {};
+        const lastCompletionDate = userData.lastCompletionDate;
+
+        let streak = userData.streak || 0;
+        let diamonds = userData.diamonds || 0;
+        let xp = userData.xp || 0;
+
+        await update(userRef, {
+          streak: lastCompletionDate !== today ? (streak += 1) : streak,
+          diamonds: (diamonds += 5),
+          xp: (xp += 10),
+          lastCompletionDate: today,
+        });
+
         setProgress(1);
         setSelectedOption(null);
         setIsCorrect(null);
-        Alert.alert("Hoorayy!", "Lesson completed successfully!");
-        navigation.goBack();
+
+        navigation.replace("LessonComplete", {
+          isDaysFirstLesson: lastCompletionDate !== today,
+          ...(lastCompletionDate !== today && { streak }),
+        });
         return;
       }
     } else {
