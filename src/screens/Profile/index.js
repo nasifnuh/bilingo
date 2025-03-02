@@ -1,7 +1,7 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, TouchableOpacity, Image } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
-import { useNavigation, useFocusEffect } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 
 import { ref, get } from "firebase/database";
 import { auth, database } from "@services/firebaseConfig";
@@ -11,41 +11,50 @@ import Layout from "@/layout";
 import Colors from "@constants/colors";
 import { styles } from "./styles";
 
-import MascotImage from "@assets/images/mascot_main.png";
+import Avatar from "@assets/images/icons/avatar.png";
 
 const Profile = () => {
   const navigation = useNavigation();
 
   const [userData, setUserData] = useState({});
+  const [totalXP, setTotalXP] = useState(0);
+  const [streak, setStreak] = useState(0);
+  const [diamonds, setDiamonds] = useState(0);
 
-  useFocusEffect(
-    useCallback(() => {
-      const fetchUserData = async () => {
-        const user = auth.currentUser;
-        if (user) {
-          const userRef = ref(database, `users/${user.uid}`);
-          try {
-            const snapshot = await get(userRef);
-            if (snapshot.exists()) {
-              const data = snapshot.val();
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const user = auth.currentUser;
+      if (user) {
+        const userRef = ref(database, `users/${user.uid}`);
+        try {
+          const snapshot = await get(userRef);
+          if (snapshot.exists()) {
+            const data = snapshot.val();
 
-              setUserData({
-                name: data.name || "",
-                joinedDate: data.joinedDate || "",
-                streak: data.streak || 0,
-                xp: data.xp || 0,
-                diamonds: data.diamonds || 0,
-              });
+            setUserData({
+              name: data.name || "",
+              joinedDate: data.joinedDate || "",
+            });
+
+            const xpData = data.xp || {};
+            let totalXP = 0;
+            for (const language in xpData) {
+              for (const date in xpData[language]) {
+                totalXP += xpData[language][date];
+              }
             }
-          } catch (error) {
-            console.error("Error fetching user data: ", error);
+            setTotalXP(totalXP);
+            setStreak(data.streak || 0);
+            setDiamonds(data.diamonds || 0);
           }
+        } catch (error) {
+          console.error("Error fetching user data: ", error);
         }
-      };
+      }
+    };
 
-      fetchUserData();
-    }, [navigation])
-  );
+    fetchUserData();
+  }, []);
 
   return (
     <Layout>
@@ -57,7 +66,7 @@ const Profile = () => {
           >
             <FontAwesome name="gear" size={30} color={Colors.darkGray} />
           </TouchableOpacity>
-          <Image source={MascotImage} style={styles.avatar} />
+          <Image source={Avatar} style={styles.avatar} />
         </View>
 
         <View style={styles.section}>
@@ -78,25 +87,23 @@ const Profile = () => {
             <View style={styles.overviewInfoBox}>
               <View style={styles.overviewInfoSubBox}>
                 <Text style={styles.overviewInfoLabel}>🔥</Text>
-                <Text style={styles.overviewInfo}>{userData.streak}</Text>
+                <Text style={styles.overviewInfo}>{streak}</Text>
               </View>
               <Text style={styles.overviewInfoSubLabel}>Day Streak</Text>
             </View>
-
-            <View style={styles.overviewInfoBox}>
-              <View style={styles.overviewInfoSubBox}>
-                <Text style={styles.overviewInfoLabel}>💎</Text>
-                <Text style={styles.overviewInfo}>{userData.diamonds}</Text>
-              </View>
-              <Text style={styles.overviewInfoSubLabel}>Diamonds</Text>
-            </View>
-
             <View style={styles.overviewInfoBox}>
               <View style={styles.overviewInfoSubBox}>
                 <Text style={styles.overviewInfoLabel}>⚡️</Text>
-                <Text style={styles.overviewInfo}>{userData.xp}</Text>
+                <Text style={styles.overviewInfo}>{totalXP}</Text>
               </View>
               <Text style={styles.overviewInfoSubLabel}>Total XP</Text>
+            </View>
+            <View style={styles.overviewInfoBox}>
+              <View style={styles.overviewInfoSubBox}>
+                <Text style={styles.overviewInfoLabel}>💎</Text>
+                <Text style={styles.overviewInfo}>{diamonds}</Text>
+              </View>
+              <Text style={styles.overviewInfoSubLabel}>Diamonds</Text>
             </View>
           </View>
         </View>
