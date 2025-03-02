@@ -6,6 +6,7 @@ export default {
   skyBlue: "#1D94EE",
   pastelBlue: "#EEF3FD",
   goldenOrange: "#FD991D",
+  darkOrange: "#F33C00",
   crimsonRed: "#EE1E21",
 
   white: "#FFFFFF",
