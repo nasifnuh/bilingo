@@ -17,6 +17,9 @@ const Profile = () => {
   const navigation = useNavigation();
 
   const [userData, setUserData] = useState({});
+  const [totalXP, setTotalXP] = useState(0);
+  const [streak, setStreak] = useState(0);
+  const [diamonds, setDiamonds] = useState(0);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -32,6 +35,17 @@ const Profile = () => {
               name: data.name || "",
               joinedDate: data.joinedDate || "",
             });
+
+            const xpData = data.xp || {};
+            let totalXP = 0;
+            for (const language in xpData) {
+              for (const date in xpData[language]) {
+                totalXP += xpData[language][date];
+              }
+            }
+            setTotalXP(totalXP);
+            setStreak(data.streak || 0);
+            setDiamonds(data.diamonds || 0);
           }
         } catch (error) {
           console.error("Error fetching user data: ", error);
@@ -73,21 +87,21 @@ const Profile = () => {
             <View style={styles.overviewInfoBox}>
               <View style={styles.overviewInfoSubBox}>
                 <Text style={styles.overviewInfoLabel}>🔥</Text>
-                <Text style={styles.overviewInfo}>10</Text>
+                <Text style={styles.overviewInfo}>{streak}</Text>
               </View>
               <Text style={styles.overviewInfoSubLabel}>Day Streak</Text>
             </View>
             <View style={styles.overviewInfoBox}>
               <View style={styles.overviewInfoSubBox}>
                 <Text style={styles.overviewInfoLabel}>⚡️</Text>
-                <Text style={styles.overviewInfo}>10</Text>
+                <Text style={styles.overviewInfo}>{totalXP}</Text>
               </View>
               <Text style={styles.overviewInfoSubLabel}>Total XP</Text>
             </View>
             <View style={styles.overviewInfoBox}>
               <View style={styles.overviewInfoSubBox}>
                 <Text style={styles.overviewInfoLabel}>💎</Text>
-                <Text style={styles.overviewInfo}>10</Text>
+                <Text style={styles.overviewInfo}>{diamonds}</Text>
               </View>
               <Text style={styles.overviewInfoSubLabel}>Diamonds</Text>
             </View>
