@@ -16,9 +16,10 @@ export const styles = StyleSheet.create({
     marginHorizontal: -25,
     paddingHorizontal: 25,
     height: 200,
+    overflow: "hidden",
   },
   settingsButton: { position: "absolute", right: 25, top: 15 },
-  avatar: { width: 150, height: 150, position: "absolute", bottom: 0 },
+  avatar: { width: 175, height: 175, position: "absolute", bottom: -50 },
   section: {
     marginTop: 24,
   },
