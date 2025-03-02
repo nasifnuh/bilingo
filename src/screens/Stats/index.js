@@ -8,6 +8,7 @@ import BackButton from "@components/BackButton";
 import { database, auth } from "@services/firebaseConfig";
 import colors from "@constants/colors";
 import { Picker } from "@react-native-picker/picker";
+import LanguageIcon from "@components/LanguageIcon"; // Import LanguageIcon component
 
 const screenWidth = Dimensions.get("window").width;
 
@@ -166,7 +167,10 @@ const Stats = () => {
           </View>
 
           <View style={styles.overviewContainer}>
-            <Text style={styles.overviewTitle}>Overview</Text>
+            <View style={styles.overviewHeader}>
+              <Text style={styles.overviewTitle}>Overview</Text>
+              <LanguageIcon icon={selectedLanguage} />
+            </View>
             <View style={styles.overviewItem}>
               <Text style={styles.overviewLabel}>Today's XP</Text>
               <Text style={styles.overviewValue}>{todaysXp}</Text>
@@ -179,8 +183,8 @@ const Stats = () => {
 
           {filteredData.length > 0 ? (
             <>
-            <View style={styles.overviewContainer}>
-              <LineChart
+              <View style={styles.overviewContainer}>
+                <LineChart
                   data={chartData}
                   width={screenWidth - 40}
                   height={220}
@@ -309,10 +313,15 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     marginBottom: 10,
   },
+  overviewHeader: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    marginBottom: 10,
+  },
   overviewTitle: {
     fontSize: 18,
     fontWeight: "bold",
-    marginBottom: 10,
     color: colors.black,
     fontFamily: "BalooChettan-B",
   },
