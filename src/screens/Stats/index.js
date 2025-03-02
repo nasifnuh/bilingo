@@ -146,37 +146,23 @@ const Stats = () => {
                 {languages.map((language) => (
                   <Picker.Item
                     key={language}
-                    label={language}
+                    label={language.charAt(0).toUpperCase() + language.slice(1)}
                     value={language}
                   />
                 ))}
               </Picker>
             </View>
-            {/* <View style={styles.pickerWrapper}>
+            <View style={styles.pickerWrapper}>
               <Picker
                 selectedValue={period}
-                onValueChange={(itemValue) => {
-                  setPeriod(itemValue)
-                  // setShowPeriodPicker(false);
-                }}
-                mode={Platform.OS === "ios" ? "dialog" : "dropdown"}
+                style={styles.picker}
+                itemStyle={styles.pickerItem}
+                onValueChange={(itemValue) => setPeriod(itemValue)}
               >
-                <Picker.Item key="Monthly" label="Monthly" value="Monthly" />
-                <Picker.Item key="Weekly" label="Weekly" value="Weekly" />
+                <Picker.Item label="Monthly" value="Monthly" />
+                <Picker.Item label="Weekly" value="Weekly" />
               </Picker>
-            </View> */}
-            <View style={styles.pickerWrapper}>
-            <Picker
-              selectedValue={period}
-              style={styles.picker}
-              itemStyle={styles.pickerItem}
-              onValueChange={(itemValue) => setPeriod(itemValue)}
-            >
-              <Picker.Item label="Monthly" value="Monthly" />
-              <Picker.Item label="Weekly" value="Weekly" />
-            </Picker>
-          </View>
-
+            </View>
           </View>
 
           <View style={styles.overviewContainer}>
@@ -193,39 +179,45 @@ const Stats = () => {
 
           {filteredData.length > 0 ? (
             <>
+            <View style={styles.overviewContainer}>
               <LineChart
-                data={chartData}
-                width={screenWidth - 40}
-                height={220}
-                chartConfig={{
-                  backgroundColor: colors.pastelPurple,
-                  backgroundGradientFrom: colors.pastelPurple,
-                  backgroundGradientTo: colors.pastelPurple,
-                  decimalPlaces: 0,
-                  color: (opacity = 1) => `rgba(120, 50, 179, ${opacity})`,
-                  labelColor: (opacity = 1) => colors.royalPurple,
-                  style: {
+                  data={chartData}
+                  width={screenWidth - 40}
+                  height={220}
+                  chartConfig={{
+                    backgroundColor: colors.pastelPurple,
+                    backgroundGradientFrom: colors.pastelPurple,
+                    backgroundGradientTo: colors.pastelPurple,
+                    decimalPlaces: 0,
+                    color: (opacity = 1) => `rgba(120, 50, 179, ${opacity})`,
+                    labelColor: (opacity = 1) => colors.royalPurple,
+                    style: {
+                      borderRadius: 16,
+                    },
+                    propsForDots: {
+                      r: "4",
+                      strokeWidth: "2",
+                      stroke: colors.royalPurple,
+                    },
+                    formatXLabel: (label) => label,
+                    formatYLabel: (label) => `${label} XP`,
+                    propsForLabels: {
+                      fontFamily: "BalooChettan-B",
+                    },
+                  }}
+                  bezier
+                  style={{
+                    marginVertical: 8,
                     borderRadius: 16,
-                  },
-                  propsForDots: {
-                    r: "4",
-                    strokeWidth: "2",
-                    stroke: colors.royalPurple,
-                  },
-                  formatXLabel: (label) => label,
-                  formatYLabel: (label) => `${label} XP`,
-                }}
-                bezier
-                style={{
-                  marginVertical: 8,
-                  borderRadius: 16,
-                  alignSelf: "center",
-                }}
-                fromZero
-                withInnerLines={false}
-                withOuterLines={false}
-              />
-              <ContributionGraph
+                    alignSelf: "center",
+                  }}
+                  fromZero
+                  withInnerLines={false}
+                  withOuterLines={false}
+                />
+            </View>
+            <View style={styles.overviewContainer}>
+            <ContributionGraph
                 values={contributionData}
                 endDate={new Date()}
                 numDays={105}
@@ -240,7 +232,10 @@ const Stats = () => {
                   style: {
                     borderRadius: 16,
                   },
-                  getColor: (count) => getColor(count),
+                  // getColor: (count) => getColor(count),
+                  propsForLabels: {
+                    fontFamily: "BalooChettan-B",
+                  },
                 }}
                 style={{
                   marginVertical: 8,
@@ -248,9 +243,11 @@ const Stats = () => {
                   alignSelf: "center",
                 }}
               />
+            </View>
+              
             </>
           ) : (
-            <Text>Loading data...</Text>
+            <Text style={styles.loadingText}>Loading data...</Text>
           )}
         </View>
       </ScrollView>
@@ -265,7 +262,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
-    // padding: 10,
   },
   header: {
     display: "flex",
@@ -282,38 +278,29 @@ const styles = StyleSheet.create({
     color: colors.black,
   },
   pickerContainer: {
-    // display: "flex",
     flexDirection: "row",
     width: "100%",
-    // justifyContent: "space-evenly",
     marginBottom: 20,
-    gap: 10
+    gap: 10,
   },
   pickerWrapper: {
     flex: 1,
-    // width: "100%",
-    // padding: 12,
     borderWidth: 2,
     borderColor: colors.royalPurple,
     borderRadius: 16,
     backgroundColor: "#fff",
-    // alignItems: "center",
-    // marginBottom: 15,
   },
   picker: {
     width: "100%",
     height: 60,
     justifyContent: "center",
-    color: "#000", // Text color
+    color: "#000",
     fontFamily: "BalooChettan-B",
-
   },
   pickerItem: {
     fontFamily: "BalooChettan-B",
-    fontSize: 20,
+    fontSize: 16,
     height: 40,
-    
-    // color: "#000", // Text color
   },
   overviewContainer: {
     width: "100%",
@@ -327,6 +314,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginBottom: 10,
     color: colors.black,
+    fontFamily: "BalooChettan-B",
   },
   overviewItem: {
     flexDirection: "row",
@@ -336,11 +324,18 @@ const styles = StyleSheet.create({
   overviewLabel: {
     fontSize: 16,
     color: colors.royalPurple,
+    fontFamily: "BalooChettan-B",
   },
   overviewValue: {
     fontSize: 16,
     fontWeight: "bold",
     color: colors.royalPurple,
+    fontFamily: "BalooChettan-B",
+  },
+  loadingText: {
+    fontFamily: "BalooChettan-B",
+    fontSize: 16,
+    color: colors.black,
   },
 });
 
