@@ -7,6 +7,10 @@ export const styles = StyleSheet.create({
     backgroundColor: Colors.freshGreen,
     padding: 12,
     borderRadius: 16,
+    display: "flex",
+    justifyContent: "space-between",
+    flexDirection: "row",
+    alignItems: "center",
   },
   chapterLabel: {
     fontFamily: "BalooChettan-SB",
@@ -15,6 +19,11 @@ export const styles = StyleSheet.create({
   },
   lessonLabel: {
     fontFamily: "BalooChettan-B",
+    fontSize: 14,
+    color: Colors.white,
+  },
+  progressLabel: {
+    fontFamily: "BalooChettan-SB",
     fontSize: 14,
     color: Colors.white,
   },
