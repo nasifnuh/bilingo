@@ -160,8 +160,8 @@ const Stats = () => {
                 itemStyle={styles.pickerItem}
                 onValueChange={(itemValue) => setPeriod(itemValue)}
               >
-                <Picker.Item label="Monthly" value="Monthly" />
                 <Picker.Item label="Weekly" value="Weekly" />
+                <Picker.Item label="Monthly" value="Monthly" />
               </Picker>
             </View>
           </View>
@@ -184,6 +184,9 @@ const Stats = () => {
           {filteredData.length > 0 ? (
             <>
               <View style={styles.overviewContainer}>
+                <View style={styles.overviewHeader}>
+                  <Text style={styles.overviewTitle}>{period} XP</Text>
+                </View>
                 <LineChart
                   data={chartData}
                   width={screenWidth - 40}
@@ -221,32 +224,35 @@ const Stats = () => {
                 />
             </View>
             <View style={styles.overviewContainer}>
-            <ContributionGraph
-                values={contributionData}
-                endDate={new Date()}
-                numDays={105}
-                width={screenWidth - 40}
-                height={220}
-                chartConfig={{
-                  backgroundColor: colors.pastelPurple,
-                  backgroundGradientFrom: colors.pastelPurple,
-                  backgroundGradientTo: colors.pastelPurple,
-                  color: (opacity = 1) => `rgba(120, 50, 179, ${opacity})`,
-                  labelColor: (opacity = 1) => colors.royalPurple,
-                  style: {
+              <View style={styles.overviewHeader}>
+                  <Text style={styles.overviewTitle}>Overall XP</Text>
+                </View>
+              <ContributionGraph
+                  values={contributionData}
+                  endDate={new Date()}
+                  numDays={105}
+                  width={screenWidth - 40}
+                  height={220}
+                  chartConfig={{
+                    backgroundColor: colors.pastelPurple,
+                    backgroundGradientFrom: colors.pastelPurple,
+                    backgroundGradientTo: colors.pastelPurple,
+                    color: (opacity = 1) => `rgba(120, 50, 179, ${opacity})`,
+                    labelColor: (opacity = 1) => colors.royalPurple,
+                    style: {
+                      borderRadius: 16,
+                    },
+                    // getColor: (count) => getColor(count),
+                    propsForLabels: {
+                      fontFamily: "BalooChettan-B",
+                    },
+                  }}
+                  style={{
+                    marginVertical: 8,
                     borderRadius: 16,
-                  },
-                  // getColor: (count) => getColor(count),
-                  propsForLabels: {
-                    fontFamily: "BalooChettan-B",
-                  },
-                }}
-                style={{
-                  marginVertical: 8,
-                  borderRadius: 16,
-                  alignSelf: "center",
-                }}
-              />
+                    alignSelf: "center",
+                  }}
+                />
             </View>
               
             </>
