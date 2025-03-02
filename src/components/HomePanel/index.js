@@ -7,7 +7,7 @@ import LanguageIcon from "@components/LanguageIcon";
 import Colors from "@constants/colors";
 import { styles } from "./styles";
 
-const HomePanel = ({ language }) => {
+const HomePanel = ({ language, streak, diamonds }) => {
   const navigation = useNavigation();
 
   return (
@@ -17,11 +17,13 @@ const HomePanel = ({ language }) => {
       </TouchableOpacity>
       <View style={styles.group}>
         <Text style={styles.icon}>🔥</Text>
-        <Text style={[styles.text, { color: Colors.goldenOrange }]}>0</Text>
+        <Text style={[styles.text, { color: Colors.goldenOrange }]}>
+          {streak}
+        </Text>
       </View>
       <View style={styles.group}>
         <Text style={styles.icon}>💎</Text>
-        <Text style={[styles.text, { color: Colors.skyBlue }]}>0</Text>
+        <Text style={[styles.text, { color: Colors.skyBlue }]}>{diamonds}</Text>
       </View>
       <View style={styles.group}>
         <Text style={styles.icon}>🔔</Text>

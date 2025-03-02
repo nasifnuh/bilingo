@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { View } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useFocusEffect } from "@react-navigation/native";
 
-import { get, ref, onValue} from "firebase/database";
+import { get, ref, onValue } from "firebase/database";
 import { database, auth } from "@services/firebaseConfig";
 
 import Layout from "@/layout";
@@ -15,7 +15,9 @@ const Home = () => {
   const navigation = useNavigation();
 
   const [units, setUnits] = useState([]);
-  const [currentLanguage, setCurrentLanguage] = useState();
+  const [currentLanguage, setCurrentLanguage] = useState("english");
+  const [streakCount, setStreakCount] = useState(0);
+  const [diamonds, setDiamonds] = useState(0);
 
   useEffect(() => {
     const unitsRef = ref(database, `courses/${currentLanguage}/chapters/`);
@@ -28,35 +30,49 @@ const Home = () => {
     return () => getCourseData();
   }, [navigation, currentLanguage]);
 
-  useEffect(() => {
-    const checkUserLanguage = async () => {
-      try {
-        const user = auth.currentUser;
-        if (user) {
-          const userId = user.uid;
-          const snapshot = await get(ref(database, `users/${userId}`));
+  useFocusEffect(
+    useCallback(() => {
+      const getUserData = async () => {
+        try {
+          const user = auth.currentUser;
+          if (user) {
+            const userId = user.uid;
+            const snapshot = await get(ref(database, `users/${userId}`));
 
-          if (snapshot.exists()) {
-            const userData = snapshot.val();
-            const language = userData.language;
+            if (snapshot.exists()) {
+              const userData = snapshot.val();
+              const language = userData.language;
+              const streak = userData.streak;
+              const diamonds = userData.diamonds;
 
-            setCurrentLanguage(language);
+              if (!language) {
+                navigation.replace("Languages");
+              }
 
-            if (!language) {
-              navigation.replace("Languages");
+              setCurrentLanguage(language);
+              setStreakCount(streak);
+              setDiamonds(diamonds);
             }
           }
+        } catch (error) {
+          console.error("Error checking language:", error);
         }
-      } catch (error) {
-        console.error("Error checking language:", error);
-      }
-    };
+      };
 
-    checkUserLanguage();
-  }, [navigation]);
+      getUserData();
+    }, [navigation])
+  );
 
   return (
-    <Layout headerComponent={<HomePanel language={currentLanguage} />}>
+    <Layout
+      headerComponent={
+        <HomePanel
+          language={currentLanguage}
+          streak={streakCount}
+          diamonds={diamonds}
+        />
+      }
+    >
       <View style={styles.container}>
         <CourseUnit units={units} />
       </View>

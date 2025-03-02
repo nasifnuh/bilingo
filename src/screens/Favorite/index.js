@@ -69,6 +69,8 @@ const Favorite = () => {
           const snapshot = await get(favRef);
           if (snapshot.exists()) {
             setFavoriteLessons(Object.keys(snapshot.val()));
+          } else {
+            setFavoriteLessons([]);
           }
         } catch (error) {
           Alert.alert("Error", "Failed to fetch favorites, try again.");
@@ -76,7 +78,7 @@ const Favorite = () => {
       };
 
       fetchFavorites();
-    }, [])
+    }, [navigation])
   );
 
   useEffect(() => {
