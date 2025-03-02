@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, ScrollView, Platform } from "react-native";
-import { LineChart, ContributionGraph } from "react-native-chart-kit";
-import { Dimensions } from "react-native";
-import Layout from "@/layout";
-import { get, ref } from "firebase/database";
-import BackButton from "@components/BackButton";
-import { database, auth } from "@services/firebaseConfig";
-import colors from "@constants/colors";
+import { View, Text, ScrollView, Platform, Dimensions } from "react-native";
 import { Picker } from "@react-native-picker/picker";
-import LanguageIcon from "@components/LanguageIcon"; // Import LanguageIcon component
+import { LineChart, ContributionGraph } from "react-native-chart-kit";
+
+import { get, ref } from "firebase/database";
+import { database, auth } from "@services/firebaseConfig";
+
+import Layout from "@/layout";
+import LanguageIcon from "@components/LanguageIcon";
+import BackButton from "@components/BackButton";
+
+import colors from "@constants/colors";
+
+import { styles } from "./styles";
 
 const screenWidth = Dimensions.get("window").width;
 
@@ -61,7 +65,6 @@ const Stats = () => {
             }));
             setXpData(formattedData);
 
-            // Calculate today's XP and total XP
             const today = new Date().toISOString().split("T")[0];
             const todaysXp =
               formattedData.find((item) => item.date === today)?.xp || 0;
@@ -108,12 +111,12 @@ const Stats = () => {
             index % 6 === 0
               ? new Date(item.date).getDate().toString().padStart(2, "0")
               : ""
-          ), // Display every 3rd day of the month
+          ),
     datasets: [
       {
         data: filteredData.map((item) => item.xp),
         strokeWidth: 2,
-        color: (opacity = 1) => colors.royalPurple, // Line color
+        color: (opacity = 1) => colors.royalPurple,
       },
     ],
   };
@@ -122,7 +125,6 @@ const Stats = () => {
     date: item.date,
     count: item.xp,
   }));
-
 
   return (
     <Layout
@@ -222,12 +224,12 @@ const Stats = () => {
                   withInnerLines={false}
                   withOuterLines={false}
                 />
-            </View>
-            <View style={styles.overviewContainer}>
-              <View style={styles.overviewHeader}>
+              </View>
+              <View style={styles.overviewContainer}>
+                <View style={styles.overviewHeader}>
                   <Text style={styles.overviewTitle}>Overall XP</Text>
                 </View>
-              <ContributionGraph
+                <ContributionGraph
                   values={contributionData}
                   endDate={new Date()}
                   numDays={105}
@@ -242,7 +244,6 @@ const Stats = () => {
                     style: {
                       borderRadius: 16,
                     },
-                    // getColor: (count) => getColor(count),
                     propsForLabels: {
                       fontFamily: "BalooChettan-B",
                     },
@@ -253,8 +254,7 @@ const Stats = () => {
                     alignSelf: "center",
                   }}
                 />
-            </View>
-              
+              </View>
             </>
           ) : (
             <Text style={styles.loadingText}>Loading data...</Text>
@@ -264,94 +264,5 @@ const Stats = () => {
     </Layout>
   );
 };
-
-const styles = StyleSheet.create({
-  scrollContainer: {
-    paddingBottom: 20,
-  },
-  container: {
-    flex: 1,
-    alignItems: "center",
-  },
-  header: {
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    paddingHorizontal: 25,
-    height: 36,
-  },
-  headerLabel: {
-    flex: 1,
-    textAlign: "center",
-    fontFamily: "BalooChettan-B",
-    fontSize: 18,
-    color: colors.black,
-  },
-  pickerContainer: {
-    flexDirection: "row",
-    width: "100%",
-    marginBottom: 20,
-    gap: 10,
-  },
-  pickerWrapper: {
-    flex: 1,
-    borderWidth: 2,
-    borderColor: colors.royalPurple,
-    borderRadius: 16,
-    backgroundColor: "#fff",
-  },
-  picker: {
-    width: "100%",
-    height: 60,
-    justifyContent: "center",
-    color: "#000",
-    fontFamily: "BalooChettan-B",
-  },
-  pickerItem: {
-    fontFamily: "BalooChettan-B",
-    fontSize: 16,
-    height: 40,
-  },
-  overviewContainer: {
-    width: "100%",
-    padding: 20,
-    backgroundColor: colors.pastelPurple,
-    borderRadius: 16,
-    marginBottom: 10,
-  },
-  overviewHeader: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    marginBottom: 10,
-  },
-  overviewTitle: {
-    fontSize: 18,
-    fontWeight: "bold",
-    color: colors.black,
-    fontFamily: "BalooChettan-B",
-  },
-  overviewItem: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginBottom: 10,
-  },
-  overviewLabel: {
-    fontSize: 16,
-    color: colors.royalPurple,
-    fontFamily: "BalooChettan-B",
-  },
-  overviewValue: {
-    fontSize: 16,
-    fontWeight: "bold",
-    color: colors.royalPurple,
-    fontFamily: "BalooChettan-B",
-  },
-  loadingText: {
-    fontFamily: "BalooChettan-B",
-    fontSize: 16,
-    color: colors.black,
-  },
-});
 
 export default Stats;
