@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, ScrollView } from "react-native";
+import { View, Text, StyleSheet, ScrollView, Platform } from "react-native";
 import { LineChart, ContributionGraph } from "react-native-chart-kit";
 import { Dimensions } from "react-native";
 import Layout from "@/layout";
@@ -21,7 +21,6 @@ const Stats = () => {
 
   useEffect(() => {
     const fetchLanguages = async () => {
-
       try {
         const user = auth.currentUser;
         if (user) {
@@ -32,9 +31,8 @@ const Stats = () => {
             const availableLanguages = Object.keys(data);
             setLanguages(availableLanguages);
             setSelectedLanguage(availableLanguages[0]);
-            // console.log("Languages fetched successfully:", availableLanguages);
           } else {
-            // console.log("No languages available");
+            setLanguages([]);
           }
         }
       } catch (error) {
@@ -47,7 +45,6 @@ const Stats = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      // console.log("Fetching data...");
       try {
         const user = auth.currentUser;
         if (user) {
@@ -58,11 +55,10 @@ const Stats = () => {
           const data = snapshot.val();
           if (data) {
             const formattedData = Object.keys(data).map((date) => ({
-              date: date.replace(/"/g, ""),
+              date: date.replace(/\"/g, ""),
               xp: data[date],
             }));
             setXpData(formattedData);
-            // console.log("Data fetched successfully:", formattedData);
 
             // Calculate today's XP and total XP
             const today = new Date().toISOString().split("T")[0];
@@ -74,8 +70,6 @@ const Stats = () => {
             );
             setTodaysXp(todaysXp);
             setTotalXp(totalXp);
-          } else {
-            // console.log("No data available");
           }
         }
       } catch (error) {
@@ -91,46 +85,26 @@ const Stats = () => {
     let filteredData = [];
 
     if (period === "Weekly") {
-      const lastWeek = new Date(now.setDate(now.getDate() - 7));
+      const lastWeek = new Date();
+      lastWeek.setDate(now.getDate() - 7);
       filteredData = xpData.filter((item) => new Date(item.date) >= lastWeek);
     } else {
-      const lastMonth = new Date(now.setMonth(now.getMonth() - 1));
+      const lastMonth = new Date();
+      lastMonth.setMonth(now.getMonth() - 1);
       filteredData = xpData.filter((item) => new Date(item.date) >= lastMonth);
     }
 
     return filteredData;
   };
 
-  const getMonthName = (date) => {
-    const monthNames = [
-      "January",
-      "February",
-      "March",
-      "April",
-      "May",
-      "June",
-      "July",
-      "August",
-      "September",
-      "October",
-      "November",
-      "December",
-    ];
-    return monthNames[date.getMonth()];
-  };
-
   const filteredData = getFilteredData();
-  const selectedMonth =
-    period === "Monthly" && filteredData.length > 0
-      ? getMonthName(new Date(filteredData[0].date))
-      : "";
 
   const chartData = {
     labels:
       period === "Weekly"
         ? ["Mn", "Tu", "Wn", "Th", "Fr", "St", "Su"]
         : filteredData.map((item, index) =>
-            index % 3 === 0
+            index % 6 === 0
               ? new Date(item.date).getDate().toString().padStart(2, "0")
               : ""
           ), // Display every 3rd day of the month
@@ -148,18 +122,6 @@ const Stats = () => {
     count: item.xp,
   }));
 
-  const getColor = (count) => {
-    const maxCount = Math.max(...contributionData.map((item) => item.count));
-    const intensity = count / maxCount;
-    const baseColor = colors.royalPurple.replace("#", "");
-    const r = parseInt(baseColor.substring(0, 2), 16);
-    const g = parseInt(baseColor.substring(2, 4), 16);
-    const b = parseInt(baseColor.substring(4, 6), 16);
-    const newR = Math.floor(r * intensity);
-    const newG = Math.floor(g * intensity);
-    const newB = Math.floor(b * intensity);
-    return `rgba(${newR}, ${newG}, ${newB}, 1)`;
-  };
 
   return (
     <Layout
@@ -170,117 +132,140 @@ const Stats = () => {
         </View>
       }
     >
-      <View style={styles.container}>
-        <View style={styles.pickerContainer}>
-          <View style={styles.pickerWrapper}>
-            <Picker
-              selectedValue={selectedLanguage}
-              style={styles.picker}
-              onValueChange={(itemValue) => setSelectedLanguage(itemValue)}
-            >
-              {languages.map((language) => (
-                <Picker.Item key={language} label={language} value={language} />
-              ))}
-            </Picker>
-          </View>
-          <View style={styles.pickerWrapper}>
+      <ScrollView contentContainerStyle={styles.scrollContainer}>
+        <View style={styles.container}>
+          <View style={styles.pickerContainer}>
+            <View style={styles.pickerWrapper}>
+              <Picker
+                selectedValue={selectedLanguage}
+                onValueChange={(itemValue) => setSelectedLanguage(itemValue)}
+                style={styles.picker}
+                itemStyle={styles.pickerItem}
+                mode={Platform.OS === "ios" ? "dialog" : "dropdown"}
+              >
+                {languages.map((language) => (
+                  <Picker.Item
+                    key={language}
+                    label={language}
+                    value={language}
+                  />
+                ))}
+              </Picker>
+            </View>
+            {/* <View style={styles.pickerWrapper}>
+              <Picker
+                selectedValue={period}
+                onValueChange={(itemValue) => {
+                  setPeriod(itemValue)
+                  // setShowPeriodPicker(false);
+                }}
+                mode={Platform.OS === "ios" ? "dialog" : "dropdown"}
+              >
+                <Picker.Item key="Monthly" label="Monthly" value="Monthly" />
+                <Picker.Item key="Weekly" label="Weekly" value="Weekly" />
+              </Picker>
+            </View> */}
+            <View style={styles.pickerWrapper}>
             <Picker
               selectedValue={period}
               style={styles.picker}
+              itemStyle={styles.pickerItem}
               onValueChange={(itemValue) => setPeriod(itemValue)}
             >
               <Picker.Item label="Monthly" value="Monthly" />
               <Picker.Item label="Weekly" value="Weekly" />
             </Picker>
           </View>
-        </View>
 
-
-
-
-        <View style={styles.overviewContainer}>
-          <Text style={styles.overviewTitle}>Overview</Text>
-          <View style={styles.overviewItem}>
-            <Text style={styles.overviewLabel}>Today's XP</Text>
-            <Text style={styles.overviewValue}>{todaysXp}</Text>
           </View>
-          <View style={styles.overviewItem}>
-            <Text style={styles.overviewLabel}>Total XP</Text>
-            <Text style={styles.overviewValue}>{totalXp}</Text>
+
+          <View style={styles.overviewContainer}>
+            <Text style={styles.overviewTitle}>Overview</Text>
+            <View style={styles.overviewItem}>
+              <Text style={styles.overviewLabel}>Today's XP</Text>
+              <Text style={styles.overviewValue}>{todaysXp}</Text>
+            </View>
+            <View style={styles.overviewItem}>
+              <Text style={styles.overviewLabel}>Total XP</Text>
+              <Text style={styles.overviewValue}>{totalXp}</Text>
+            </View>
           </View>
+
+          {filteredData.length > 0 ? (
+            <>
+              <LineChart
+                data={chartData}
+                width={screenWidth - 40}
+                height={220}
+                chartConfig={{
+                  backgroundColor: colors.pastelPurple,
+                  backgroundGradientFrom: colors.pastelPurple,
+                  backgroundGradientTo: colors.pastelPurple,
+                  decimalPlaces: 0,
+                  color: (opacity = 1) => `rgba(120, 50, 179, ${opacity})`,
+                  labelColor: (opacity = 1) => colors.royalPurple,
+                  style: {
+                    borderRadius: 16,
+                  },
+                  propsForDots: {
+                    r: "4",
+                    strokeWidth: "2",
+                    stroke: colors.royalPurple,
+                  },
+                  formatXLabel: (label) => label,
+                  formatYLabel: (label) => `${label} XP`,
+                }}
+                bezier
+                style={{
+                  marginVertical: 8,
+                  borderRadius: 16,
+                  alignSelf: "center",
+                }}
+                fromZero
+                withInnerLines={false}
+                withOuterLines={false}
+              />
+              <ContributionGraph
+                values={contributionData}
+                endDate={new Date()}
+                numDays={105}
+                width={screenWidth - 40}
+                height={220}
+                chartConfig={{
+                  backgroundColor: colors.pastelPurple,
+                  backgroundGradientFrom: colors.pastelPurple,
+                  backgroundGradientTo: colors.pastelPurple,
+                  color: (opacity = 1) => `rgba(120, 50, 179, ${opacity})`,
+                  labelColor: (opacity = 1) => colors.royalPurple,
+                  style: {
+                    borderRadius: 16,
+                  },
+                  getColor: (count) => getColor(count),
+                }}
+                style={{
+                  marginVertical: 8,
+                  borderRadius: 16,
+                  alignSelf: "center",
+                }}
+              />
+            </>
+          ) : (
+            <Text>Loading data...</Text>
+          )}
         </View>
-        {selectedMonth && <Text style={styles.monthText}>{selectedMonth}</Text>}
-        {filteredData.length > 0 ? (
-          <>
-            <LineChart
-              data={chartData}
-              width={screenWidth - 40}
-              height={220}
-              chartConfig={{
-                backgroundColor: colors.pastelPurple,
-                backgroundGradientFrom: colors.pastelPurple,
-                backgroundGradientTo: colors.pastelPurple,
-                decimalPlaces: 0,
-                color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-                labelColor: (opacity = 1) => colors.royalPurple, // Axis text color
-                style: {
-                  borderRadius: 16,
-                },
-                propsForDots: {
-                  r: "4",
-                  strokeWidth: "2",
-                  stroke: colors.royalPurple,
-                },
-                formatXLabel: (label) => label, // Format date labels
-                formatYLabel: (label) => `${label} XP`, // Format Y-axis labels
-              }}
-              bezier
-              style={{
-                marginVertical: 8,
-                borderRadius: 16,
-                alignSelf: "center", // Center the chart
-              }}
-              fromZero
-              withInnerLines={false}
-              withOuterLines={false}
-            />
-            <ContributionGraph
-              values={contributionData}
-              endDate={new Date()}
-              numDays={105}
-              width={screenWidth - 40}
-              height={220}
-              chartConfig={{
-                backgroundColor: colors.pastelPurple,
-                backgroundGradientFrom: colors.pastelPurple,
-                backgroundGradientTo: colors.pastelPurple,
-                color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-                labelColor: (opacity = 1) => colors.royalPurple, // Axis text color
-                style: {
-                  borderRadius: 16,
-                },
-                getColor: (count) => getColor(count),
-              }}
-              style={{
-                marginVertical: 8,
-                borderRadius: 16,
-                alignSelf: "center", // Center the chart
-              }}
-            />
-          </>
-        ) : (
-          <Text>Loading data...</Text>
-        )}
-      </View>
+      </ScrollView>
     </Layout>
   );
 };
 
 const styles = StyleSheet.create({
+  scrollContainer: {
+    paddingBottom: 20,
+  },
   container: {
     flex: 1,
-    justifyContent: "center",
     alignItems: "center",
+    // padding: 10,
   },
   header: {
     display: "flex",
@@ -297,31 +282,51 @@ const styles = StyleSheet.create({
     color: colors.black,
   },
   pickerContainer: {
+    // display: "flex",
     flexDirection: "row",
     width: "100%",
+    // justifyContent: "space-evenly",
     marginBottom: 20,
     gap: 10
   },
   pickerWrapper: {
+    flex: 1,
+    // width: "100%",
+    // padding: 12,
     borderWidth: 2,
     borderColor: colors.royalPurple,
     borderRadius: 16,
-    overflow: "hidden",
+    backgroundColor: "#fff",
+    // alignItems: "center",
+    // marginBottom: 15,
   },
   picker: {
-    height: 50,
-    width: 140,
+    width: "100%",
+    height: 60,
+    justifyContent: "center",
+    color: "#000", // Text color
+    fontFamily: "BalooChettan-B",
+
+  },
+  pickerItem: {
+    fontFamily: "BalooChettan-B",
+    fontSize: 20,
+    height: 40,
+    
+    // color: "#000", // Text color
   },
   overviewContainer: {
     width: "100%",
     padding: 20,
     backgroundColor: colors.pastelPurple,
     borderRadius: 16,
+    marginBottom: 10,
   },
   overviewTitle: {
     fontSize: 18,
     fontWeight: "bold",
     marginBottom: 10,
+    color: colors.black,
   },
   overviewItem: {
     flexDirection: "row",
@@ -336,11 +341,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "bold",
     color: colors.royalPurple,
-  },
-  monthText: {
-    fontSize: 18,
-    fontWeight: "bold",
-    marginVertical: 10,
   },
 });
 
