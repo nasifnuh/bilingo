@@ -89,4 +89,18 @@ export const styles = StyleSheet.create({
     fontSize: 16,
     color: Colors.black,
   },
+  emptyContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  emptyText: {
+    fontFamily: "BalooChettan-M",
+    fontSize: 18,
+    color: Colors.black,
+  },image: {
+    width: 150,
+    height: 150,
+    marginBottom: 30,
+  }
 });

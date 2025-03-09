@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, ScrollView, Platform, Dimensions } from "react-native";
+import { View, Text, ScrollView, Platform, Dimensions, Image } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import { LineChart, ContributionGraph } from "react-native-chart-kit";
 
@@ -11,7 +11,7 @@ import LanguageIcon from "@components/LanguageIcon";
 import BackButton from "@components/BackButton";
 
 import colors from "@constants/colors";
-
+import MascotEmpty from '@assets/images/mascot_stare.png'
 import { styles } from "./styles";
 
 const screenWidth = Dimensions.get("window").width;
@@ -132,135 +132,142 @@ const Stats = () => {
         <View style={styles.header}>
           <BackButton />
           <Text style={styles.headerLabel}>Stats Screen</Text>
-        </View>
+        </View> 
       }
     >
-      <ScrollView contentContainerStyle={styles.scrollContainer}>
-        <View style={styles.container}>
-          <View style={styles.pickerContainer}>
-            <View style={styles.pickerWrapper}>
-              <Picker
-                selectedValue={selectedLanguage}
-                onValueChange={(itemValue) => setSelectedLanguage(itemValue)}
-                style={styles.picker}
-                itemStyle={styles.pickerItem}
-                mode={Platform.OS === "ios" ? "dialog" : "dropdown"}
-              >
-                {languages.map((language) => (
-                  <Picker.Item
-                    key={language}
-                    label={language.charAt(0).toUpperCase() + language.slice(1)}
-                    value={language}
-                  />
-                ))}
-              </Picker>
-            </View>
-            <View style={styles.pickerWrapper}>
-              <Picker
-                selectedValue={period}
-                style={styles.picker}
-                itemStyle={styles.pickerItem}
-                onValueChange={(itemValue) => setPeriod(itemValue)}
-              >
-                <Picker.Item label="Weekly" value="Weekly" />
-                <Picker.Item label="Monthly" value="Monthly" />
-              </Picker>
-            </View>
-          </View>
-
-          <View style={styles.overviewContainer}>
-            <View style={styles.overviewHeader}>
-              <Text style={styles.overviewTitle}>Overview</Text>
-              <LanguageIcon icon={selectedLanguage} />
-            </View>
-            <View style={styles.overviewItem}>
-              <Text style={styles.overviewLabel}>Today's XP</Text>
-              <Text style={styles.overviewValue}>{todaysXp}</Text>
-            </View>
-            <View style={styles.overviewItem}>
-              <Text style={styles.overviewLabel}>Total XP</Text>
-              <Text style={styles.overviewValue}>{totalXp}</Text>
-            </View>
-          </View>
-
-          {filteredData.length > 0 ? (
-            <>
-              <View style={styles.overviewContainer}>
-                <View style={styles.overviewHeader}>
-                  <Text style={styles.overviewTitle}>{period} XP</Text>
-                </View>
-                <LineChart
-                  data={chartData}
-                  width={screenWidth - 40}
-                  height={220}
-                  chartConfig={{
-                    backgroundColor: colors.pastelPurple,
-                    backgroundGradientFrom: colors.pastelPurple,
-                    backgroundGradientTo: colors.pastelPurple,
-                    decimalPlaces: 0,
-                    color: (opacity = 1) => `rgba(120, 50, 179, ${opacity})`,
-                    labelColor: (opacity = 1) => colors.royalPurple,
-                    style: {
-                      borderRadius: 16,
-                    },
-                    propsForDots: {
-                      r: "4",
-                      strokeWidth: "2",
-                      stroke: colors.royalPurple,
-                    },
-                    formatXLabel: (label) => label,
-                    formatYLabel: (label) => `${label} XP`,
-                    propsForLabels: {
-                      fontFamily: "BalooChettan-B",
-                    },
-                  }}
-                  bezier
-                  style={{
-                    marginVertical: 8,
-                    borderRadius: 16,
-                    alignSelf: "center",
-                  }}
-                  fromZero
-                  withInnerLines={false}
-                  withOuterLines={false}
-                />
-              </View>
-              <View style={styles.overviewContainer}>
-                <View style={styles.overviewHeader}>
-                  <Text style={styles.overviewTitle}>Overall XP</Text>
-                </View>
-                <ContributionGraph
-                  values={contributionData}
-                  endDate={new Date()}
-                  numDays={105}
-                  width={screenWidth - 40}
-                  height={220}
-                  chartConfig={{
-                    backgroundColor: colors.pastelPurple,
-                    backgroundGradientFrom: colors.pastelPurple,
-                    backgroundGradientTo: colors.pastelPurple,
-                    color: (opacity = 1) => `rgba(120, 50, 179, ${opacity})`,
-                    labelColor: (opacity = 1) => colors.royalPurple,
-                    style: {
-                      borderRadius: 16,
-                    },
-                    propsForLabels: {
-                      fontFamily: "BalooChettan-B",
-                    },
-                  }}
-                  style={{
-                    marginVertical: 8,
-                    borderRadius: 16,
-                    alignSelf: "center",
-                  }}
-                />
-              </View>
-            </>
-          ) : (
-            <Text style={styles.loadingText}>Loading data...</Text>
-          )}
+      {languages.length === 0 ? (
+        <View style={styles.emptyContainer}>
+          <Image source={MascotEmpty} style={styles.image} />
+          <Text style={styles.emptyText}>Please complete a lesson to show stats</Text>
         </View>
-      </ScrollView>
+      ) : (
+        <ScrollView contentContainerStyle={styles.scrollContainer}>
+          <View style={styles.container}>
+            <View style={styles.pickerContainer}>
+              <View style={styles.pickerWrapper}>
+                <Picker
+                  selectedValue={selectedLanguage}
+                  onValueChange={(itemValue) => setSelectedLanguage(itemValue)}
+                  style={styles.picker}
+                  itemStyle={styles.pickerItem}
+                  mode={Platform.OS === "ios" ? "dialog" : "dropdown"}
+                >
+                  {languages.map((language) => (
+                    <Picker.Item
+                      key={language}
+                      label={language.charAt(0).toUpperCase() + language.slice(1)}
+                      value={language}
+                    />
+                  ))}
+                </Picker>
+              </View>
+              <View style={styles.pickerWrapper}>
+                <Picker
+                  selectedValue={period}
+                  style={styles.picker}
+                  itemStyle={styles.pickerItem}
+                  onValueChange={(itemValue) => setPeriod(itemValue)}
+                >
+                  <Picker.Item label="Weekly" value="Weekly" />
+                  <Picker.Item label="Monthly" value="Monthly" />
+                </Picker>
+              </View>
+            </View>
+
+            <View style={styles.overviewContainer}>
+              <View style={styles.overviewHeader}>
+                <Text style={styles.overviewTitle}>Overview</Text>
+                <LanguageIcon icon={selectedLanguage} />
+              </View>
+              <View style={styles.overviewItem}>
+                <Text style={styles.overviewLabel}>Today's XP</Text>
+                <Text style={styles.overviewValue}>{todaysXp}</Text>
+              </View>
+              <View style={styles.overviewItem}>
+                <Text style={styles.overviewLabel}>Total XP</Text>
+                <Text style={styles.overviewValue}>{totalXp}</Text>
+              </View>
+            </View>
+
+            {filteredData.length > 0 ? (
+              <>
+                <View style={styles.overviewContainer}>
+                  <View style={styles.overviewHeader}>
+                    <Text style={styles.overviewTitle}>{period} XP</Text>
+                  </View>
+                  <LineChart
+                    data={chartData}
+                    width={screenWidth - 40}
+                    height={220}
+                    chartConfig={{
+                      backgroundColor: colors.pastelPurple,
+                      backgroundGradientFrom: colors.pastelPurple,
+                      backgroundGradientTo: colors.pastelPurple,
+                      decimalPlaces: 0,
+                      color: (opacity = 1) => `rgba(120, 50, 179, ${opacity})`,
+                      labelColor: (opacity = 1) => colors.royalPurple,
+                      style: {
+                        borderRadius: 16,
+                      },
+                      propsForDots: {
+                        r: "4",
+                        strokeWidth: "2",
+                        stroke: colors.royalPurple,
+                      },
+                      formatXLabel: (label) => label,
+                      formatYLabel: (label) => `${label} XP`,
+                      propsForLabels: {
+                        fontFamily: "BalooChettan-B",
+                      },
+                    }}
+                    bezier
+                    style={{
+                      marginVertical: 8,
+                      borderRadius: 16,
+                      alignSelf: "center",
+                    }}
+                    fromZero
+                    withInnerLines={false}
+                    withOuterLines={false}
+                  />
+                </View>
+                <View style={styles.overviewContainer}>
+                  <View style={styles.overviewHeader}>
+                    <Text style={styles.overviewTitle}>Overall XP</Text>
+                  </View>
+                  <ContributionGraph
+                    values={contributionData}
+                    endDate={new Date()}
+                    numDays={105}
+                    width={screenWidth - 40}
+                    height={220}
+                    chartConfig={{
+                      backgroundColor: colors.pastelPurple,
+                      backgroundGradientFrom: colors.pastelPurple,
+                      backgroundGradientTo: colors.pastelPurple,
+                      color: (opacity = 1) => `rgba(120, 50, 179, ${opacity})`,
+                      labelColor: (opacity = 1) => colors.royalPurple,
+                      style: {
+                        borderRadius: 16,
+                      },
+                      propsForLabels: {
+                        fontFamily: "BalooChettan-B",
+                      },
+                    }}
+                    style={{
+                      marginVertical: 8,
+                      borderRadius: 16,
+                      alignSelf: "center",
+                    }}
+                  />
+                </View>
+              </>
+            ) : (
+              <Text style={styles.loadingText}>Loading data...</Text>
+            )}
+          </View>
+        </ScrollView>
+      )}
     </Layout>
   );
 };
