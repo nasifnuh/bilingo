@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useCallback } from "react";
 import { View, Text, TouchableOpacity, Image } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useFocusEffect } from "@react-navigation/native";
 
 import { ref, get } from "firebase/database";
 import { auth, database } from "@services/firebaseConfig";
@@ -21,40 +21,42 @@ const Profile = () => {
   const [streak, setStreak] = useState(0);
   const [diamonds, setDiamonds] = useState(0);
 
-  useEffect(() => {
-    const fetchUserData = async () => {
-      const user = auth.currentUser;
-      if (user) {
-        const userRef = ref(database, `users/${user.uid}`);
-        try {
-          const snapshot = await get(userRef);
-          if (snapshot.exists()) {
-            const data = snapshot.val();
+  useFocusEffect(
+    useCallback(() => {
+      const fetchUserData = async () => {
+        const user = auth.currentUser;
+        if (user) {
+          const userRef = ref(database, `users/${user.uid}`);
+          try {
+            const snapshot = await get(userRef);
+            if (snapshot.exists()) {
+              const data = snapshot.val();
 
-            setUserData({
-              name: data.name || "",
-              joinedDate: data.joinedDate || "",
-            });
+              setUserData({
+                name: data.name || "",
+                joinedDate: data.joinedDate || "",
+              });
 
-            const xpData = data.xp || {};
-            let totalXP = 0;
-            for (const language in xpData) {
-              for (const date in xpData[language]) {
-                totalXP += xpData[language][date];
+              const xpData = data.xp || {};
+              let totalXP = 0;
+              for (const language in xpData) {
+                for (const date in xpData[language]) {
+                  totalXP += xpData[language][date];
+                }
               }
+              setTotalXP(totalXP);
+              setStreak(data.streak || 0);
+              setDiamonds(data.diamonds || 0);
             }
-            setTotalXP(totalXP);
-            setStreak(data.streak || 0);
-            setDiamonds(data.diamonds || 0);
+          } catch (error) {
+            console.error("Error fetching user data: ", error);
           }
-        } catch (error) {
-          console.error("Error fetching user data: ", error);
         }
-      }
-    };
+      };
 
-    fetchUserData();
-  }, []);
+      fetchUserData();
+    }, [])
+  );
 
   return (
     <Layout>
