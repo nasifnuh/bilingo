@@ -18,15 +18,14 @@ const HomePanel = ({ language, streak, diamonds }) => {
       <View style={styles.group}>
         <Text style={styles.icon}>🔥</Text>
         <Text style={[styles.text, { color: Colors.goldenOrange }]}>
-          {streak}
+          {streak || 0}
         </Text>
       </View>
       <View style={styles.group}>
         <Text style={styles.icon}>💎</Text>
-        <Text style={[styles.text, { color: Colors.skyBlue }]}>{diamonds}</Text>
-      </View>
-      <View style={styles.group}>
-        <Text style={styles.icon}>🔔</Text>
+        <Text style={[styles.text, { color: Colors.skyBlue }]}>
+          {diamonds || 0}
+        </Text>
       </View>
     </View>
   );
