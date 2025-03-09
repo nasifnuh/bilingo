@@ -110,7 +110,6 @@ const Lesson = ({ route }) => {
         await update(userRef, {
           streak: lastCompletionDate !== today ? (streak += 1) : streak,
           diamonds: (diamonds += 5),
-          xp: (xp += 10),
           lastCompletionDate: today,
         });
 
