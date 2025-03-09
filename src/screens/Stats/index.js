@@ -26,8 +26,11 @@ const screenWidth = Dimensions.get("window").width;
 const Stats = () => {
   const [xpData, setXpData] = useState([]);
   const [period, setPeriod] = useState("Weekly");
+  const [tempSelectedPeriod, setTempSelectedPeriod] = useState(period);
   const [languages, setLanguages] = useState([]);
-  const [selectedLanguage, setSelectedLanguage] = useState("english");
+  const [tempSelectedLanguage, setTempSelectedLanguage] =
+    useState(selectedLanguage);
+  const [selectedLanguage, setSelectedLanguage] = useState();
   const [todaysXp, setTodaysXp] = useState(0);
   const [totalXp, setTotalXp] = useState(0);
 
@@ -169,9 +172,9 @@ const Stats = () => {
                 <View style={styles.modalContainer}>
                   <View style={styles.modalContent}>
                     <Picker
-                      selectedValue={selectedLanguage}
+                      selectedValue={tempSelectedLanguage}
                       onValueChange={(itemValue) =>
-                        setSelectedLanguage(itemValue)
+                        setTempSelectedLanguage(itemValue)
                       }
                       itemStyle={styles.pickerItem}
                       mode="dropdown"
@@ -187,7 +190,10 @@ const Stats = () => {
                       ))}
                     </Picker>
                     <TouchableOpacity
-                      onPress={() => setShowLanguagePicker(false)}
+                      onPress={() => {
+                        setShowLanguagePicker(false);
+                        setSelectedLanguage(tempSelectedLanguage);
+                      }}
                     >
                       <Text style={styles.doneButtonText}>Done</Text>
                     </TouchableOpacity>
@@ -207,15 +213,20 @@ const Stats = () => {
                 <View style={styles.modalContainer}>
                   <View style={styles.modalContent}>
                     <Picker
-                      selectedValue={period}
-                      onValueChange={(itemValue) => setPeriod(itemValue)}
+                      selectedValue={tempSelectedPeriod}
+                      onValueChange={(itemValue) =>
+                        setTempSelectedPeriod(itemValue)
+                      }
                       itemStyle={styles.pickerItem}
                     >
                       <Picker.Item label="Weekly" value="Weekly" />
                       <Picker.Item label="Monthly" value="Monthly" />
                     </Picker>
                     <TouchableOpacity
-                      onPress={() => setShowPeriodPicker(false)}
+                      onPress={() => {
+                        setShowPeriodPicker(false);
+                        setPeriod(tempSelectedPeriod);
+                      }}
                     >
                       <Text style={styles.doneButtonText}>Done</Text>
                     </TouchableOpacity>
