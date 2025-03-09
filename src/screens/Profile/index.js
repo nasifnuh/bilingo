@@ -11,7 +11,7 @@ import Layout from "@/layout";
 import Colors from "@constants/colors";
 import { styles } from "./styles";
 
-import Avatar from "@assets/images/icons/avatar.png";
+import Avatar from "@assets/images/mascot_excited.png";
 
 const Profile = () => {
   const navigation = useNavigation();

@@ -19,7 +19,7 @@ export const styles = StyleSheet.create({
     overflow: "hidden",
   },
   settingsButton: { position: "absolute", right: 25, top: 15 },
-  avatar: { width: 175, height: 175, position: "absolute", bottom: -50 },
+  avatar: { width: 200, height: 200, position: "absolute", bottom: -50 },
   section: {
     marginTop: 24,
   },
