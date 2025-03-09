@@ -41,7 +41,7 @@ const Stats = () => {
           }
         }
       } catch (error) {
-        // console.error("Error fetching languages:", error);
+        console.error("Error fetching languages:", error);
       }
     };
 
@@ -77,7 +77,7 @@ const Stats = () => {
           }
         }
       } catch (error) {
-        // console.error("Error fetching data:", error);
+        console.error("Error fetching data:", error);
       }
     };
 
