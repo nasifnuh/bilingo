@@ -3,12 +3,10 @@ import { StyleSheet } from "react-native";
 import Colors from "@constants/colors";
 
 export const styles = StyleSheet.create({
-  scrollContainer: {
-    paddingBottom: 20,
-  },
   container: {
     flex: 1,
     alignItems: "center",
+    marginTop: 20,
   },
   header: {
     display: "flex",
@@ -39,15 +37,40 @@ export const styles = StyleSheet.create({
   },
   picker: {
     width: "100%",
-    height: 60,
+    height: 40,
     justifyContent: "center",
     color: "#000",
     fontFamily: "BalooChettan-B",
+    display: "flex",
+    alignItems: "center",
+  },
+  selectedPickerItem: {
+    fontFamily: "BalooChettan-B",
+    fontSize: 16,
   },
   pickerItem: {
     fontFamily: "BalooChettan-B",
     fontSize: 16,
-    height: 40,
+    height: 130,
+  },
+  modalContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+  },
+  modalContent: {
+    backgroundColor: "#fff",
+    padding: 20,
+    width: "80%",
+    borderRadius: 10,
+  },
+  doneButtonText: {
+    color: Colors.royalPurple,
+    fontFamily: "BalooChettan-B",
+    textAlign: "center",
+    fontSize: 20,
+    marginTop: 10,
   },
   overviewContainer: {
     width: "100%",
