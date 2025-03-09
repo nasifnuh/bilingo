@@ -48,8 +48,9 @@ export const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
+    gap: 45,
   },
-  icon: { fontFamily: "BalooChettan-SB", fontSize: 30, marginRight: 10 },
+  icon: { fontFamily: "BalooChettan-SB", fontSize: 30 },
   reward: {
     color: Colors.darkGray,
     fontFamily: "BalooChettan-SB",

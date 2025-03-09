@@ -20,7 +20,7 @@ const icons = {
 
 const Lesson = ({ route }) => {
   const navigation = useNavigation();
-  const { lesson } = route.params;
+  const { lesson, language } = route.params; // Get selectedLanguage from route params
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [progress, setProgress] = useState(0);
@@ -79,6 +79,7 @@ const Lesson = ({ route }) => {
         const userId = auth.currentUser.uid;
         const progressRef = ref(database, `users/${userId}/progress/`);
         const userRef = ref(database, `users/${userId}`);
+        const xpRef = ref(database, `users/${userId}/xp/${language}`);
 
         const snapshot = await get(progressRef);
         let currentProgress = snapshot.val() || [];
@@ -98,12 +99,23 @@ const Lesson = ({ route }) => {
         let diamonds = userData.diamonds || 0;
         let xp = userData.xp || 0;
 
+        // Fetch current XP data for the selected language
+        const xpSnapshot = await get(xpRef);
+        const xpData = xpSnapshot.val() || {};
+
+        // Update XP for the current date
+        const currentXp = xpData[`"${today}"`] || 0;
+        xpData[`"${today}"`] = currentXp + 10;
+
         await update(userRef, {
           streak: lastCompletionDate !== today ? (streak += 1) : streak,
           diamonds: (diamonds += 5),
           xp: (xp += 10),
           lastCompletionDate: today,
         });
+
+        // Save updated XP data back to the database
+        await update(xpRef, xpData);
 
         setProgress(1);
         setSelectedOption(null);

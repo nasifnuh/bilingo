@@ -74,7 +74,7 @@ const Home = () => {
       }
     >
       <View style={styles.container}>
-        <CourseUnit units={units} />
+        <CourseUnit units={units} language={currentLanguage}/>
       </View>
     </Layout>
   );

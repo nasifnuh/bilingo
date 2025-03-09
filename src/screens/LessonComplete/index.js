@@ -21,11 +21,17 @@ const LessonComplete = ({ route }) => {
           <Image source={MascotImage} style={styles.image} />
           <View style={styles.rewardContainer}>
             <View style={styles.rewardTitleContainer}>
-              <Text style={styles.rewardTitleContainerText}>Diamonds</Text>
+              <Text style={styles.rewardTitleContainerText}>Gains 💪</Text>
             </View>
             <View style={styles.rewardValueContainer}>
-              <Text style={styles.icon}>💎</Text>
-              <Text style={styles.reward}>+5</Text>
+              <View style={{ display: "flex", flexDirection:'row', gap: 10 }}>
+                <Text style={styles.icon}>💎</Text>
+                <Text style={styles.reward}>+5</Text>
+              </View>
+              <View style={{ display: "flex", flexDirection:'row', gap: 5 }}>
+                <Text style={styles.icon}>⚡️</Text>
+                <Text style={styles.reward}>+10</Text>
+              </View>
             </View>
           </View>
         </View>

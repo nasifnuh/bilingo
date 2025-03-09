@@ -10,7 +10,7 @@ import LessonCard from "@/components/CourseUnit/LessonCard";
 
 import { styles } from "./styles";
 
-const CourseUnit = ({ units }) => {
+const CourseUnit = ({ units, language }) => {
   const [progress, setProgress] = useState([]);
 
   useFocusEffect(
@@ -51,6 +51,7 @@ const CourseUnit = ({ units }) => {
               lessons={unit.lessons}
               color={unit.color}
               progress={progress}
+              language={language}
             />
           </View>
         );

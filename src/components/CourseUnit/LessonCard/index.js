@@ -5,7 +5,7 @@ import { FontAwesome6 } from "@expo/vector-icons";
 
 import { styles } from "./styles";
 
-const LessonCard = ({ lessons, color, progress }) => {
+const LessonCard = ({ lessons, color, progress, language }) => {
   const navigation = useNavigation();
 
   return (
@@ -14,7 +14,7 @@ const LessonCard = ({ lessons, color, progress }) => {
         <TouchableOpacity
           key={lesson.id}
           style={styles.lessonContainer}
-          onPress={() => navigation.navigate("Lesson", { lesson: lesson })}
+          onPress={() => navigation.navigate("Lesson", { lesson: lesson, language })}
         >
           <View
             style={[
