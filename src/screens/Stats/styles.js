@@ -98,9 +98,10 @@ export const styles = StyleSheet.create({
     fontFamily: "BalooChettan-M",
     fontSize: 18,
     color: Colors.black,
-  },image: {
+  },
+  image: {
     width: 150,
     height: 150,
     marginBottom: 30,
-  }
+  },
 });

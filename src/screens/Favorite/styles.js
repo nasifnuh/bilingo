@@ -21,19 +21,18 @@ export const styles = StyleSheet.create({
     color: Colors.black,
   },
   empty: {
-    marginTop: 100,
-    display: "flex",
+    flex: 1,
     justifyContent: "center",
     alignItems: "center",
   },
   image: {
     width: 150,
     height: 150,
+    marginBottom: 30,
   },
   emptyText: {
-    textAlign: "center",
-    fontFamily: "BalooChettan-SB",
-    fontSize: 16,
-    marginTop: 10,
+    fontFamily: "BalooChettan-M",
+    fontSize: 18,
+    color: Colors.black,
   },
 });

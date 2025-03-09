@@ -118,16 +118,16 @@ const Favorite = () => {
 
   return (
     <Layout headerComponent={<Header />}>
-      <View style={styles.container}>
-        {units.length === 0 ? (
-          <View style={styles.empty}>
-            <Image source={MascotCry} style={styles.image} />
-            <Text style={styles.emptyText}>No favorites</Text>
-          </View>
-        ) : (
+      {units.length === 0 ? (
+        <View style={styles.empty}>
+          <Image source={MascotCry} style={styles.image} />
+          <Text style={styles.emptyText}>No favorites</Text>
+        </View>
+      ) : (
+        <View style={styles.container}>
           <CourseUnit units={units} />
-        )}
-      </View>
+        </View>
+      )}
     </Layout>
   );
 };
