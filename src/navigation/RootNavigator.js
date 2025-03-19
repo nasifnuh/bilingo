@@ -3,6 +3,7 @@ import { NavigationContainer } from "@react-navigation/native";
 
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "@services/firebaseConfig";
+import { FontSizeProvider } from "@/context/FontSizeContext";
 
 import AuthNavigator from "@navigation/AuthNavigator";
 import AppStackNavigator from "@/navigation/AppStackNavigator";
@@ -23,9 +24,11 @@ const RootNavigator = () => {
   if (loading) return null;
 
   return (
-    <NavigationContainer>
-      {user ? <AppStackNavigator /> : <AuthNavigator />}
-    </NavigationContainer>
+    <FontSizeProvider>
+      <NavigationContainer>
+        {user ? <AppStackNavigator /> : <AuthNavigator />}
+      </NavigationContainer>
+    </FontSizeProvider>
   );
 };
 
