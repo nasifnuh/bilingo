@@ -5,13 +5,18 @@ import Slider from "@react-native-community/slider";
 import { useFontSize } from "@/context/FontSizeContext";
 
 import Layout from "@/layout";
-import Text from "@/components/ui/Text";
 import BackButton from "@/components/BackButton";
+import Text from "@/components/ui/Text";
+import Button from "@/components/ui/Button";
 
 import { styles } from "./styles";
 
 const Accessibility = () => {
   const { scale, setScale } = useFontSize();
+
+  const resetToDefault = () => {
+    setScale(1);
+  };
 
   return (
     <Layout
@@ -32,6 +37,11 @@ const Accessibility = () => {
             step={0.1}
             value={scale}
             onValueChange={(value) => setScale(value)}
+          />
+          <Button
+            variant="contained"
+            label="Reset to default"
+            onPress={resetToDefault}
           />
         </View>
       </View>
