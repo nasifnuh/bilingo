@@ -9,6 +9,7 @@ import Languages from "@screens/Languages";
 import Settings from "@screens/Settings";
 import ProfileInfo from "@screens/ProfileInfo";
 import Notification from "@/screens/Notification";
+import Accessibility from "@/screens/Accessibility";
 
 const Stack = createStackNavigator();
 
@@ -22,6 +23,7 @@ const AppStackNavigator = () => (
     <Stack.Screen name="Settings" component={Settings} />
     <Stack.Screen name="ProfileInfo" component={ProfileInfo} />
     <Stack.Screen name="Notification" component={Notification} />
+    <Stack.Screen name="Accessibility" component={Accessibility} />
   </Stack.Navigator>
 );
 

@@ -7,7 +7,7 @@ import { auth } from "@services/firebaseConfig";
 
 import Layout from "@/layout";
 import BackButton from "@/components/BackButton";
-import Button from "@components/Button";
+import Button from "@/components/ui/Button";
 
 import Colors from "@constants/colors";
 import { styles } from "./styles";
@@ -45,6 +45,13 @@ const Settings = () => {
           onPress={() => navigation.navigate("Notification")}
         >
           <Text style={styles.optionLabel}>Notifications</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={styles.option}
+          onPress={() => navigation.navigate("Accessibility")}
+        >
+          <Text style={styles.optionLabel}>Accessibility</Text>
         </TouchableOpacity>
 
         <Button
