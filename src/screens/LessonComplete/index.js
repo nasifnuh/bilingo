@@ -1,9 +1,10 @@
 import React from "react";
-import { View, Text, Image } from "react-native";
+import { View, Image } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 import Layout from "@/layout";
-import Button from "@components/Button";
+import Text from "@/components/ui/Text";
+import Button from "@/components/ui/Button";
 
 import MascotImage from "@assets/images/mascot_hats.png";
 
@@ -24,11 +25,11 @@ const LessonComplete = ({ route }) => {
               <Text style={styles.rewardTitleContainerText}>Gains 💪</Text>
             </View>
             <View style={styles.rewardValueContainer}>
-              <View style={{ display: "flex", flexDirection:'row', gap: 10 }}>
+              <View style={{ display: "flex", flexDirection: "row", gap: 10 }}>
                 <Text style={styles.icon}>💎</Text>
                 <Text style={styles.reward}>+5</Text>
               </View>
-              <View style={{ display: "flex", flexDirection:'row', gap: 5 }}>
+              <View style={{ display: "flex", flexDirection: "row", gap: 5 }}>
                 <Text style={styles.icon}>⚡️</Text>
                 <Text style={styles.reward}>+10</Text>
               </View>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, Alert, Switch, TouchableOpacity } from "react-native";
+import { View, Alert, Switch, TouchableOpacity } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import * as Notifications from "expo-notifications";
 
@@ -7,8 +7,9 @@ import { ref, get, update } from "firebase/database";
 import { auth, database } from "@services/firebaseConfig";
 
 import Layout from "@/layout";
+import Text from "@/components/ui/Text";
 import BackButton from "@/components/BackButton";
-import Button from "@components/Button";
+import Button from "@/components/ui/Button";
 
 import Colors from "@/constants/colors";
 import { styles } from "./styles";
@@ -165,7 +166,6 @@ const Notification = () => {
             variant={editing ? "contained" : "outlined"}
             label={editing ? "Save" : "Edit"}
             onPress={() => (editing ? handleNotification() : setEditing(true))}
-            customBoxStyle={styles.editButton}
           />
         </View>
       </View>

@@ -3,9 +3,6 @@ import { StyleSheet } from "react-native";
 import Colors from "@constants/colors";
 
 export const styles = StyleSheet.create({
-  container: {
-    paddingVertical: 18,
-  },
   header: {
     display: "flex",
     flexDirection: "row",
@@ -20,19 +17,20 @@ export const styles = StyleSheet.create({
     fontSize: 18,
     color: Colors.black,
   },
-  empty: {
+  container: {
+    paddingVertical: 18,
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
   },
-  image: {
-    width: 150,
-    height: 150,
-    marginBottom: 30,
+  form: {
+    gap: 24,
+    marginTop: 20,
   },
-  emptyText: {
-    fontFamily: "BalooChettan-M",
-    fontSize: 18,
+  label: {
+    fontFamily: "BalooChettan-SB",
+    fontSize: 16,
     color: Colors.black,
+  },
+  slider: {
+    width: "100%",
   },
 });

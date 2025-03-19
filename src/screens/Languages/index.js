@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, Image } from "react-native";
+import { View, Image } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 import { ref, onValue } from "firebase/database";
 import { database } from "@services/firebaseConfig";
 
 import Layout from "@/layout";
+import Text from "@/components/ui/Text";
 import LanguageCard from "@components/LanguageCard";
 
 import MascotLearn from "@assets/images/mascot_learn.png";

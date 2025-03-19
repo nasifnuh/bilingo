@@ -4,7 +4,7 @@ export const styles = StyleSheet.create({
   container: {
     display: "flex",
     flexDirection: "row",
-    height: 36,
+    minHeight: 36,
     justifyContent: "space-around",
     alignItems: "center",
   },

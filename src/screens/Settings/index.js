@@ -1,13 +1,14 @@
 import React from "react";
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 import { signOut } from "firebase/auth";
 import { auth } from "@services/firebaseConfig";
 
 import Layout from "@/layout";
+import Text from "@/components/ui/Text";
 import BackButton from "@/components/BackButton";
-import Button from "@components/Button";
+import Button from "@/components/ui/Button";
 
 import Colors from "@constants/colors";
 import { styles } from "./styles";
@@ -45,6 +46,13 @@ const Settings = () => {
           onPress={() => navigation.navigate("Notification")}
         >
           <Text style={styles.optionLabel}>Notifications</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={styles.option}
+          onPress={() => navigation.navigate("Accessibility")}
+        >
+          <Text style={styles.optionLabel}>Accessibility</Text>
         </TouchableOpacity>
 
         <Button

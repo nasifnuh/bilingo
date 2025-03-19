@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, Image, TouchableOpacity, Alert } from "react-native";
+import { View, Image, TouchableOpacity, Alert } from "react-native";
 import * as Progress from "react-native-progress";
 import { useNavigation } from "@react-navigation/native";
 import { FontAwesome } from "@expo/vector-icons";
@@ -8,8 +8,9 @@ import { ref, get, set, update, remove } from "firebase/database";
 import { auth, database } from "@services/firebaseConfig";
 
 import Layout from "@/layout";
+import Text from "@/components/ui/Text";
 import BackButton from "@components/BackButton";
-import Button from "@components/Button";
+import Button from "@/components/ui/Button";
 
 import Colors from "@constants/colors";
 import { styles } from "./styles";

@@ -9,7 +9,7 @@ export const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     paddingHorizontal: 25,
-    height: 36,
+    minHeight: 36,
   },
   container: {
     paddingVertical: 18,

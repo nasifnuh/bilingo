@@ -1,12 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  View,
-  Text,
-  Dimensions,
-  Image,
-  Modal,
-  TouchableOpacity,
-} from "react-native";
+import { View, Dimensions, Image, Modal, TouchableOpacity } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import { LineChart, ContributionGraph } from "react-native-chart-kit";
 
@@ -14,6 +7,7 @@ import { get, ref } from "firebase/database";
 import { database, auth } from "@services/firebaseConfig";
 
 import Layout from "@/layout";
+import Text from "@/components/ui/Text";
 import LanguageIcon from "@components/LanguageIcon";
 import BackButton from "@components/BackButton";
 

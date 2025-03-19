@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, Alert } from "react-native";
+import { View, Alert } from "react-native";
 import { Formik } from "formik";
 import * as Yup from "yup";
 
@@ -14,9 +14,10 @@ import { ref, get, update, remove } from "firebase/database";
 import { auth, database } from "@services/firebaseConfig";
 
 import Layout from "@/layout";
+import Text from "@/components/ui/Text";
 import BackButton from "@/components/BackButton";
-import Button from "@components/Button";
-import TextInput from "@components/TextInput";
+import Button from "@/components/ui/Button";
+import TextInput from "@/components/ui/TextInput";
 
 import Colors from "@constants/colors";
 import { styles } from "./styles";

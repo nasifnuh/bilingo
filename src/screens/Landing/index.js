@@ -1,9 +1,10 @@
 import React from "react";
-import { View, Text, Image } from "react-native";
+import { View, Image } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 import Layout from "@/layout";
-import Button from "@components/Button";
+import Text from "@/components/ui/Text";
+import Button from "@/components/ui/Button";
 
 import LogoImage from "@assets/images/logo.png";
 import { styles } from "./styles";

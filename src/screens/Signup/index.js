@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, Image, Alert } from "react-native";
+import { View, Image, Alert } from "react-native";
 import { Formik } from "formik";
 import * as Yup from "yup";
 
@@ -8,9 +8,10 @@ import { ref, set } from "firebase/database";
 import { auth, database } from "@services/firebaseConfig";
 
 import Layout from "@/layout";
+import Text from "@/components/ui/Text";
 import BackButton from "@components/BackButton";
-import Button from "@components/Button";
-import TextInput from "@components/TextInput";
+import Button from "@/components/ui/Button";
+import TextInput from "@/components/ui/TextInput";
 
 import MascotImage from "@assets/images/mascot_love.png";
 import { styles } from "./styles";

@@ -14,7 +14,7 @@ export const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     paddingHorizontal: 25,
-    height: 36,
+    minHeight: 36,
   },
   headerLabel: {
     flex: 1,
@@ -40,6 +40,6 @@ export const styles = StyleSheet.create({
   },
   logoutButton: {
     marginTop: "auto",
-    borderColor: Colors.crimsonRed
+    borderColor: Colors.crimsonRed,
   },
 });

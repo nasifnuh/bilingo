@@ -1,10 +1,11 @@
 import React from "react";
-import { Text, TouchableOpacity } from "react-native";
+import { TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 import { ref, update } from "firebase/database";
 import { auth, database } from "@services/firebaseConfig";
 
+import Text from "@/components/ui/Text";
 import LanguageIcon from "@components/LanguageIcon";
 
 import { styles } from "./styles";

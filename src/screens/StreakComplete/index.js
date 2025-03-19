@@ -1,9 +1,10 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 import Layout from "@/layout";
-import Button from "@components/Button";
+import Text from "@/components/ui/Text";
+import Button from "@/components/ui/Button";
 
 import { styles } from "./styles";
 
