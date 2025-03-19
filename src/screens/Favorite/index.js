@@ -1,11 +1,12 @@
 import React, { useEffect, useState, useCallback } from "react";
-import { View, Text, Image, Alert } from "react-native";
+import { View, Image, Alert } from "react-native";
 import { useNavigation, useFocusEffect } from "@react-navigation/native";
 
 import { get, ref, onValue } from "firebase/database";
 import { database, auth } from "@services/firebaseConfig";
 
 import Layout from "@/layout";
+import Text from "@/components/ui/Text";
 import BackButton from "@components/BackButton";
 import CourseUnit from "@/components/CourseUnit";
 

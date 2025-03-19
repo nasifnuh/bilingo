@@ -41,7 +41,6 @@ export const styles = StyleSheet.create({
   overviewInfoBox: {
     display: "flex",
     alignItems: "flex-start",
-    justifyContent: "center",
     flex: 1,
     padding: 12,
     borderRadius: 16,

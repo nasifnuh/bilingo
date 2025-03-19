@@ -11,7 +11,7 @@ export const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     paddingHorizontal: 25,
-    height: 36,
+    minHeight: 36,
   },
   headerLabel: {
     flex: 1,

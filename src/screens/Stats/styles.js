@@ -13,7 +13,7 @@ export const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     paddingHorizontal: 25,
-    height: 36,
+    minHeight: 36,
   },
   headerLabel: {
     flex: 1,
@@ -121,6 +121,7 @@ export const styles = StyleSheet.create({
     fontFamily: "BalooChettan-M",
     fontSize: 18,
     color: Colors.black,
+    textAlign: "center",
   },
   image: {
     width: 150,

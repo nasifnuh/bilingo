@@ -25,6 +25,7 @@ export const styles = StyleSheet.create({
   unitLabel: {
     fontFamily: "BalooChettan-B",
     fontSize: 24,
+    lineHeight: 48,
     color: Colors.silverGray,
   },
   lesson: {
