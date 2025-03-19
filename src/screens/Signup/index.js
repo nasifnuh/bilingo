@@ -9,8 +9,8 @@ import { auth, database } from "@services/firebaseConfig";
 
 import Layout from "@/layout";
 import BackButton from "@components/BackButton";
-import Button from "@components/Button";
-import TextInput from "@components/TextInput";
+import Button from "@/components/ui/Button";
+import TextInput from "@/components/ui/TextInput";
 
 import MascotImage from "@assets/images/mascot_love.png";
 import { styles } from "./styles";

@@ -3,7 +3,7 @@ import { View, Text } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 import Layout from "@/layout";
-import Button from "@components/Button";
+import Button from "@/components/ui/Button";
 
 import { styles } from "./styles";
 

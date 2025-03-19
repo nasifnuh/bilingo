@@ -8,7 +8,7 @@ import { auth, database } from "@services/firebaseConfig";
 
 import Layout from "@/layout";
 import BackButton from "@/components/BackButton";
-import Button from "@components/Button";
+import Button from "@/components/ui/Button";
 
 import Colors from "@/constants/colors";
 import { styles } from "./styles";
