@@ -12,7 +12,6 @@ import { styles } from "./styles";
 
 const Home = () => {
   const navigation = useNavigation();
-
   const [units, setUnits] = useState([]);
   const [currentLanguage, setCurrentLanguage] = useState("english");
   const [streakCount, setStreakCount] = useState(0);
@@ -112,7 +111,7 @@ const Home = () => {
                 <Text style={styles.meaning}>{wordOfTheDay.meaning}</Text>
               </>
             )}
-            <TouchableOpacity onPress={() => setIsModalVisible(false)}>
+            <TouchableOpacity style={styles.closeButton} onPress={() => setIsModalVisible(false)}>
               <Text style={styles.closeButtonText}>Close</Text>
             </TouchableOpacity>
           </View>
