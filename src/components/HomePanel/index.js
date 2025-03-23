@@ -8,7 +8,7 @@ import LanguageIcon from "@components/LanguageIcon";
 import Colors from "@constants/colors";
 import { styles } from "./styles";
 
-const HomePanel = ({ language, streak, diamonds }) => {
+const HomePanel = ({ language, streak, diamonds, onWordOfTheDayPress }) => {
   const navigation = useNavigation();
 
   return (
@@ -28,6 +28,9 @@ const HomePanel = ({ language, streak, diamonds }) => {
           {diamonds || 0}
         </Text>
       </View>
+      <TouchableOpacity onPress={onWordOfTheDayPress}>
+        <Text style={styles.icon}>📖</Text>
+      </TouchableOpacity>
     </View>
   );
 };
