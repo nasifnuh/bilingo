@@ -98,7 +98,7 @@ const Home = () => {
       }
     >
       <View style={styles.container}>
-        <CourseUnit units={units} language={currentLanguage} />
+        <CourseUnit units={units} language={currentLanguage}/>
       </View>
       <Modal visible={isModalVisible} transparent>
         <View style={styles.modalContainer}>
