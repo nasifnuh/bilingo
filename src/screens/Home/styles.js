@@ -16,7 +16,7 @@ export const styles = StyleSheet.create({
     padding: 20,
     backgroundColor: Colors.white,
     borderRadius: 20,
-    alignItems: "center",
+    alignItems: "left",
     shadowColor: Colors.black,
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
@@ -28,6 +28,12 @@ export const styles = StyleSheet.create({
     fontFamily: "BalooChettan-B",
     color: Colors.royalPurple,
     marginBottom: 10,
+  },
+  label: {
+    fontSize: 16,
+    fontFamily: "BalooChettan-B",
+    color: Colors.grayish,
+    marginBottom: 5,
   },
   pronounce: {
     fontSize: 18,
@@ -46,7 +52,7 @@ export const styles = StyleSheet.create({
     fontFamily: "BalooChettan-B",
     color: Colors.charcoal,
     marginBottom: 20,
-    textAlign: "center",
+    textAlign: "left",
   },
   closeButton: {
     backgroundColor: Colors.royalPurple,
@@ -56,6 +62,7 @@ export const styles = StyleSheet.create({
   },
   closeButtonText: {
     fontSize: 18,
+    textAlign: "center",
     fontFamily: "BalooChettan-B",
     color: Colors.white,
   },

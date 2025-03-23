@@ -6,7 +6,7 @@ import { auth, database } from "@services/firebaseConfig";
 
 import Layout from "@/layout";
 import HomePanel from "@components/HomePanel";
-import CourseUnit from "@/components/CourseUnit";
+import CourseUnit from "@components/CourseUnit";
 
 import { styles } from "./styles";
 
@@ -106,8 +106,11 @@ const Home = () => {
             {wordOfTheDay && (
               <>
                 <Text style={styles.word}>{wordOfTheDay.word}</Text>
+                <Text style={styles.label}>Pronunciation:</Text>
                 <Text style={styles.pronounce}>{wordOfTheDay.pronounce}</Text>
+                <Text style={styles.label}>Phonetic Transcript:</Text>
                 <Text style={styles.phoneticTranscript}>{wordOfTheDay.phoneticTranscript}</Text>
+                <Text style={styles.label}>Meaning:</Text>
                 <Text style={styles.meaning}>{wordOfTheDay.meaning}</Text>
               </>
             )}
