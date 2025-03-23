@@ -98,7 +98,6 @@ const Lesson = ({ route }) => {
 
         let streak = userData.streak || 0;
         let diamonds = userData.diamonds || 0;
-        let xp = userData.xp || 0;
 
         // Fetch current XP data for the selected language
         const xpSnapshot = await get(xpRef);
@@ -108,8 +107,13 @@ const Lesson = ({ route }) => {
         const currentXp = xpData[`"${today}"`] || 0;
         xpData[`"${today}"`] = currentXp + 10;
 
+        // Update streak
+        if(lastCompletionDate !== today ){
+          streak += 1;
+        }
+
         await update(userRef, {
-          streak: lastCompletionDate !== today ? (streak += 1) : streak,
+          streak: streak,
           diamonds: (diamonds += 5),
           lastCompletionDate: today,
         });
@@ -121,10 +125,12 @@ const Lesson = ({ route }) => {
         setSelectedOption(null);
         setIsCorrect(null);
 
-        navigation.replace("LessonComplete", {
+        navigation.replace("Achievements", {
+          userData,
           isDaysFirstLesson: lastCompletionDate !== today,
-          ...(lastCompletionDate !== today && { streak }),
+          streak
         });
+
         return;
       }
     } else {
