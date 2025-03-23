@@ -60,6 +60,12 @@ const Signup = () => {
                 email: values.email,
                 joinedDate: new Date().toISOString().split("T")[0],
                 language: null,
+                achievement: {
+                  streak_50: false,
+                  streak_100: false,
+                  xp_50: false,
+                  xp_100: false,
+                },
               });
 
               Alert.alert(
