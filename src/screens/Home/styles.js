@@ -44,7 +44,7 @@ export const styles = StyleSheet.create({
   phoneticTranscript: {
     fontSize: 16,
     fontFamily: "BalooChettan-B",
-    color: Colors.grayish,
+    color: Colors.silverGray,
     marginBottom: 10,
   },
   meaning: {
