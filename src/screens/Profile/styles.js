@@ -63,4 +63,14 @@ export const styles = StyleSheet.create({
   overviewInfoSubLabel: {
     fontSize: 14,
   },
+  achievementContainer: {
+    display: "flex",
+    flexDirection: "row",
+    marginTop: 10,
+    gap: 5,
+  },
+  achievementImage: {
+    height: 75,
+    width: 75,
+  },
 });

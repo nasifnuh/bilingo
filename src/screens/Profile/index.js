@@ -13,6 +13,10 @@ import Colors from "@constants/colors";
 import { styles } from "./styles";
 
 import Avatar from "@assets/images/mascot_excited.png";
+import Streak50 from "@assets/images/achievement-badges/streak-50.png";
+import Streak100 from "@assets/images/achievement-badges/streak-100.png";
+import XP50 from "@assets/images/achievement-badges/xp-50.png";
+import XP100 from "@assets/images/achievement-badges/xp-100.png";
 
 const Profile = () => {
   const navigation = useNavigation();
@@ -36,6 +40,7 @@ const Profile = () => {
               setUserData({
                 name: data.name || "",
                 joinedDate: data.joinedDate || "",
+                achievement: data.achievement || {},
               });
 
               const xpData = data.xp || {};
@@ -113,7 +118,20 @@ const Profile = () => {
 
         <View style={styles.section}>
           <Text style={styles.sectionLabel}>Achievements</Text>
-          <Text style={styles.sectionSubLabel}>Coming soon!</Text>
+          <View style={styles.achievementContainer}>
+            {userData.achievement?.streak_50 && (
+              <Image source={Streak50} style={styles.achievementImage} />
+            )}
+            {userData.achievement?.streak_100 && (
+              <Image source={Streak100} style={styles.achievementImage} />
+            )}
+            {userData.achievement?.xp_50 && (
+              <Image source={XP50} style={styles.achievementImage} />
+            )}
+            {userData.achievement?.xp_100 && (
+              <Image source={XP100} style={styles.achievementImage} />
+            )}
+          </View>
         </View>
       </View>
     </Layout>
