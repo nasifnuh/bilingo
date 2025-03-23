@@ -1,11 +1,13 @@
-import React, { useEffect } from "react";
-import * as SplashScreen from "expo-splash-screen";
+import React, { useEffect, useState } from "react";
+import { View } from "react-native";
+import * as SplashScreenNative from "expo-splash-screen";
 import * as Notifications from "expo-notifications";
 
 import { loadFonts } from "@/utils/loadFonts";
 import RootNavigator from "@/navigation/RootNavigator";
+import SplashScreen from "@/screens/Splash";
 
-SplashScreen.preventAutoHideAsync();
+SplashScreenNative.preventAutoHideAsync();
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -16,6 +18,9 @@ Notifications.setNotificationHandler({
 });
 
 export default function App() {
+  const [appIsReady, setAppIsReady] = useState(false);
+  const [showCustomSplash, setShowCustomSplash] = useState(true);
+
   const requestNotificationPermissions = async () => {
     const { status } = await Notifications.requestPermissionsAsync();
     if (status !== "granted") {
@@ -41,12 +46,34 @@ export default function App() {
 
   useEffect(() => {
     async function prepare() {
-      await loadFonts();
-
-      await SplashScreen.hideAsync();
+      try {
+        await loadFonts();
+      } catch (error) {
+        console.error("Error loading assets", error);
+      } finally {
+        setAppIsReady(true);
+        await SplashScreenNative.hideAsync();
+      }
     }
     prepare();
   }, []);
 
-  return <RootNavigator />;
+  if (!appIsReady) {
+    return null;
+  }
+
+  return (
+    <View style={{ flex: 1 }}>
+      <RootNavigator />
+      {showCustomSplash && (
+        <SplashScreen
+          onLoadComplete={() =>
+            setTimeout(() => {
+              setShowCustomSplash(false);
+            }, 1500)
+          }
+        />
+      )}
+    </View>
+  );
 }
