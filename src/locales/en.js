@@ -1,4 +1,10 @@
 export default {
+  // Landing Screen
+  bilingo: "Bilingo",
+  description: "Learn languages whenever and wherever you want. Free forever!",
+  letsGo: "Let’s goo",
+  alreadyHaveProfile: "I Already Have A Profile",
+
   //Language Selection Screen
   languageToLearnLabel: "What language would you like to learn?",
   selectTranslationLabel: "Select the correct translation",

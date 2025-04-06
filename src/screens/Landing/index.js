@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Image } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { FormattedMessage } from "react-intl";
 
 import Layout from "@/layout";
 import Text from "@/components/ui/Text";
@@ -17,20 +18,22 @@ const Landing = () => {
       <View style={styles.container}>
         <View style={styles.content}>
           <Image source={LogoImage} style={styles.image} />
-          <Text style={styles.title}>Bilingo</Text>
+          <Text style={styles.title}>
+            <FormattedMessage id="bilingo" />
+          </Text>
           <Text style={styles.subTitle}>
-            Learn languages whenever and wherever you want. Free forever!
+            <FormattedMessage id="description" />
           </Text>
         </View>
 
         <View style={styles.buttonContainer}>
           <Button
-            label="Let’s goo"
+            label={<FormattedMessage id="letsGo" />}
             onPress={() => navigation.navigate("Signup")}
             customBoxStyle={styles.signupButton}
           />
           <Button
-            label="I Already Have A Profile"
+            label={<FormattedMessage id="alreadyHaveProfile" />}
             onPress={() => navigation.navigate("Login")}
             variant="outlined"
             customBoxStyle={styles.loginButton}
