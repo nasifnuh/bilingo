@@ -6,6 +6,7 @@ import { FontAwesome } from "@expo/vector-icons";
 import { FormattedMessage, useIntl } from "react-intl";
 
 import { useLanguage } from "@/context/LanguageContext";
+import { useTheme } from "@/context/ThemeContext";
 
 import { ref, get, set, update, remove } from "firebase/database";
 import { auth, database } from "@services/firebaseConfig";
@@ -27,6 +28,8 @@ const Lesson = ({ route }) => {
   const { formatMessage } = useIntl();
   const navigation = useNavigation();
   const { lesson, language } = route.params;
+  const { theme } = useTheme(); // Add theme context
+  const themeStyles = styles(theme); // Apply theme styles dynamically
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [progress, setProgress] = useState(0);
@@ -161,7 +164,7 @@ const Lesson = ({ route }) => {
   return (
     <Layout
       headerComponent={
-        <View style={styles.header}>
+        <View style={themeStyles.header}>
           <BackButton />
           <Progress.Bar
             animated={true}
@@ -169,7 +172,7 @@ const Lesson = ({ route }) => {
             width={250}
             height={15}
             color={Colors.royalPurple}
-            unfilledColor={Colors.offWhite}
+            unfilledColor={Colors[theme].background} // Dynamic unfilled color
             borderWidth={0}
             borderRadius={8}
           />
@@ -183,21 +186,21 @@ const Lesson = ({ route }) => {
         </View>
       }
     >
-      <View style={styles.container}>
-        <Text style={styles.generalLabel}>
+      <View style={themeStyles.container}>
+        <Text style={themeStyles.generalLabel}>
           <FormattedMessage id="selectTranslationLabel" />
         </Text>
 
-        <View style={styles.questionContainer}>
-          <Image source={icons["girl"]} style={styles.image} />
-          <View style={styles.questionCard}>
-            <Text style={styles.questionText}>
+        <View style={themeStyles.questionContainer}>
+          <Image source={icons["girl"]} style={themeStyles.image} />
+          <View style={themeStyles.questionCard}>
+            <Text style={themeStyles.questionText}>
               {lesson.questions[currentIndex].question[appLanguage]}
             </Text>
           </View>
         </View>
 
-        <View style={styles.answerContainer}>
+        <View style={themeStyles.answerContainer}>
           {Object.values(lesson.questions[currentIndex].options).map(
             (option, index) => {
               const isSelected = option === selectedOption;
@@ -209,17 +212,17 @@ const Lesson = ({ route }) => {
                 <TouchableOpacity
                   key={index}
                   style={[
-                    styles.answerOption,
-                    isOptionCorrect && styles.correctOption,
-                    isOptionWrong && styles.wrongOption,
+                    themeStyles.answerOption,
+                    isOptionCorrect && themeStyles.correctOption,
+                    isOptionWrong && themeStyles.wrongOption,
                   ]}
                   onPress={() => handleSelectOption(option)}
                 >
                   <Text
                     style={[
-                      styles.answerText,
-                      isOptionCorrect && styles.correctAnswerText,
-                      isOptionWrong && styles.wrongAnswerText,
+                      themeStyles.answerText,
+                      isOptionCorrect && themeStyles.correctAnswerText,
+                      isOptionWrong && themeStyles.wrongAnswerText,
                     ]}
                   >
                     {option}
@@ -230,12 +233,14 @@ const Lesson = ({ route }) => {
           )}
         </View>
 
-        <View style={styles.buttonContainer}>
+        <View style={themeStyles.buttonContainer}>
           {isCorrect !== null && (
             <Text
               style={[
-                styles.feedbackText,
-                isCorrect ? styles.correctAnswerText : styles.wrongAnswerText,
+                themeStyles.feedbackText,
+                isCorrect
+                  ? themeStyles.correctAnswerText
+                  : themeStyles.wrongAnswerText,
               ]}
             >
               {isCorrect ? (
