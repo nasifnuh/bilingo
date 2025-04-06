@@ -9,12 +9,15 @@ import { auth, database } from "@services/firebaseConfig";
 import Layout from "@/layout";
 import HomePanel from "@components/HomePanel";
 import CourseUnit from "@components/CourseUnit";
+import { useTheme } from "@/context/ThemeContext";
 
 import { styles } from "./styles";
 
 const Home = () => {
   const { formatMessage } = useIntl();
   const navigation = useNavigation();
+  const { theme } = useTheme(); // Add theme context
+  const themeStyles = styles(theme); // Apply theme styles dynamically
 
   const [units, setUnits] = useState([]);
   const [currentLanguage, setCurrentLanguage] = useState("english");
@@ -106,36 +109,38 @@ const Home = () => {
         />
       }
     >
-      <View style={styles.container}>
+      <View style={themeStyles.container}>
         <CourseUnit units={units} language={currentLanguage} />
       </View>
       <Modal visible={isModalVisible} transparent>
-        <View style={styles.modalContainer}>
-          <View style={styles.modalContent}>
+        <View style={themeStyles.modalContainer}>
+          <View style={themeStyles.modalContent}>
             {wordOfTheDay && (
               <>
-                <Text style={styles.word}>{wordOfTheDay.word}</Text>
-                <Text style={styles.label}>
+                <Text style={themeStyles.word}>{wordOfTheDay.word}</Text>
+                <Text style={themeStyles.label}>
                   <FormattedMessage id="pronunciation" />:
                 </Text>
-                <Text style={styles.pronounce}>{wordOfTheDay.pronounce}</Text>
-                <Text style={styles.label}>
+                <Text style={themeStyles.pronounce}>
+                  {wordOfTheDay.pronounce}
+                </Text>
+                <Text style={themeStyles.label}>
                   <FormattedMessage id="phoneticTranscript" />:
                 </Text>
-                <Text style={styles.phoneticTranscript}>
+                <Text style={themeStyles.phoneticTranscript}>
                   {wordOfTheDay.phoneticTranscript}
                 </Text>
-                <Text style={styles.label}>
+                <Text style={themeStyles.label}>
                   <FormattedMessage id="meaning" />:
                 </Text>
-                <Text style={styles.meaning}>{wordOfTheDay.meaning}</Text>
+                <Text style={themeStyles.meaning}>{wordOfTheDay.meaning}</Text>
               </>
             )}
             <TouchableOpacity
-              style={styles.closeButton}
+              style={themeStyles.closeButton}
               onPress={() => setIsModalVisible(false)}
             >
-              <Text style={styles.closeButtonText}>
+              <Text style={themeStyles.closeButtonText}>
                 <FormattedMessage id="close" />
               </Text>
             </TouchableOpacity>
