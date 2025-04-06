@@ -3,6 +3,7 @@ import { View, Text, TouchableOpacity } from "react-native";
 import { FormattedMessage } from "react-intl";
 
 import { useLanguage } from "@/context/LanguageContext";
+import { useTheme } from "@/context/ThemeContext";
 
 import Layout from "@/layout";
 import BackButton from "@/components/BackButton";
@@ -13,6 +14,8 @@ import { styles } from "./styles";
 
 const AppLanguage = () => {
   const { language, setLanguage } = useLanguage();
+  const { theme } = useTheme(); // Get the current theme
+  const themeStyles = styles(theme); // Apply theme styles dynamically
 
   return (
     <Layout
@@ -25,7 +28,7 @@ const AppLanguage = () => {
         </View>
       }
     >
-      <View style={styles.container}>
+      <View style={themeStyles.container}>
         <TouchableOpacity
           style={[
             styles.cardContainer,
