@@ -13,6 +13,7 @@ import CourseUnit from "@/components/CourseUnit";
 
 import MascotCry from "@assets/images/mascot_cry.png";
 import { styles } from "./styles";
+import { useTheme } from "@/context/ThemeContext"; // Import theme context
 
 const Header = () => {
   return (
@@ -28,6 +29,8 @@ const Header = () => {
 const Favorite = () => {
   const { formatMessage } = useIntl();
   const navigation = useNavigation();
+  const { theme } = useTheme(); // Get the current theme
+  const themeStyles = styles(theme); // Apply theme styles dynamically
 
   const [currentLanguage, setCurrentLanguage] = useState(null);
   const [units, setUnits] = useState([]);
@@ -127,14 +130,14 @@ const Favorite = () => {
   return (
     <Layout headerComponent={<Header />}>
       {units.length === 0 ? (
-        <View style={styles.empty}>
-          <Image source={MascotCry} style={styles.image} />
-          <Text style={styles.emptyText}>
+        <View style={themeStyles.empty}>
+          <Image source={MascotCry} style={themeStyles.image} />
+          <Text style={themeStyles.emptyText}>
             <FormattedMessage id="noFavorites" />
           </Text>
         </View>
       ) : (
-        <View style={styles.container}>
+        <View style={themeStyles.container}>
           <CourseUnit units={units} />
         </View>
       )}

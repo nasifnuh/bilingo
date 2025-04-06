@@ -1,38 +1,43 @@
 import { StyleSheet } from "react-native";
-
 import Colors from "@constants/colors";
 
-export const styles = StyleSheet.create({
-  container: {
-    paddingVertical: 18,
-  },
-  header: {
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    paddingHorizontal: 25,
-    minHeight: 36,
-  },
-  headerLabel: {
-    flex: 1,
-    textAlign: "center",
-    fontFamily: "BalooChettan-B",
-    fontSize: 18,
-    color: Colors.black,
-  },
-  empty: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  image: {
-    width: 150,
-    height: 150,
-    marginBottom: 30,
-  },
-  emptyText: {
-    fontFamily: "BalooChettan-M",
-    fontSize: 18,
-    color: Colors.black,
-  },
-});
+export const styles = (theme) =>
+  StyleSheet.create({
+    header: {
+      display: "flex",
+      flexDirection: "row",
+      alignItems: "center",
+      paddingHorizontal: 25,
+      minHeight: 36,
+      backgroundColor: Colors[theme].background, // Dynamic background color
+    },
+    headerLabel: {
+      flex: 1,
+      textAlign: "center",
+      fontFamily: "BalooChettan-B",
+      fontSize: 18,
+      color: Colors[theme].text, // Dynamic text color
+    },
+    container: {
+      flex: 1,
+      paddingVertical: 18,
+      backgroundColor: Colors[theme].background, // Dynamic background color
+    },
+    empty: {
+      flex: 1,
+      justifyContent: "center",
+      alignItems: "center",
+      backgroundColor: Colors[theme].background, // Dynamic background color
+    },
+    emptyText: {
+      fontFamily: "BalooChettan-B",
+      fontSize: 18,
+      color: Colors[theme].text, // Dynamic text color
+      textAlign: "center",
+    },
+    image: {
+      width: 150,
+      height: 150,
+      marginBottom: 20,
+    },
+  });
