@@ -6,6 +6,7 @@ import * as Notifications from "expo-notifications";
 import { loadFonts } from "@/utils/loadFonts";
 import RootNavigator from "@/navigation/RootNavigator";
 import SplashScreen from "@/screens/Splash";
+import { ThemeProvider } from "@/context/ThemeContext";
 
 SplashScreenNative.preventAutoHideAsync();
 
@@ -63,17 +64,19 @@ export default function App() {
   }
 
   return (
-    <View style={{ flex: 1 }}>
-      <RootNavigator />
-      {showCustomSplash && (
-        <SplashScreen
-          onLoadComplete={() =>
-            setTimeout(() => {
-              setShowCustomSplash(false);
-            }, 1500)
-          }
-        />
-      )}
-    </View>
+    <ThemeProvider>
+      <View style={{ flex: 1 }}>
+        <RootNavigator />
+        {showCustomSplash && (
+          <SplashScreen
+            onLoadComplete={() =>
+              setTimeout(() => {
+                setShowCustomSplash(false);
+              }, 1500)
+            }
+          />
+        )}
+      </View>
+    </ThemeProvider>
   );
 }

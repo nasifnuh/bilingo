@@ -4,6 +4,7 @@ import Slider from "@react-native-community/slider";
 import { FormattedMessage } from "react-intl";
 
 import { useFontSize } from "@/context/FontSizeContext";
+import { useTheme } from "@/context/ThemeContext";
 
 import Layout from "@/layout";
 import BackButton from "@/components/BackButton";
@@ -14,6 +15,8 @@ import { styles } from "./styles";
 
 const Accessibility = () => {
   const { scale, setScale } = useFontSize();
+  const { theme } = useTheme(); 
+  const themeStyles = styles(theme); 
 
   const resetToDefault = () => {
     setScale(1);
@@ -22,21 +25,21 @@ const Accessibility = () => {
   return (
     <Layout
       headerComponent={
-        <View style={styles.header}>
+        <View style={themeStyles.header}>
           <BackButton />
-          <Text style={styles.headerLabel}>
+          <Text style={themeStyles.headerLabel}>
             <FormattedMessage id="accessibility" />
           </Text>
         </View>
       }
     >
-      <View style={styles.container}>
-        <View style={styles.form}>
-          <Text style={styles.label}>
+      <View style={themeStyles.container}>
+        <View style={themeStyles.form}>
+          <Text style={themeStyles.label}>
             <FormattedMessage id="fontScale" />: {scale.toFixed(2)}
           </Text>
           <Slider
-            style={styles.slider}
+            style={themeStyles.slider}
             minimumValue={0.8}
             maximumValue={1.5}
             step={0.1}

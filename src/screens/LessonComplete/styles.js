@@ -61,4 +61,22 @@ export const styles = StyleSheet.create({
     bottom: 0,
     width: "100%",
   },
+  contentDark: {
+    backgroundColor: "#121212",
+  },
+  titleDark: {
+    color: "#ffffff",
+  },
+  rewardContainerDark: {
+    backgroundColor: "#1e1e1e",
+  },
+  rewardTitleContainerTextDark: {
+    color: "#ffffff",
+  },
+  iconDark: {
+    color: "#ffffff",
+  },
+  rewardDark: {
+    color: "#ffffff",
+  },
 });

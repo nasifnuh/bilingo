@@ -1,36 +1,33 @@
 import { StyleSheet } from "react-native";
-
 import Colors from "@constants/colors";
 
-export const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "space-between",
-    marginBottom: 30,
-  },
-  content: {
-    alignItems: "center",
-    marginTop: 50,
-  },
-  image: {
-    width: 300,
-    height: 300,
-    marginBottom: 20,
-  },
-  buttonContainer: {
-    width: "100%",
-  },
-  title: {
-    fontSize: 18,
-    fontWeight: "bold",
-    textAlign: "center",
-    marginTop: 50,
-    fontSize: 22,
-    marginBottom: 10,
-  },
-  achievementsContainer: {
-    
-    flexDirection: "column",
-    alignItems: "center",
-  },
-});
+export const styles = (theme) =>
+  StyleSheet.create({
+    container: {
+      flex: 1,
+      justifyContent: "center",
+      alignItems: "center",
+      backgroundColor: Colors[theme].background, 
+    },
+    achievementsContainer: {
+      alignItems: "center",
+      padding: 20,
+    },
+    title: {
+      fontSize: 18,
+      fontFamily: "BalooChettan-B",
+      color: Colors[theme].text, 
+      textAlign: "center",
+      marginBottom: 20,
+    },
+    image: {
+      width: 150,
+      height: 150,
+      marginBottom: 20,
+    },
+    buttonContainer: {
+      marginTop: "auto",
+      padding: 20,
+      backgroundColor: Colors[theme].background, 
+    },
+  });

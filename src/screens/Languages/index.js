@@ -4,6 +4,7 @@ import { useNavigation } from "@react-navigation/native";
 import { FormattedMessage } from "react-intl";
 
 import { useLanguage } from "@/context/LanguageContext";
+import { useTheme } from "@/context/ThemeContext";
 
 import { ref, onValue } from "firebase/database";
 import { database } from "@services/firebaseConfig";
@@ -17,6 +18,8 @@ import { styles } from "./styles";
 
 const Languages = () => {
   const { language: appLanguage } = useLanguage();
+  const { theme } = useTheme(); 
+  const themeStyles = styles(theme); 
   const navigation = useNavigation();
 
   const [languages, setLanguages] = useState([]);
@@ -35,17 +38,17 @@ const Languages = () => {
 
   return (
     <Layout>
-      <View style={styles.container}>
-        <View style={styles.header}>
-          <Image source={MascotLearn} style={styles.image} />
-          <View style={styles.titleCard}>
-            <Text style={styles.title}>
+      <View style={themeStyles.container}>
+        <View style={themeStyles.header}>
+          <Image source={MascotLearn} style={themeStyles.image} />
+          <View style={themeStyles.titleCard}>
+            <Text style={themeStyles.title}>
               <FormattedMessage id="languageToLearnLabel" />
             </Text>
           </View>
         </View>
 
-        <View style={styles.languages}>
+        <View style={themeStyles.languages}>
           {Object.values(languages)
             .filter(
               // Filter out languages that are not Chinese, English, or French

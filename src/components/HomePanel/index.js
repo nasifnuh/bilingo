@@ -7,29 +7,32 @@ import LanguageIcon from "@components/LanguageIcon";
 
 import Colors from "@constants/colors";
 import { styles } from "./styles";
+import { useTheme } from "@/context/ThemeContext"; 
 
 const HomePanel = ({ language, streak, diamonds, onWordOfTheDayPress }) => {
   const navigation = useNavigation();
+  const { theme } = useTheme(); 
+  const themeStyles = styles(theme); 
 
   return (
-    <View style={styles.container}>
+    <View style={themeStyles.container}>
       <TouchableOpacity onPress={() => navigation.navigate("Languages")}>
         <LanguageIcon icon={language} />
       </TouchableOpacity>
-      <View style={styles.group}>
-        <Text style={styles.icon}>🔥</Text>
-        <Text style={[styles.text, { color: Colors.goldenOrange }]}>
+      <View style={themeStyles.group}>
+        <Text style={themeStyles.icon}>🔥</Text>
+        <Text style={[themeStyles.text, { color: Colors.goldenOrange }]}>
           {streak || 0}
         </Text>
       </View>
-      <View style={styles.group}>
-        <Text style={styles.icon}>💎</Text>
-        <Text style={[styles.text, { color: Colors.skyBlue }]}>
+      <View style={themeStyles.group}>
+        <Text style={themeStyles.icon}>💎</Text>
+        <Text style={[themeStyles.text, { color: Colors.skyBlue }]}>
           {diamonds || 0}
         </Text>
       </View>
       <TouchableOpacity onPress={onWordOfTheDayPress}>
-        <Text style={styles.icon}>📖</Text>
+        <Text style={themeStyles.icon}>📖</Text>
       </TouchableOpacity>
     </View>
   );

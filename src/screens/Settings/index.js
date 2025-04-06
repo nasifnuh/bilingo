@@ -10,6 +10,7 @@ import Layout from "@/layout";
 import Text from "@/components/ui/Text";
 import BackButton from "@/components/BackButton";
 import Button from "@/components/ui/Button";
+import { useTheme } from "@/context/ThemeContext";
 
 import Colors from "@constants/colors";
 import { styles } from "./styles";
@@ -17,6 +18,8 @@ import { styles } from "./styles";
 const Settings = () => {
   const { formatMessage } = useIntl();
   const navigation = useNavigation();
+  const { theme, toggleTheme } = useTheme(); 
+  const themeStyles = styles(theme); 
 
   const handleLogout = async () => {
     try {
@@ -29,48 +32,54 @@ const Settings = () => {
   return (
     <Layout
       headerComponent={
-        <View style={styles.header}>
+        <View style={themeStyles.header}>
           <BackButton />
-          <Text style={styles.headerLabel}>
+          <Text style={themeStyles.headerLabel}>
             <FormattedMessage id="settings" />
           </Text>
         </View>
       }
     >
-      <View style={styles.container}>
+      <View style={themeStyles.container}>
         <TouchableOpacity
-          style={styles.option}
+          style={themeStyles.option}
           onPress={() => navigation.navigate("ProfileInfo")}
         >
-          <Text style={styles.optionLabel}>
+          <Text style={themeStyles.optionLabel}>
             <FormattedMessage id="profile" />
           </Text>
         </TouchableOpacity>
 
         <TouchableOpacity
-          style={styles.option}
+          style={themeStyles.option}
           onPress={() => navigation.navigate("Notification")}
         >
-          <Text style={styles.optionLabel}>
+          <Text style={themeStyles.optionLabel}>
             <FormattedMessage id="notifications" />
           </Text>
         </TouchableOpacity>
 
         <TouchableOpacity
-          style={styles.option}
+          style={themeStyles.option}
           onPress={() => navigation.navigate("AppLanguage")}
         >
-          <Text style={styles.optionLabel}>
+          <Text style={themeStyles.optionLabel}>
             <FormattedMessage id="appLanguage" />
           </Text>
         </TouchableOpacity>
 
         <TouchableOpacity
-          style={styles.option}
+          style={themeStyles.option}
           onPress={() => navigation.navigate("Accessibility")}
         >
-          <Text style={styles.optionLabel}>
+          <Text style={themeStyles.optionLabel}>
             <FormattedMessage id="accessibility" />
+          </Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={themeStyles.option} onPress={toggleTheme}>
+          <Text style={themeStyles.optionLabel}>
+            Switch to {theme === "light" ? "Dark" : "Light"} Mode
           </Text>
         </TouchableOpacity>
 
@@ -78,7 +87,7 @@ const Settings = () => {
           label={<FormattedMessage id="logout" />}
           variant="outlined"
           onPress={handleLogout}
-          customBoxStyle={styles.logoutButton}
+          customBoxStyle={themeStyles.logoutButton}
           customLabelStyle={{ color: Colors.crimsonRed }}
         />
       </View>

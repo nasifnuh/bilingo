@@ -11,6 +11,7 @@ import Layout from "@/layout";
 import Text from "@/components/ui/Text";
 import LanguageIcon from "@components/LanguageIcon";
 import BackButton from "@components/BackButton";
+import { useTheme } from "@/context/ThemeContext";
 
 import colors from "@constants/colors";
 import MascotEmpty from "@assets/images/mascot_stare.png";
@@ -20,6 +21,8 @@ const screenWidth = Dimensions.get("window").width;
 
 const Stats = () => {
   const { formatMessage } = useIntl();
+  const { theme } = useTheme(); 
+  const themeStyles = styles(theme); 
 
   const [xpData, setXpData] = useState([]);
   const [period, setPeriod] = useState("Weekly");
@@ -45,6 +48,7 @@ const Stats = () => {
           if (data) {
             const availableLanguages = Object.keys(data);
             setLanguages(availableLanguages);
+            setTempSelectedLanguage(availableLanguages[0])
             setSelectedLanguage(availableLanguages[0]);
           } else {
             setLanguages([]);
@@ -139,43 +143,43 @@ const Stats = () => {
   return (
     <Layout
       headerComponent={
-        <View style={styles.header}>
+        <View style={themeStyles.header}>
           <BackButton />
-          <Text style={styles.headerLabel}>
+          <Text style={themeStyles.headerLabel}>
             <FormattedMessage id="statsScreen" />
           </Text>
         </View>
       }
     >
       {languages.length === 0 ? (
-        <View style={styles.emptyContainer}>
-          <Image source={MascotEmpty} style={styles.image} />
-          <Text style={styles.emptyText}>
+        <View style={themeStyles.emptyContainer}>
+          <Image source={MascotEmpty} style={themeStyles.image} />
+          <Text style={themeStyles.emptyText}>
             <FormattedMessage id="emptyStatsMessage" />
           </Text>
         </View>
       ) : (
-        <View style={styles.container}>
-          <View style={styles.pickerContainer}>
-            <View style={styles.pickerWrapper}>
+        <View style={themeStyles.container}>
+          <View style={themeStyles.pickerContainer}>
+            <View style={themeStyles.pickerWrapper}>
               <TouchableOpacity
-                style={styles.picker}
+                style={themeStyles.picker}
                 onPress={() => setShowLanguagePicker(true)}
               >
-                <Text style={styles.selectedPickerItem}>
+                <Text style={themeStyles.selectedItemHighlight}>
                   {selectedLanguage.charAt(0).toUpperCase() +
                     selectedLanguage.slice(1)}
                 </Text>
               </TouchableOpacity>
               <Modal visible={showLanguagePicker} transparent>
-                <View style={styles.modalContainer}>
-                  <View style={styles.modalContent}>
+                <View style={themeStyles.modalContainer}>
+                  <View style={themeStyles.modalContent}>
                     <Picker
                       selectedValue={tempSelectedLanguage}
                       onValueChange={(itemValue) =>
                         setTempSelectedLanguage(itemValue)
                       }
-                      itemStyle={styles.pickerItem}
+                      itemStyle={themeStyles.pickerItem} // Apply dynamic styles here
                       mode="dropdown"
                     >
                       {languages.map((language) => (
@@ -194,7 +198,7 @@ const Stats = () => {
                         setSelectedLanguage(tempSelectedLanguage);
                       }}
                     >
-                      <Text style={styles.doneButtonText}>
+                      <Text style={themeStyles.doneButtonText}>
                         <FormattedMessage id="done" />
                       </Text>
                     </TouchableOpacity>
@@ -203,12 +207,12 @@ const Stats = () => {
               </Modal>
             </View>
 
-            <View style={styles.pickerWrapper}>
+            <View style={themeStyles.pickerWrapper}>
               <TouchableOpacity
-                style={styles.picker}
+                style={themeStyles.picker}
                 onPress={() => setShowPeriodPicker(true)}
               >
-                <Text style={styles.selectedPickerItem}>
+                <Text style={themeStyles.selectedItemHighlight}>
                   {period === "Weekly" ? (
                     <FormattedMessage id="weekly" />
                   ) : (
@@ -217,14 +221,14 @@ const Stats = () => {
                 </Text>
               </TouchableOpacity>
               <Modal visible={showPeriodPicker} transparent>
-                <View style={styles.modalContainer}>
-                  <View style={styles.modalContent}>
+                <View style={themeStyles.modalContainer}>
+                  <View style={themeStyles.modalContent}>
                     <Picker
                       selectedValue={tempSelectedPeriod}
                       onValueChange={(itemValue) =>
                         setTempSelectedPeriod(itemValue)
                       }
-                      itemStyle={styles.pickerItem}
+                      itemStyle={themeStyles.pickerItem}
                     >
                       <Picker.Item
                         label={formatMessage({ id: "weekly" })}
@@ -241,7 +245,7 @@ const Stats = () => {
                         setPeriod(tempSelectedPeriod);
                       }}
                     >
-                      <Text style={styles.doneButtonText}>
+                      <Text style={themeStyles.doneButtonText}>
                         <FormattedMessage id="done" />
                       </Text>
                     </TouchableOpacity>
@@ -251,32 +255,32 @@ const Stats = () => {
             </View>
           </View>
 
-          <View style={styles.overviewContainer}>
-            <View style={styles.overviewHeader}>
-              <Text style={styles.overviewTitle}>
+          <View style={themeStyles.overviewContainer}>
+            <View style={themeStyles.overviewHeader}>
+              <Text style={themeStyles.overviewTitle}>
                 <FormattedMessage id="overview" />
               </Text>
               <LanguageIcon icon={selectedLanguage} />
             </View>
-            <View style={styles.overviewItem}>
-              <Text style={styles.overviewLabel}>
+            <View style={themeStyles.overviewItem}>
+              <Text style={themeStyles.overviewLabel}>
                 <FormattedMessage id="todaysXp" />
               </Text>
-              <Text style={styles.overviewValue}>{todaysXp}</Text>
+              <Text style={themeStyles.overviewValue}>{todaysXp}</Text>
             </View>
-            <View style={styles.overviewItem}>
-              <Text style={styles.overviewLabel}>
+            <View style={themeStyles.overviewItem}>
+              <Text style={themeStyles.overviewLabel}>
                 <FormattedMessage id="totalXp" />
               </Text>
-              <Text style={styles.overviewValue}>{totalXp}</Text>
+              <Text style={themeStyles.overviewValue}>{totalXp}</Text>
             </View>
           </View>
 
           {filteredData.length > 0 ? (
             <>
-              <View style={styles.overviewContainer}>
-                <View style={styles.overviewHeader}>
-                  <Text style={styles.overviewTitle}>
+              <View style={themeStyles.overviewContainer}>
+                <View style={themeStyles.overviewHeader}>
+                  <Text style={themeStyles.overviewTitle}>
                     {period} <FormattedMessage id="xp" />
                   </Text>
                 </View>
@@ -285,9 +289,9 @@ const Stats = () => {
                   width={screenWidth - 50}
                   height={220}
                   chartConfig={{
-                    backgroundColor: colors.pastelPurple,
-                    backgroundGradientFrom: colors.pastelPurple,
-                    backgroundGradientTo: colors.pastelPurple,
+                    backgroundColor: theme == "dark" ? colors.charcoal : colors.pastelPurple,
+                    backgroundGradientFrom: theme == "dark" ? colors.charcoal : colors.pastelPurple,
+                    backgroundGradientTo: theme == "dark" ? colors.charcoal : colors.pastelPurple,
                     decimalPlaces: 0,
                     color: (opacity = 1) => `rgba(120, 50, 179, ${opacity})`,
                     labelColor: (opacity = 1) => colors.royalPurple,
@@ -316,9 +320,9 @@ const Stats = () => {
                   withOuterLines={false}
                 />
               </View>
-              <View style={styles.overviewContainer}>
-                <View style={styles.overviewHeader}>
-                  <Text style={styles.overviewTitle}>
+              <View style={themeStyles.overviewContainer}>
+                <View style={themeStyles.overviewHeader}>
+                  <Text style={themeStyles.overviewTitle}>
                     <FormattedMessage id="overallXp" />
                   </Text>
                 </View>
@@ -329,9 +333,9 @@ const Stats = () => {
                   width={screenWidth - 50}
                   height={220}
                   chartConfig={{
-                    backgroundColor: colors.pastelPurple,
-                    backgroundGradientFrom: colors.pastelPurple,
-                    backgroundGradientTo: colors.pastelPurple,
+                    backgroundColor: theme == "dark" ? colors.charcoal : colors.pastelPurple,
+                    backgroundGradientFrom: theme == "dark" ? colors.charcoal : colors.pastelPurple,
+                    backgroundGradientTo: theme == "dark" ? colors.charcoal : colors.pastelPurple,
                     color: (opacity = 1) => `rgba(120, 50, 179, ${opacity})`,
                     labelColor: (opacity = 1) => colors.royalPurple,
                     style: {
@@ -350,7 +354,7 @@ const Stats = () => {
               </View>
             </>
           ) : (
-            <Text style={styles.loadingText}>
+            <Text style={themeStyles.loadingText}>
               <FormattedMessage id="loadingData" />
               ...
             </Text>

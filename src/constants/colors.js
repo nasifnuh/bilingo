@@ -16,4 +16,19 @@ export default {
   darkGray: "#4F4F4F",
   charcoal: "#1E1C1C",
   black: "#000000",
+
+  dark: {
+    background: "#121212",
+    text: "#FFFFFF",
+    buttonBackground: "#1F1F1F",
+    buttonText: "#FFFFFF",
+    border: "#333333",
+  },
+  light: {
+    background: "#FFFFFF",
+    text: "#000000",
+    buttonBackground: "#F3F3F4",
+    buttonText: "#000000",
+    border: "#D1D1D6",
+  },
 };
