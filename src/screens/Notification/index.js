@@ -14,9 +14,12 @@ import Button from "@/components/ui/Button";
 
 import Colors from "@/constants/colors";
 import { styles } from "./styles";
+import { useTheme } from "@/context/ThemeContext"; // Import theme context
 
 const Notification = () => {
   const { formatMessage } = useIntl();
+  const { theme } = useTheme(); // Get the current theme
+  const themeStyles = styles(theme); // Apply theme styles dynamically
 
   const [editing, setEditing] = useState(false);
   const [showPicker, setShowPicker] = useState(false);
@@ -103,18 +106,18 @@ const Notification = () => {
   return (
     <Layout
       headerComponent={
-        <View style={styles.header}>
+        <View style={themeStyles.header}>
           <BackButton />
-          <Text style={styles.headerLabel}>
+          <Text style={themeStyles.headerLabel}>
             <FormattedMessage id="notification" />
           </Text>
         </View>
       }
     >
-      <View style={styles.container}>
-        <View style={styles.form}>
-          <View style={styles.notificationSection}>
-            <Text style={styles.notificationLabel}>
+      <View style={themeStyles.container}>
+        <View style={themeStyles.form}>
+          <View style={themeStyles.notificationSection}>
+            <Text style={themeStyles.notificationLabel}>
               <FormattedMessage id="enableNotification" />
             </Text>
             <Switch
@@ -125,8 +128,8 @@ const Notification = () => {
           </View>
 
           {notificationsEnabled && (
-            <View style={styles.timePickerSection}>
-              <Text style={styles.timePickerLabel}>
+            <View style={themeStyles.timePickerSection}>
+              <Text style={themeStyles.timePickerLabel}>
                 <FormattedMessage id="notificationTime" />
               </Text>
               <TouchableOpacity
@@ -135,7 +138,7 @@ const Notification = () => {
               >
                 <Text
                   style={[
-                    styles.timePickerValue,
+                    themeStyles.timePickerValue,
                     !editing && { color: Colors.grayish },
                   ]}
                 >
