@@ -8,7 +8,7 @@ export const styles = (theme) =>
       flex: 1,
       alignItems: "center",
       marginTop: 20,
-      backgroundColor: Colors[theme].background, // Dynamic background color
+      backgroundColor: Colors[theme].background, 
     },
     header: {
       display: "flex",
@@ -16,14 +16,14 @@ export const styles = (theme) =>
       alignItems: "center",
       paddingHorizontal: 25,
       minHeight: 36,
-      backgroundColor: Colors[theme].background, // Dynamic background color
+      backgroundColor: Colors[theme].background, 
     },
     headerLabel: {
       flex: 1,
       textAlign: "center",
       fontFamily: "BalooChettan-B",
       fontSize: 18,
-      color: Colors[theme].text, // Dynamic text color
+      color: Colors[theme].text, 
     },
     pickerContainer: {
       flexDirection: "row",
@@ -37,7 +37,7 @@ export const styles = (theme) =>
       borderWidth: 2,
       borderColor: Colors.royalPurple,
       borderRadius: 16,
-      backgroundColor: "#fff",
+      backgroundColor: theme == "dark" ? Colors.charcoal : Colors.pastelPurple,
     },
     picker: {
       width: "100%",
@@ -47,17 +47,17 @@ export const styles = (theme) =>
       fontFamily: "BalooChettan-B",
       display: "flex",
       alignItems: "center",
-      // backgroundColor: Colors[theme].buttonBackground, // Dynamic button background
     },
     selectedPickerItem: {
       fontFamily: "BalooChettan-B",
+      color: Colors[theme].text, 
       fontSize: 16,
     },
     pickerItem: {
       fontFamily: "BalooChettan-B",
       fontSize: 16,
       height: 130,
-      color: Colors[theme].text, // Dynamic text color
+      color: Colors[theme].text, 
     },
     modalContainer: {
       flex: 1,
@@ -81,7 +81,7 @@ export const styles = (theme) =>
     overviewContainer: {
       width: "100%",
       padding: 20,
-      backgroundColor: Colors[theme].background, // Dynamic background color
+      backgroundColor: theme == "dark" ? Colors.charcoal : Colors.pastelPurple, 
       borderRadius: 16,
       marginBottom: 10,
     },
@@ -94,7 +94,7 @@ export const styles = (theme) =>
     overviewTitle: {
       fontSize: 18,
       fontWeight: "bold",
-      color: Colors[theme].text, // Dynamic text color
+      color: Colors[theme].text, 
       fontFamily: "BalooChettan-B",
     },
     overviewItem: {
@@ -104,30 +104,30 @@ export const styles = (theme) =>
     },
     overviewLabel: {
       fontSize: 16,
-      color: Colors[theme].text, // Dynamic text color
+      color: Colors[theme].text, 
       fontFamily: "BalooChettan-B",
     },
     overviewValue: {
       fontSize: 16,
       fontWeight: "bold",
-      color: Colors[theme].text, // Dynamic text color
+      color: Colors[theme].text, 
       fontFamily: "BalooChettan-B",
     },
     loadingText: {
       fontFamily: "BalooChettan-B",
       fontSize: 16,
-      color: Colors[theme].text, // Dynamic text color
+      color: Colors[theme].text, 
     },
     emptyContainer: {
       flex: 1,
       justifyContent: "center",
       alignItems: "center",
-      backgroundColor: Colors[theme].background, // Dynamic background color
+      backgroundColor: Colors[theme].background, 
     },
     emptyText: {
       fontFamily: "BalooChettan-M",
       fontSize: 18,
-      color: Colors[theme].text, // Dynamic text color
+      color: Colors[theme].text, 
       textAlign: "center",
     },
     image: {

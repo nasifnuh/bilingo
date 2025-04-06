@@ -5,7 +5,7 @@ export const styles = (theme) =>
   StyleSheet.create({
     container: {
       paddingVertical: 18,
-      backgroundColor: Colors[theme].background, // Dynamic background color
+      backgroundColor: Colors[theme].background, 
     },
     modalContainer: {
       flex: 1,
@@ -28,7 +28,7 @@ export const styles = (theme) =>
     word: {
       fontSize: 24,
       fontFamily: "BalooChettan-B",
-      color: Colors[theme].text, // Dynamic text color
+      color: Colors[theme].text, 
       marginBottom: 10,
     },
     label: {
@@ -40,7 +40,7 @@ export const styles = (theme) =>
     pronounce: {
       fontSize: 18,
       fontFamily: "BalooChettan-B",
-      color: Colors[theme].text, // Dynamic text color
+      color: Colors[theme].text, 
       marginBottom: 10,
     },
     phoneticTranscript: {
@@ -52,7 +52,7 @@ export const styles = (theme) =>
     meaning: {
       fontSize: 16,
       fontFamily: "BalooChettan-B",
-      color: Colors[theme].text, // Dynamic text color
+      color: Colors[theme].text, 
       marginBottom: 20,
       textAlign: "left",
     },

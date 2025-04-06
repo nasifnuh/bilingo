@@ -9,7 +9,7 @@ export const styles = (theme) =>
       paddingVertical: 18,
       flex: 1,
       gap: 14,
-      backgroundColor: Colors[theme].background, // Dynamic background color
+      backgroundColor: Colors[theme].background, 
     },
     header: {
       display: "flex",
@@ -17,14 +17,14 @@ export const styles = (theme) =>
       alignItems: "center",
       paddingHorizontal: 25,
       minHeight: 36,
-      backgroundColor: Colors[theme].background, // Dynamic background color
+      backgroundColor: Colors[theme].background, 
     },
     headerLabel: {
       flex: 1,
       textAlign: "center",
       fontFamily: "BalooChettan-B",
       fontSize: 18,
-      color: Colors[theme].text, // Dynamic text color
+      color: Colors[theme].text, 
     },
     option: {
       display: "flex",
@@ -40,7 +40,7 @@ export const styles = (theme) =>
     optionLabel: {
       fontFamily: "BalooChettan-B",
       fontSize: 16,
-      color: Colors[theme].text, // Dynamic text color
+      color: Colors[theme].text, 
     },
     logoutButton: {
       marginTop: "auto",

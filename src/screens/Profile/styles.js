@@ -7,14 +7,14 @@ export const styles = (theme) =>
     container: {
       paddingVertical: 18,
       flex: 1,
-      backgroundColor: Colors[theme].background, // Dynamic background color
+      backgroundColor: Colors[theme].background, 
     },
     headerContainer: {
       display: "flex",
       flexDirection: "row",
       justifyContent: "center",
       position: "relative",
-      backgroundColor: Colors.offWhite,
+      backgroundColor: theme == "dark" ? Colors.charcoal : Colors.offWhite,
       marginHorizontal: -25,
       paddingHorizontal: 25,
       height: 200,
@@ -28,12 +28,12 @@ export const styles = (theme) =>
     sectionLabel: {
       fontFamily: "BalooChettan-B",
       fontSize: 26,
-      color: Colors[theme].text, // Dynamic text color
+      color: Colors[theme].text, 
     },
     sectionSubLabel: {
       fontFamily: "BalooChettan-M",
       fontSize: 16,
-      color: Colors[theme].text, // Dynamic text color
+      color: Colors[theme].text, 
     },
     overviewInfoContainer: {
       display: "flex",
@@ -58,17 +58,17 @@ export const styles = (theme) =>
     },
     overviewInfoLabel: {
       fontSize: 14,
-      color: Colors[theme].text, // Dynamic text color
+      color: Colors[theme].text, 
     },
     overviewInfo: {
       marginLeft: 6,
       fontFamily: "BalooChettan-B",
       fontSize: 22,
-      color: Colors[theme].text, // Dynamic text color
+      color: Colors[theme].text, 
     },
     overviewInfoSubLabel: {
       fontSize: 14,
-      color: Colors[theme].text, // Dynamic text color
+      color: Colors[theme].text, 
     },
     achievementContainer: {
       display: "flex",

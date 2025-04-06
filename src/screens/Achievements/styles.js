@@ -7,7 +7,7 @@ export const styles = (theme) =>
       flex: 1,
       justifyContent: "center",
       alignItems: "center",
-      backgroundColor: Colors[theme].background, // Dynamic background color
+      backgroundColor: Colors[theme].background, 
     },
     achievementsContainer: {
       alignItems: "center",
@@ -16,7 +16,7 @@ export const styles = (theme) =>
     title: {
       fontSize: 18,
       fontFamily: "BalooChettan-B",
-      color: Colors[theme].text, // Dynamic text color
+      color: Colors[theme].text, 
       textAlign: "center",
       marginBottom: 20,
     },
@@ -28,6 +28,6 @@ export const styles = (theme) =>
     buttonContainer: {
       marginTop: "auto",
       padding: 20,
-      backgroundColor: Colors[theme].background, // Dynamic background color
+      backgroundColor: Colors[theme].background, 
     },
   });

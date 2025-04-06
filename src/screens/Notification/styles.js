@@ -9,19 +9,19 @@ export const styles = (theme) =>
       alignItems: "center",
       paddingHorizontal: 25,
       minHeight: 36,
-      backgroundColor: Colors[theme].background, // Dynamic background color
+      backgroundColor: Colors[theme].background, 
     },
     headerLabel: {
       flex: 1,
       textAlign: "center",
       fontFamily: "BalooChettan-B",
       fontSize: 18,
-      color: Colors[theme].text, // Dynamic text color
+      color: Colors[theme].text, 
     },
     container: {
       paddingVertical: 18,
       flex: 1,
-      backgroundColor: Colors[theme].background, // Dynamic background color
+      backgroundColor: Colors[theme].background, 
     },
     form: {
       gap: 24,
@@ -36,7 +36,7 @@ export const styles = (theme) =>
     notificationLabel: {
       fontFamily: "BalooChettan-B",
       fontSize: 16,
-      color: Colors[theme].text, // Dynamic text color
+      color: Colors[theme].text, 
     },
     timePickerSection: {
       marginTop: 20,
@@ -44,13 +44,13 @@ export const styles = (theme) =>
     timePickerLabel: {
       fontFamily: "BalooChettan-SB",
       fontSize: 16,
-      color: Colors[theme].text, // Dynamic text color
+      color: Colors[theme].text, 
       marginBottom: 5,
     },
     timePickerValue: {
       fontFamily: "BalooChettan-M",
       fontSize: 18,
-      color: Colors[theme].text, // Dynamic text color
+      color: Colors[theme].text, 
       textDecorationLine: "underline",
     },
   });

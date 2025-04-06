@@ -15,12 +15,12 @@ export const styles = (theme) =>
       textAlign: "center",
       fontFamily: "BalooChettan-B",
       fontSize: 18,
-      color: Colors[theme].text, // Dynamic text color
+      color: Colors[theme].text, 
     },
     container: {
       paddingVertical: 18,
       flex: 1,
-      backgroundColor: Colors[theme].background, // Dynamic background color
+      backgroundColor: Colors[theme].background, 
     },
     form: {
       gap: 24,

@@ -288,9 +288,9 @@ const Stats = () => {
                   width={screenWidth - 50}
                   height={220}
                   chartConfig={{
-                    backgroundColor: colors.pastelPurple,
-                    backgroundGradientFrom: colors.pastelPurple,
-                    backgroundGradientTo: colors.pastelPurple,
+                    backgroundColor: theme == "dark" ? colors.charcoal : colors.pastelPurple,
+                    backgroundGradientFrom: theme == "dark" ? colors.charcoal : colors.pastelPurple,
+                    backgroundGradientTo: theme == "dark" ? colors.charcoal : colors.pastelPurple,
                     decimalPlaces: 0,
                     color: (opacity = 1) => `rgba(120, 50, 179, ${opacity})`,
                     labelColor: (opacity = 1) => colors.royalPurple,
@@ -332,9 +332,9 @@ const Stats = () => {
                   width={screenWidth - 50}
                   height={220}
                   chartConfig={{
-                    backgroundColor: colors.pastelPurple,
-                    backgroundGradientFrom: colors.pastelPurple,
-                    backgroundGradientTo: colors.pastelPurple,
+                    backgroundColor: theme == "dark" ? colors.charcoal : colors.pastelPurple,
+                    backgroundGradientFrom: theme == "dark" ? colors.charcoal : colors.pastelPurple,
+                    backgroundGradientTo: theme == "dark" ? colors.charcoal : colors.pastelPurple,
                     color: (opacity = 1) => `rgba(120, 50, 179, ${opacity})`,
                     labelColor: (opacity = 1) => colors.royalPurple,
                     style: {

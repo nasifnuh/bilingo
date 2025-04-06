@@ -23,7 +23,7 @@ const Layout = ({
     <>
       <StatusBar
         style={appliedTheme === "dark" ? "light" : "dark"}
-        backgroundColor={themeColors.background} // Set background color dynamically
+        backgroundColor={theme == "dark" ? Colors.charcoal : Colors.offWhite}
       />
       <SafeAreaView
         style={[styles.safeArea, { backgroundColor: themeColors.background }]}

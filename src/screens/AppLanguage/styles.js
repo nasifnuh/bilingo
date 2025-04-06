@@ -23,7 +23,7 @@ export const styles = (theme) =>
       paddingVertical: 18,
       flex: 1,
       gap: 14,
-      backgroundColor: Colors[theme].background, // Dynamic background color
+      backgroundColor: Colors[theme].background, 
       padding: 20,
     },
     cardContainer: {
@@ -47,6 +47,6 @@ export const styles = (theme) =>
     cardLabel: {
       fontFamily: "BalooChettan-B",
       fontSize: 16,
-      color: Colors[theme].text, // Dynamic text color
+      color: Colors[theme].text, 
     },
   });

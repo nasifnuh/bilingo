@@ -31,8 +31,9 @@ const BottomTabNavigator = () => {
         tabBarStyle: {
           height: Platform.OS === "ios" ? 85 : 54,
           paddingTop: 5,
+          borderTopWidth: 0,
           // borderTopWidth: 3,
-          backgroundColor: Colors[theme].background // Dynamic background color
+          backgroundColor: theme == "dark" ? Colors.charcoal : Colors.offWhite,
           // borderTopColor: Colors[theme].border, // Dynamic border color
         },
         tabBarActiveTintColor: "transparent",

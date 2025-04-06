@@ -15,12 +15,12 @@ export const styles = (theme) =>
     container: {
       paddingVertical: 18,
       flex: 1,
-      backgroundColor: Colors[theme].background, // Dynamic background color
+      backgroundColor: Colors[theme].background, 
     },
     generalLabel: {
       fontFamily: "BalooChettan-B",
       fontSize: 18,
-      color: Colors[theme].text, // Dynamic text color
+      color: Colors[theme].text, 
     },
     questionContainer: {
       display: "flex",
@@ -62,7 +62,7 @@ export const styles = (theme) =>
     answerText: {
       fontFamily: "BalooChettan-B",
       fontSize: 18,
-      color: Colors[theme].text, // Dynamic text color
+      color: Colors[theme].text, 
       textAlign: "center",
     },
     correctAnswerText: { color: Colors.freshGreen },
