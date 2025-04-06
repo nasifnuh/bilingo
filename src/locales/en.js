@@ -56,6 +56,10 @@ export default {
   english: "English",
   french: "French",
 
+  // Accessibility Screen
+  fontScale: "Font Scale",
+  resetToDefault: "Reset to default",
+
   // Common
   noAuthenticatedUserMessage: "No authenticated user found",
   success: "Success",
