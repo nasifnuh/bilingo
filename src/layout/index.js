@@ -1,5 +1,5 @@
 import React from "react";
-import { SafeAreaView, ScrollView } from "react-native";
+import { SafeAreaView, ScrollView, useColorScheme } from "react-native";
 import { StatusBar } from "expo-status-bar";
 
 import Colors from "@constants/colors";
@@ -15,11 +15,16 @@ const Layout = ({
   ...scrollViewProps
 }) => {
   const { theme } = useTheme();
-  const themeColors = Colors[theme];
+  const systemTheme = useColorScheme(); // Detect system theme
+  const appliedTheme = theme || systemTheme; // Use app theme or fallback to system theme
+  const themeColors = Colors[appliedTheme];
 
   return (
     <>
-      <StatusBar style={theme === "dark" ? "light" : "dark"} />
+      <StatusBar
+        style={appliedTheme === "dark" ? "light" : "dark"}
+        backgroundColor={themeColors.background} // Set background color dynamically
+      />
       <SafeAreaView
         style={[styles.safeArea, { backgroundColor: themeColors.background }]}
       >
