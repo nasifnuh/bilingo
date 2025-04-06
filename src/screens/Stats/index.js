@@ -48,6 +48,7 @@ const Stats = () => {
           if (data) {
             const availableLanguages = Object.keys(data);
             setLanguages(availableLanguages);
+            setTempSelectedLanguage(availableLanguages[0])
             setSelectedLanguage(availableLanguages[0]);
           } else {
             setLanguages([]);
