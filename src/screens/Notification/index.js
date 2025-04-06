@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { View, Alert, Switch, TouchableOpacity } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import * as Notifications from "expo-notifications";
+import { FormattedMessage, useIntl } from "react-intl";
 
 import { ref, get, update } from "firebase/database";
 import { auth, database } from "@services/firebaseConfig";
@@ -15,6 +16,8 @@ import Colors from "@/constants/colors";
 import { styles } from "./styles";
 
 const Notification = () => {
+  const { formatMessage } = useIntl();
+
   const [editing, setEditing] = useState(false);
   const [showPicker, setShowPicker] = useState(false);
   const [notificationsEnabled, setNotificationsEnabled] = useState(false);
@@ -57,8 +60,8 @@ const Notification = () => {
 
     await Notifications.scheduleNotificationAsync({
       content: {
-        title: "Reminder",
-        body: "This is your daily reminder to practice!",
+        title: formatMessage({ id: "reminder" }),
+        body: formatMessage({ id: "reminderMessage" }),
         sound: true,
       },
       trigger: {
@@ -73,7 +76,8 @@ const Notification = () => {
     const user = auth.currentUser;
 
     try {
-      if (!user) throw new Error("No authenticated user found");
+      if (!user)
+        throw new Error(formatMessage({ id: "noAuthenticatedUserMessage" }));
 
       const updates = {};
 
@@ -90,7 +94,7 @@ const Notification = () => {
         await Notifications.cancelAllScheduledNotificationsAsync();
       }
     } catch (error) {
-      Alert.alert("Error", error.message);
+      Alert.alert(formatMessage({ id: "error" }), error.message);
     } finally {
       setEditing(false);
     }
@@ -101,14 +105,18 @@ const Notification = () => {
       headerComponent={
         <View style={styles.header}>
           <BackButton />
-          <Text style={styles.headerLabel}>Notification</Text>
+          <Text style={styles.headerLabel}>
+            <FormattedMessage id="notification" />
+          </Text>
         </View>
       }
     >
       <View style={styles.container}>
         <View style={styles.form}>
           <View style={styles.notificationSection}>
-            <Text style={styles.notificationLabel}>Enable Notifications</Text>
+            <Text style={styles.notificationLabel}>
+              <FormattedMessage id="enableNotification" />
+            </Text>
             <Switch
               value={notificationsEnabled}
               onValueChange={setNotificationsEnabled}
@@ -118,7 +126,9 @@ const Notification = () => {
 
           {notificationsEnabled && (
             <View style={styles.timePickerSection}>
-              <Text style={styles.timePickerLabel}>Notification Time</Text>
+              <Text style={styles.timePickerLabel}>
+                <FormattedMessage id="notificationTime" />
+              </Text>
               <TouchableOpacity
                 onPress={() => setShowPicker(!showPicker)}
                 disabled={!editing}
@@ -164,7 +174,13 @@ const Notification = () => {
 
           <Button
             variant={editing ? "contained" : "outlined"}
-            label={editing ? "Save" : "Edit"}
+            label={
+              editing ? (
+                <FormattedMessage id="save" />
+              ) : (
+                <FormattedMessage id="edit" />
+              )
+            }
             onPress={() => (editing ? handleNotification() : setEditing(true))}
           />
         </View>
