@@ -17,7 +17,7 @@ export const styles = (theme) =>
       alignItems: "center",
       paddingHorizontal: 25,
       minHeight: 36,
-      backgroundColor: Colors[theme].background, 
+      backgroundColor: theme == "dark" ? Colors.charcoal : Colors.offWhite,
     },
     headerLabel: {
       flex: 1,
@@ -34,8 +34,8 @@ export const styles = (theme) =>
       padding: 14,
       borderRadius: 16,
       borderWidth: 2,
-      borderColor: Colors[theme].border, // Dynamic border color
-      backgroundColor: Colors[theme].buttonBackground, // Dynamic button background
+      borderColor: Colors[theme].border, 
+      backgroundColor: Colors[theme].buttonBackground, 
     },
     optionLabel: {
       fontFamily: "BalooChettan-B",

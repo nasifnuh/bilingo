@@ -9,7 +9,7 @@ export const styles = (theme) =>
       minHeight: 36,
       justifyContent: "space-around",
       alignItems: "center",
-      backgroundColor: theme == "dark" ? Colors.charcoal : Colors.offWhite, // Dynamic background color
+      backgroundColor: theme == "dark" ? Colors.charcoal : Colors.offWhite, 
     },
     group: {
       display: "flex",
@@ -18,12 +18,12 @@ export const styles = (theme) =>
     },
     icon: {
       fontSize: 22,
-      color: Colors[theme].text, // Dynamic icon color
+      color: Colors[theme].text, 
     },
     text: {
       marginLeft: 6,
       fontFamily: "BalooChettan-B",
       fontSize: 22,
-      color: Colors[theme].text, // Dynamic text color
+      color: Colors[theme].text, 
     },
   });

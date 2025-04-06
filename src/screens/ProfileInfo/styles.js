@@ -15,7 +15,7 @@ export const styles = (theme) =>
       alignItems: "center",
       paddingHorizontal: 25,
       minHeight: 36,
-      backgroundColor: Colors[theme].background, 
+      backgroundColor: theme == "dark" ? Colors.charcoal : Colors.offWhite, 
     },
     headerLabel: {
       flex: 1,
@@ -29,12 +29,13 @@ export const styles = (theme) =>
       marginTop: 20,
     },
     inputBox: {
-      backgroundColor: Colors[theme].buttonBackground, // Dynamic input background
+      backgroundColor: Colors[theme].buttonBackground, 
       color: Colors[theme].text, 
     },
     editButton: {
-      backgroundColor: Colors[theme].buttonBackground, // Dynamic button background
-      borderColor: Colors[theme].border, // Dynamic border color
+      backgroundColor: Colors[theme].buttonBackground, 
+      borderColor: Colors[theme].border, 
+      marginBottom: 20,
     },
     deleteButton: {
       borderColor: Colors.crimsonRed,

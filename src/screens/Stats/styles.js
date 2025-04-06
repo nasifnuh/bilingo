@@ -16,7 +16,7 @@ export const styles = (theme) =>
       alignItems: "center",
       paddingHorizontal: 25,
       minHeight: 36,
-      backgroundColor: Colors[theme].background, 
+      backgroundColor: theme == "dark" ? Colors.charcoal : Colors.offWhite,
     },
     headerLabel: {
       flex: 1,
@@ -29,7 +29,6 @@ export const styles = (theme) =>
       flexDirection: "row",
       width: "100%",
       marginBottom: 20,
-      // backgroundColor: Colors[theme].background,
       gap: 10,
     },
     pickerWrapper: {
@@ -59,14 +58,18 @@ export const styles = (theme) =>
       height: 130,
       color: Colors[theme].text, 
     },
+    selectedItemHighlight: {
+      fontWeight: "bold",
+      color: Colors.royalPurple,
+    },
     modalContainer: {
       flex: 1,
       justifyContent: "center",
       alignItems: "center",
-      backgroundColor: "rgba(0, 0, 0, 0.5)",
+      backgroundColor: "rgba(0, 0, 0, 0.7)",
     },
     modalContent: {
-      backgroundColor: Colors["light"].background, // Dynamic modal background
+      backgroundColor: theme == "dark" ? Colors.charcoal : Colors.pastelPurple, 
       padding: 20,
       width: "80%",
       borderRadius: 10,

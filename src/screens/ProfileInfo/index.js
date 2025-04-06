@@ -201,6 +201,7 @@ const ProfileInfo = () => {
                 touched={touched.name}
                 disabled={!editing || isSubmitting}
                 customBoxStyle={themeStyles.inputBox}
+                labelStyle={{ color: Colors[theme].text }} 
               />
               <TextInput
                 label={<FormattedMessage id="email" />}
@@ -208,6 +209,7 @@ const ProfileInfo = () => {
                 value={values.email}
                 disabled={true}
                 customBoxStyle={themeStyles.inputBox}
+                labelStyle={{ color: Colors[theme].text }} 
               />
               <TextInput
                 label={<FormattedMessage id="password" />}
@@ -218,6 +220,7 @@ const ProfileInfo = () => {
                 touched={touched.password}
                 disabled={!editing || isSubmitting}
                 customBoxStyle={themeStyles.inputBox}
+                labelStyle={{ color: Colors[theme].text }} 
               />
 
               <View>

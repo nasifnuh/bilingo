@@ -16,7 +16,7 @@ export const styles = (theme) =>
     modalContent: {
       width: 320,
       padding: 20,
-      backgroundColor: Colors[theme].background, // Dynamic modal background
+      backgroundColor: Colors[theme].background, 
       borderRadius: 20,
       alignItems: "left",
       shadowColor: Colors.black,

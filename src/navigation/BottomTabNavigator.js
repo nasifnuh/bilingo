@@ -34,7 +34,7 @@ const BottomTabNavigator = () => {
           borderTopWidth: 0,
           // borderTopWidth: 3,
           backgroundColor: theme == "dark" ? Colors.charcoal : Colors.offWhite,
-          // borderTopColor: Colors[theme].border, // Dynamic border color
+          // borderTopColor: Colors[theme].border, 
         },
         tabBarActiveTintColor: "transparent",
         tabBarInactiveTintColor: "transparent",
@@ -45,7 +45,7 @@ const BottomTabNavigator = () => {
               style={[
                 styles.tabBarIcon,
                 focused && styles.tabBarIconFocused,
-                { backgroundColor: focused ? Colors[theme].buttonBackground : "transparent" }, // Dynamic icon background
+                { backgroundColor: focused ? Colors[theme].buttonBackground : "transparent" }, 
               ]}
             >
               <Image source={icon} style={styles.icon} />

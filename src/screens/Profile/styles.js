@@ -49,7 +49,7 @@ export const styles = (theme) =>
       padding: 12,
       borderRadius: 16,
       borderWidth: 2,
-      borderColor: Colors[theme].border, // Dynamic border color
+      borderColor: Colors[theme].border, 
     },
     overviewInfoSubBox: {
       display: "flex",

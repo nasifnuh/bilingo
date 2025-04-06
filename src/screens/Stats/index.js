@@ -165,7 +165,7 @@ const Stats = () => {
                 style={themeStyles.picker}
                 onPress={() => setShowLanguagePicker(true)}
               >
-                <Text style={themeStyles.selectedPickerItem}>
+                <Text style={themeStyles.selectedItemHighlight}>
                   {selectedLanguage.charAt(0).toUpperCase() +
                     selectedLanguage.slice(1)}
                 </Text>
@@ -178,7 +178,7 @@ const Stats = () => {
                       onValueChange={(itemValue) =>
                         setTempSelectedLanguage(itemValue)
                       }
-                      itemStyle={themeStyles.pickerItem}
+                      itemStyle={themeStyles.pickerItem} // Apply dynamic styles here
                       mode="dropdown"
                     >
                       {languages.map((language) => (
@@ -211,7 +211,7 @@ const Stats = () => {
                 style={themeStyles.picker}
                 onPress={() => setShowPeriodPicker(true)}
               >
-                <Text style={themeStyles.selectedPickerItem}>
+                <Text style={themeStyles.selectedItemHighlight}>
                   {period === "Weekly" ? (
                     <FormattedMessage id="weekly" />
                   ) : (

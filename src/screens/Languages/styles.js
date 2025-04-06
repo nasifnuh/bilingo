@@ -4,7 +4,7 @@ import Colors from "@constants/colors";
 export const styles = (theme) =>
   StyleSheet.create({
     container: {
-      marginTop: 40,// Dynamic background color
+      marginTop: 40,
     },
     header: {
       display: "flex",
@@ -28,7 +28,7 @@ export const styles = (theme) =>
     title: {
       fontSize: 18,
       fontFamily: "BalooChettan-B",
-      color: Colors[theme].text, // Dynamic text color
+      color: Colors[theme].text, 
     },
     languages: {
       gap: 18,

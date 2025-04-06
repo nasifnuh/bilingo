@@ -172,7 +172,7 @@ const Lesson = ({ route }) => {
             width={250}
             height={15}
             color={Colors.royalPurple}
-            unfilledColor={Colors[theme].background} // Dynamic unfilled color
+            unfilledColor={Colors[theme].background} 
             borderWidth={0}
             borderRadius={8}
           />

@@ -9,7 +9,7 @@ export const styles = (theme) =>
       alignItems: "center",
       paddingHorizontal: 25,
       minHeight: 36,
-      backgroundColor: Colors[theme].background, 
+      backgroundColor: theme == "dark" ? Colors.charcoal : Colors.offWhite,
     },
     headerLabel: {
       flex: 1,

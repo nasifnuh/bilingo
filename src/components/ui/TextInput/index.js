@@ -22,6 +22,7 @@ const TextInput = ({
   error,
   touched,
   style = {},
+  labelStyle = {}, // Add labelStyle prop
 }) => {
   const [isSecure, setIsSecure] = useState(secureTextEntry);
 
@@ -32,7 +33,13 @@ const TextInput = ({
   return (
     <View style={[styles.container, style]}>
       {label && (
-        <Text style={[styles.label, error && touched && styles.errorLabel]}>
+        <Text
+          style={[
+            styles.label,
+            error && touched && styles.errorLabel,
+            labelStyle, // Apply dynamic label style
+          ]}
+        >
           {label}
           {error && touched && <Text>&nbsp;&nbsp;({error})</Text>}
         </Text>

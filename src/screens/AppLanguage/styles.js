@@ -10,6 +10,7 @@ export const styles = (theme) =>
       alignItems: "center",
       paddingHorizontal: 25,
       minHeight: 36,
+      backgroundColor: theme == "dark" ? Colors.charcoal : Colors.offWhite
     },
     headerLabel: {
       flex: 1,

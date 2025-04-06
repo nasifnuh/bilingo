@@ -13,7 +13,7 @@ export const styles = (theme) =>
       borderRadius: 16,
       borderWidth: 2,
       borderColor: Colors.silverGray,
-      backgroundColor: Colors[theme].background, // Dynamic background color
+      backgroundColor: Colors[theme].background, 
     },
     image: {
       width: 30,
@@ -22,6 +22,6 @@ export const styles = (theme) =>
     label: {
       fontFamily: "BalooChettan-B",
       fontSize: 16,
-      color: Colors[theme].text, // Dynamic text color
+      color: Colors[theme].text, 
     },
   });
