@@ -208,7 +208,13 @@ const Stats = () => {
                 style={styles.picker}
                 onPress={() => setShowPeriodPicker(true)}
               >
-                <Text style={styles.selectedPickerItem}>{period}</Text>
+                <Text style={styles.selectedPickerItem}>
+                  {period === "Weekly" ? (
+                    <FormattedMessage id="weekly" />
+                  ) : (
+                    <FormattedMessage id="monthly" />
+                  )}
+                </Text>
               </TouchableOpacity>
               <Modal visible={showPeriodPicker} transparent>
                 <View style={styles.modalContainer}>
