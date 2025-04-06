@@ -3,7 +3,7 @@ import { View, Image, TouchableOpacity, Alert } from "react-native";
 import * as Progress from "react-native-progress";
 import { useNavigation } from "@react-navigation/native";
 import { FontAwesome } from "@expo/vector-icons";
-import { FormattedMessage } from "react-intl";
+import { FormattedMessage, useIntl } from "react-intl";
 
 import { ref, get, set, update, remove } from "firebase/database";
 import { auth, database } from "@services/firebaseConfig";
@@ -21,6 +21,7 @@ const icons = {
 };
 
 const Lesson = ({ route }) => {
+  const { formatMessage } = useIntl();
   const navigation = useNavigation();
   const { lesson, language } = route.params;
 
@@ -43,7 +44,10 @@ const Lesson = ({ route }) => {
           setFavorite(true);
         }
       } catch (error) {
-        Alert.alert("Error", "Failed to check favorite status");
+        Alert.alert(
+          formatMessage({ id: "error" }),
+          formatMessage({ id: "favStatusFailed" })
+        );
       }
     };
 
@@ -68,7 +72,10 @@ const Lesson = ({ route }) => {
         setFavorite(true);
       }
     } catch (error) {
-      Alert.alert("Error", "Failed to update favorite, try again.");
+      Alert.alert(
+        formatMessage({ id: "error" }),
+        formatMessage({ id: "favStatusUpdateFailed" })
+      );
     }
   };
 

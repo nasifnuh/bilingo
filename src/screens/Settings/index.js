@@ -1,7 +1,7 @@
 import React from "react";
 import { View, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { FormattedMessage } from "react-intl";
+import { FormattedMessage, useIntl } from "react-intl";
 
 import { signOut } from "firebase/auth";
 import { auth } from "@services/firebaseConfig";
@@ -15,13 +15,14 @@ import Colors from "@constants/colors";
 import { styles } from "./styles";
 
 const Settings = () => {
+  const { formatMessage } = useIntl();
   const navigation = useNavigation();
 
   const handleLogout = async () => {
     try {
       await signOut(auth);
     } catch (error) {
-      Alert.alert("Error", error.message);
+      Alert.alert(formatMessage({ id: "error" }), error.message);
     }
   };
 

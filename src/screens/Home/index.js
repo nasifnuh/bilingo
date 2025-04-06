@@ -1,6 +1,8 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { View, Modal, TouchableOpacity, Alert, Text } from "react-native";
 import { useNavigation, useFocusEffect } from "@react-navigation/native";
+import { FormattedMessage, useIntl } from "react-intl";
+
 import { ref, get, update, onValue } from "firebase/database";
 import { auth, database } from "@services/firebaseConfig";
 
@@ -11,7 +13,9 @@ import CourseUnit from "@components/CourseUnit";
 import { styles } from "./styles";
 
 const Home = () => {
+  const { formatMessage } = useIntl();
   const navigation = useNavigation();
+
   const [units, setUnits] = useState([]);
   const [currentLanguage, setCurrentLanguage] = useState("english");
   const [streakCount, setStreakCount] = useState(0);
@@ -32,7 +36,9 @@ const Home = () => {
 
   const fetchWordOfTheDay = async () => {
     try {
-      const snapshot = await get(ref(database, `courses/${currentLanguage}/words`));
+      const snapshot = await get(
+        ref(database, `courses/${currentLanguage}/words`)
+      );
       if (snapshot.exists()) {
         const words = snapshot.val();
         const word = words.find((word) => !word.isShown);
@@ -42,10 +48,13 @@ const Home = () => {
           setIsModalVisible(true);
 
           const wordIndex = words.indexOf(word);
-          const wordRef = ref(database, `courses/${currentLanguage}/words/${wordIndex}`);
+          const wordRef = ref(
+            database,
+            `courses/${currentLanguage}/words/${wordIndex}`
+          );
           await update(wordRef, { isShown: true });
         } else {
-          Alert.alert("No more words available for today.");
+          Alert.alert(formatMessage({ id: "noMoreWords" }));
         }
       }
     } catch (error) {
@@ -98,7 +107,7 @@ const Home = () => {
       }
     >
       <View style={styles.container}>
-        <CourseUnit units={units} language={currentLanguage}/>
+        <CourseUnit units={units} language={currentLanguage} />
       </View>
       <Modal visible={isModalVisible} transparent>
         <View style={styles.modalContainer}>
@@ -106,16 +115,29 @@ const Home = () => {
             {wordOfTheDay && (
               <>
                 <Text style={styles.word}>{wordOfTheDay.word}</Text>
-                <Text style={styles.label}>Pronunciation:</Text>
+                <Text style={styles.label}>
+                  <FormattedMessage id="pronunciation" />:
+                </Text>
                 <Text style={styles.pronounce}>{wordOfTheDay.pronounce}</Text>
-                <Text style={styles.label}>Phonetic Transcript:</Text>
-                <Text style={styles.phoneticTranscript}>{wordOfTheDay.phoneticTranscript}</Text>
-                <Text style={styles.label}>Meaning:</Text>
+                <Text style={styles.label}>
+                  <FormattedMessage id="phoneticTranscript" />:
+                </Text>
+                <Text style={styles.phoneticTranscript}>
+                  {wordOfTheDay.phoneticTranscript}
+                </Text>
+                <Text style={styles.label}>
+                  <FormattedMessage id="meaning" />:
+                </Text>
                 <Text style={styles.meaning}>{wordOfTheDay.meaning}</Text>
               </>
             )}
-            <TouchableOpacity style={styles.closeButton} onPress={() => setIsModalVisible(false)}>
-              <Text style={styles.closeButtonText}>Close</Text>
+            <TouchableOpacity
+              style={styles.closeButton}
+              onPress={() => setIsModalVisible(false)}
+            >
+              <Text style={styles.closeButtonText}>
+                <FormattedMessage id="close" />
+              </Text>
             </TouchableOpacity>
           </View>
         </View>

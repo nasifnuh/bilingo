@@ -35,9 +35,30 @@ export default {
   correctAnswer: "Correct Answer",
   wrongAnswer: "Wrong Answer",
 
+  // Home Screen
+  noMoreWords: "No more words available for today.",
+  pronunciation: "Pronunciation",
+  phoneticTranscript: "Phonetic Transcript",
+  meaning: "Meaning",
+
+  // Lesson Screen
+  favStatusFailed: "Failed to check favorite status",
+  favStatusUpdateFailed: "Failed to update favorite, try again.",
+
   // Favorites Screen
   savedLessons: "Saved lessons",
   noFavorites: "No favorites",
+  favFetchFailed: "Failed to fetch favorites, try again.",
+
+  // Stats Screen
+  statsScreen: "Stats Screen",
+  emptyStatsMessage: "Please complete a lesson to show stats",
+  weekly: "Weekly",
+  monthly: "Monthly",
+  todaysXp: "Today's XP",
+  xp: "XP",
+  overallXp: "Overall XP",
+  loadingData: "Loading data",
 
   // Profile Screen
   joined: "Joined",
@@ -94,7 +115,9 @@ export default {
   save: "Save",
   edit: "Edit",
   cancel: "Cancel",
+  close: "Close",
   delete: "Delete",
+  done: "Done",
   continue: "Continue",
   logout: "Logout",
 };

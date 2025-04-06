@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { View, Image, Alert } from "react-native";
 import { useNavigation, useFocusEffect } from "@react-navigation/native";
-import { FormattedMessage } from "react-intl";
+import { FormattedMessage, useIntl } from "react-intl";
 
 import { get, ref, onValue } from "firebase/database";
 import { database, auth } from "@services/firebaseConfig";
@@ -26,6 +26,7 @@ const Header = () => {
 };
 
 const Favorite = () => {
+  const { formatMessage } = useIntl();
   const navigation = useNavigation();
 
   const [currentLanguage, setCurrentLanguage] = useState(null);
@@ -77,7 +78,10 @@ const Favorite = () => {
             setFavoriteLessons([]);
           }
         } catch (error) {
-          Alert.alert("Error", "Failed to fetch favorites, try again.");
+          Alert.alert(
+            formatMessage({ id: "error" }),
+            formatMessage({ id: "favFetchFailed" })
+          );
         }
       };
 
