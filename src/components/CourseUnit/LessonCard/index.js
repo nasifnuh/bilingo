@@ -3,11 +3,14 @@ import { View, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { FontAwesome6 } from "@expo/vector-icons";
 
+import { useLanguage } from "@/context/LanguageContext";
+
 import Text from "@/components/ui/Text";
 
 import { styles } from "./styles";
 
 const LessonCard = ({ lessons, color, progress, language }) => {
+  const { language: appLanguage } = useLanguage();
   const navigation = useNavigation();
 
   return (
@@ -16,7 +19,9 @@ const LessonCard = ({ lessons, color, progress, language }) => {
         <TouchableOpacity
           key={lesson.id}
           style={styles.lessonContainer}
-          onPress={() => navigation.navigate("Lesson", { lesson: lesson, language })}
+          onPress={() =>
+            navigation.navigate("Lesson", { lesson: lesson, language })
+          }
         >
           <View
             style={[
@@ -42,7 +47,7 @@ const LessonCard = ({ lessons, color, progress, language }) => {
                 progress.includes(lesson.id) && { color: color },
               ]}
             >
-              {lesson.name}
+              {lesson.name[appLanguage]}
             </Text>
           </View>
         </TouchableOpacity>

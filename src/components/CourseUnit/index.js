@@ -5,12 +5,16 @@ import { useFocusEffect } from "@react-navigation/native";
 import { ref, get } from "firebase/database";
 import { auth, database } from "@services/firebaseConfig";
 
+import { useLanguage } from "@/context/LanguageContext";
+
 import ChapterCard from "@/components/CourseUnit/ChapterCard";
 import LessonCard from "@/components/CourseUnit/LessonCard";
 
 import { styles } from "./styles";
 
 const CourseUnit = ({ units, language }) => {
+  const { language: appLanguage } = useLanguage();
+
   const [progress, setProgress] = useState([]);
 
   useFocusEffect(
@@ -43,7 +47,7 @@ const CourseUnit = ({ units, language }) => {
           <View key={unit.id} style={styles.unitContainer}>
             <ChapterCard
               unit={unit.unit}
-              name={unit.name}
+              name={unit.name[appLanguage]}
               color={unit.color}
               progress={`${completedLessons}/${totalLessons}`}
             />

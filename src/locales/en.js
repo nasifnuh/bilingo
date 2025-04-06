@@ -45,6 +45,14 @@ export default {
   favStatusFailed: "Failed to check favorite status",
   favStatusUpdateFailed: "Failed to update favorite, try again.",
 
+  // Lesson Complete Screen
+  lessonCompleted: "Lesson Completed",
+  gains: "Gains",
+
+  // Streak Complete Screen
+  dayStreak: "day streak",
+  practiceEveryday: "Practice everyday to keep your streak",
+
   // Favorites Screen
   savedLessons: "Saved lessons",
   noFavorites: "No favorites",
@@ -63,7 +71,6 @@ export default {
   // Profile Screen
   joined: "Joined",
   overview: "Overview",
-  dayStreak: "Day Streak",
   totalXp: "Total XP",
   diamonds: "Diamonds",
   achievements: "Achievements",

@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Image } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { FormattedMessage } from "react-intl";
 
 import Layout from "@/layout";
 import Text from "@/components/ui/Text";
@@ -18,11 +19,15 @@ const LessonComplete = ({ route }) => {
     <Layout>
       <View style={styles.container}>
         <View style={styles.content}>
-          <Text style={styles.title}>Lesson Completed!</Text>
+          <Text style={styles.title}>
+            <FormattedMessage id="lessonCompleted" />!
+          </Text>
           <Image source={MascotImage} style={styles.image} />
           <View style={styles.rewardContainer}>
             <View style={styles.rewardTitleContainer}>
-              <Text style={styles.rewardTitleContainerText}>Gains 💪</Text>
+              <Text style={styles.rewardTitleContainerText}>
+                <FormattedMessage id="gains" /> 💪
+              </Text>
             </View>
             <View style={styles.rewardValueContainer}>
               <View style={{ display: "flex", flexDirection: "row", gap: 10 }}>
@@ -39,7 +44,7 @@ const LessonComplete = ({ route }) => {
 
         <View style={styles.buttonContainer}>
           <Button
-            label="Continue"
+            label={<FormattedMessage id="continue" />}
             onPress={() =>
               isDaysFirstLesson
                 ? navigation.replace("StreakComplete", { streak })
