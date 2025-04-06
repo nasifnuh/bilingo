@@ -1,6 +1,7 @@
 import React from "react";
 import { View, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { FormattedMessage } from "react-intl";
 
 import { signOut } from "firebase/auth";
 import { auth } from "@services/firebaseConfig";
@@ -29,7 +30,9 @@ const Settings = () => {
       headerComponent={
         <View style={styles.header}>
           <BackButton />
-          <Text style={styles.headerLabel}>Settings</Text>
+          <Text style={styles.headerLabel}>
+            <FormattedMessage id="settings" />
+          </Text>
         </View>
       }
     >
@@ -38,25 +41,40 @@ const Settings = () => {
           style={styles.option}
           onPress={() => navigation.navigate("ProfileInfo")}
         >
-          <Text style={styles.optionLabel}>Profile</Text>
+          <Text style={styles.optionLabel}>
+            <FormattedMessage id="profile" />
+          </Text>
         </TouchableOpacity>
 
         <TouchableOpacity
           style={styles.option}
           onPress={() => navigation.navigate("Notification")}
         >
-          <Text style={styles.optionLabel}>Notifications</Text>
+          <Text style={styles.optionLabel}>
+            <FormattedMessage id="notifications" />
+          </Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={styles.option}
+          onPress={() => navigation.navigate("AppLanguage")}
+        >
+          <Text style={styles.optionLabel}>
+            <FormattedMessage id="appLanguage" />
+          </Text>
         </TouchableOpacity>
 
         <TouchableOpacity
           style={styles.option}
           onPress={() => navigation.navigate("Accessibility")}
         >
-          <Text style={styles.optionLabel}>Accessibility</Text>
+          <Text style={styles.optionLabel}>
+            <FormattedMessage id="accessibility" />
+          </Text>
         </TouchableOpacity>
 
         <Button
-          label="Logout"
+          label={<FormattedMessage id="logout" />}
           variant="outlined"
           onPress={handleLogout}
           customBoxStyle={styles.logoutButton}
