@@ -5,7 +5,7 @@ import Colors from "@constants/colors";
 export const styles = (theme) =>
   StyleSheet.create({
     container: {
-      paddingVertical: 18,
+      // paddingVertical: 18,
       flex: 1,
       backgroundColor: Colors[theme].background, 
     },

@@ -17,7 +17,7 @@ const Home = () => {
   const { formatMessage } = useIntl();
   const navigation = useNavigation();
   const { theme } = useTheme(); // Add theme context
-  const themeStyles = styles(theme); // Apply theme styles dynamically
+  const themeStyles = styles(theme); 
 
   const [units, setUnits] = useState([]);
   const [currentLanguage, setCurrentLanguage] = useState("english");

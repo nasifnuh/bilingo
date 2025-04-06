@@ -29,7 +29,7 @@ const Lesson = ({ route }) => {
   const navigation = useNavigation();
   const { lesson, language } = route.params;
   const { theme } = useTheme(); // Add theme context
-  const themeStyles = styles(theme); // Apply theme styles dynamically
+  const themeStyles = styles(theme); 
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [progress, setProgress] = useState(0);

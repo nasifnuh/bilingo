@@ -13,7 +13,7 @@ import CourseUnit from "@/components/CourseUnit";
 
 import MascotCry from "@assets/images/mascot_cry.png";
 import { styles } from "./styles";
-import { useTheme } from "@/context/ThemeContext"; // Import theme context
+import { useTheme } from "@/context/ThemeContext"; 
 
 const Header = () => {
   return (
@@ -29,8 +29,8 @@ const Header = () => {
 const Favorite = () => {
   const { formatMessage } = useIntl();
   const navigation = useNavigation();
-  const { theme } = useTheme(); // Get the current theme
-  const themeStyles = styles(theme); // Apply theme styles dynamically
+  const { theme } = useTheme(); 
+  const themeStyles = styles(theme); 
 
   const [currentLanguage, setCurrentLanguage] = useState(null);
   const [units, setUnits] = useState([]);

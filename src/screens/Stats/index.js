@@ -21,8 +21,8 @@ const screenWidth = Dimensions.get("window").width;
 
 const Stats = () => {
   const { formatMessage } = useIntl();
-  const { theme } = useTheme(); // Get the current theme
-  const themeStyles = styles(theme); // Apply theme styles dynamically
+  const { theme } = useTheme(); 
+  const themeStyles = styles(theme); 
 
   const [xpData, setXpData] = useState([]);
   const [period, setPeriod] = useState("Weekly");

@@ -18,8 +18,8 @@ import { styles } from "./styles";
 const Settings = () => {
   const { formatMessage } = useIntl();
   const navigation = useNavigation();
-  const { theme, toggleTheme } = useTheme(); // Get the current theme
-  const themeStyles = styles(theme); // Apply theme styles dynamically
+  const { theme, toggleTheme } = useTheme(); 
+  const themeStyles = styles(theme); 
 
   const handleLogout = async () => {
     try {

@@ -7,12 +7,12 @@ import LanguageIcon from "@components/LanguageIcon";
 
 import Colors from "@constants/colors";
 import { styles } from "./styles";
-import { useTheme } from "@/context/ThemeContext"; // Import theme context
+import { useTheme } from "@/context/ThemeContext"; 
 
 const HomePanel = ({ language, streak, diamonds, onWordOfTheDayPress }) => {
   const navigation = useNavigation();
-  const { theme } = useTheme(); // Get the current theme
-  const themeStyles = styles(theme); // Apply theme styles dynamically
+  const { theme } = useTheme(); 
+  const themeStyles = styles(theme); 
 
   return (
     <View style={themeStyles.container}>

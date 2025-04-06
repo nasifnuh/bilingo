@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Image, Platform, StyleSheet } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { useTheme } from "@/context/ThemeContext"; // Import theme context
+import { useTheme } from "@/context/ThemeContext"; 
 
 // import HomeScreen from "@screens/HomeScreen";
 import HomeStackNavigator from "@navigation/stacks/HomeStackNavigator";
@@ -21,7 +21,7 @@ const icons = {
 const Tab = createBottomTabNavigator();
 
 const BottomTabNavigator = () => {
-  const { theme } = useTheme(); // Get the current theme
+  const { theme } = useTheme(); 
 
   return (
     <Tab.Navigator

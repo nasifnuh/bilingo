@@ -9,9 +9,12 @@ import Text from "@/components/ui/Text";
 import LanguageIcon from "@components/LanguageIcon";
 
 import { styles } from "./styles";
+import { useTheme } from "@/context/ThemeContext"; 
 
 const LanguageCard = ({ icon, name }) => {
   const navigation = useNavigation();
+  const { theme } = useTheme(); 
+  const themeStyles = styles(theme); 
 
   const handleSelection = async (language) => {
     const userId = auth.currentUser?.uid;
@@ -24,11 +27,11 @@ const LanguageCard = ({ icon, name }) => {
 
   return (
     <TouchableOpacity
-      style={styles.container}
+      style={themeStyles.container} 
       onPress={() => handleSelection(icon)}
     >
       <LanguageIcon icon={icon} />
-      <Text style={styles.label}>{name}</Text>
+      <Text style={themeStyles.label}>{name}</Text> 
     </TouchableOpacity>
   );
 };

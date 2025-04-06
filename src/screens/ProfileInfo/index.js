@@ -19,15 +19,15 @@ import Text from "@/components/ui/Text";
 import BackButton from "@/components/BackButton";
 import Button from "@/components/ui/Button";
 import TextInput from "@/components/ui/TextInput";
-import { useTheme } from "@/context/ThemeContext"; // Import theme context
+import { useTheme } from "@/context/ThemeContext"; 
 
 import Colors from "@constants/colors";
 import { styles } from "./styles";
 
 const ProfileInfo = () => {
   const { formatMessage } = useIntl();
-  const { theme } = useTheme(); // Get the current theme
-  const themeStyles = styles(theme); // Apply theme styles dynamically
+  const { theme } = useTheme(); 
+  const themeStyles = styles(theme); 
 
   const [editing, setEditing] = useState(false);
   const [userData, setUserData] = useState({

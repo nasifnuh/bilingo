@@ -14,12 +14,12 @@ import Button from "@/components/ui/Button";
 
 import Colors from "@/constants/colors";
 import { styles } from "./styles";
-import { useTheme } from "@/context/ThemeContext"; // Import theme context
+import { useTheme } from "@/context/ThemeContext"; 
 
 const Notification = () => {
   const { formatMessage } = useIntl();
-  const { theme } = useTheme(); // Get the current theme
-  const themeStyles = styles(theme); // Apply theme styles dynamically
+  const { theme } = useTheme(); 
+  const themeStyles = styles(theme); 
 
   const [editing, setEditing] = useState(false);
   const [showPicker, setShowPicker] = useState(false);

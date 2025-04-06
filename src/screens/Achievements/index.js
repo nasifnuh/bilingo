@@ -18,8 +18,8 @@ const Achievements = ({ route }) => {
   const { isDaysFirstLesson, userData, streak } = route.params;
   const userId = auth.currentUser ? auth.currentUser.uid : null;
 
-  const { theme } = useTheme(); // Get the current theme
-  const themeStyles = styles(theme); // Apply theme styles dynamically
+  const { theme } = useTheme(); 
+  const themeStyles = styles(theme); 
 
   const xpData = userData.xp || {};
   let totalXP = 10;

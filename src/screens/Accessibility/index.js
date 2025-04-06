@@ -15,8 +15,8 @@ import { styles } from "./styles";
 
 const Accessibility = () => {
   const { scale, setScale } = useFontSize();
-  const { theme } = useTheme(); // Get the current theme
-  const themeStyles = styles(theme); // Apply theme styles dynamically
+  const { theme } = useTheme(); 
+  const themeStyles = styles(theme); 
 
   const resetToDefault = () => {
     setScale(1);

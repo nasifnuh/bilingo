@@ -14,8 +14,8 @@ import { styles } from "./styles";
 
 const AppLanguage = () => {
   const { language, setLanguage } = useLanguage();
-  const { theme } = useTheme(); // Get the current theme
-  const themeStyles = styles(theme); // Apply theme styles dynamically
+  const { theme } = useTheme(); 
+  const themeStyles = styles(theme); 
 
   return (
     <Layout
