@@ -3,6 +3,7 @@ import { View, Image, TouchableOpacity, Alert } from "react-native";
 import * as Progress from "react-native-progress";
 import { useNavigation } from "@react-navigation/native";
 import { FontAwesome } from "@expo/vector-icons";
+import { FormattedMessage, useIntl } from "react-intl";
 
 import { ref, get, set, update, remove } from "firebase/database";
 import { auth, database } from "@services/firebaseConfig";
@@ -20,8 +21,9 @@ const icons = {
 };
 
 const Lesson = ({ route }) => {
+  const { formatMessage } = useIntl();
   const navigation = useNavigation();
-  const { lesson, language } = route.params; // Get selectedLanguage from route params
+  const { lesson, language } = route.params;
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [progress, setProgress] = useState(0);
@@ -42,7 +44,10 @@ const Lesson = ({ route }) => {
           setFavorite(true);
         }
       } catch (error) {
-        Alert.alert("Error", "Failed to check favorite status");
+        Alert.alert(
+          formatMessage({ id: "error" }),
+          formatMessage({ id: "favStatusFailed" })
+        );
       }
     };
 
@@ -67,7 +72,10 @@ const Lesson = ({ route }) => {
         setFavorite(true);
       }
     } catch (error) {
-      Alert.alert("Error", "Failed to update favorite, try again.");
+      Alert.alert(
+        formatMessage({ id: "error" }),
+        formatMessage({ id: "favStatusUpdateFailed" })
+      );
     }
   };
 
@@ -99,16 +107,13 @@ const Lesson = ({ route }) => {
         let streak = userData.streak || 0;
         let diamonds = userData.diamonds || 0;
 
-        // Fetch current XP data for the selected language
         const xpSnapshot = await get(xpRef);
         const xpData = xpSnapshot.val() || {};
 
-        // Update XP for the current date
         const currentXp = xpData[`"${today}"`] || 0;
         xpData[`"${today}"`] = currentXp + 10;
 
-        // Update streak
-        if(lastCompletionDate !== today ){
+        if (lastCompletionDate !== today) {
           streak += 1;
         }
 
@@ -118,7 +123,6 @@ const Lesson = ({ route }) => {
           lastCompletionDate: today,
         });
 
-        // Save updated XP data back to the database
         await update(xpRef, xpData);
 
         setProgress(1);
@@ -128,7 +132,7 @@ const Lesson = ({ route }) => {
         navigation.replace("Achievements", {
           userData,
           isDaysFirstLesson: lastCompletionDate !== today,
-          streak
+          streak,
         });
 
         return;
@@ -177,7 +181,9 @@ const Lesson = ({ route }) => {
       }
     >
       <View style={styles.container}>
-        <Text style={styles.generalLabel}>Select the correct translation</Text>
+        <Text style={styles.generalLabel}>
+          <FormattedMessage id="selectTranslationLabel" />
+        </Text>
 
         <View style={styles.questionContainer}>
           <Image source={icons["girl"]} style={styles.image} />
@@ -229,11 +235,15 @@ const Lesson = ({ route }) => {
                 isCorrect ? styles.correctAnswerText : styles.wrongAnswerText,
               ]}
             >
-              {isCorrect ? "Correct Answer" : "Wrong Answer"}
+              {isCorrect ? (
+                <FormattedMessage id="correctAnswer" />
+              ) : (
+                <FormattedMessage id="wrongAnswer" />
+              )}
             </Text>
           )}
           <Button
-            label="Continue"
+            label={<FormattedMessage id="continue" />}
             onPress={handleContinue}
             disabled={selectedOption === null || !isCorrect}
           />

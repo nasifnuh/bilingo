@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { View, Alert } from "react-native";
 import { Formik } from "formik";
 import * as Yup from "yup";
+import { FormattedMessage, useIntl } from "react-intl";
 
 import {
   signOut,
@@ -22,25 +23,30 @@ import TextInput from "@/components/ui/TextInput";
 import Colors from "@constants/colors";
 import { styles } from "./styles";
 
-const validationSchema = Yup.object().shape({
-  name: Yup.string()
-    .matches(/^[a-zA-Z\s]+$/, "only letters and spaces")
-    .required("required"),
-  email: Yup.string()
-    .matches(
-      /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
-      "invalid email"
-    )
-    .required("required"),
-  password: Yup.string().min(6, "min 6 characters"),
-});
-
 const ProfileInfo = () => {
+  const { formatMessage } = useIntl();
+
   const [editing, setEditing] = useState(false);
   const [userData, setUserData] = useState({
     name: "",
     email: "",
     password: "",
+  });
+
+  const validationSchema = Yup.object().shape({
+    name: Yup.string()
+      .matches(/^[a-zA-Z\s]+$/, formatMessage({ id: "validationName" }))
+      .required(formatMessage({ id: "required" })),
+    email: Yup.string()
+      .matches(
+        /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
+        formatMessage({ id: "validationEmail" })
+      )
+      .required(formatMessage({ id: "required" })),
+    password: Yup.string().min(
+      6,
+      formatMessage({ id: "validationPasswordLength" })
+    ),
   });
 
   useEffect(() => {
@@ -71,17 +77,20 @@ const ProfileInfo = () => {
     const user = auth.currentUser;
 
     if (!user) {
-      Alert.alert("Error", "No authenticated user found");
+      Alert.alert(
+        formatMessage({ id: "error" }),
+        formatMessage({ id: "noAuthenticatedUserMessage" })
+      );
       return;
     }
 
     Alert.alert(
-      "Confirm Deletion",
-      "Are you sure you want to delete your profile? This action cannot be undone.",
+      formatMessage({ id: "confirmDeletion" }),
+      formatMessage({ id: "confirmDeletionMessage" }),
       [
-        { text: "Cancel", style: "cancel" },
+        { text: formatMessage({ id: "cancel" }), style: "cancel" },
         {
-          text: "Delete",
+          text: formatMessage({ id: "delete" }),
           style: "destructive",
           onPress: async () => {
             try {
@@ -89,15 +98,18 @@ const ProfileInfo = () => {
               await deleteUser(user);
               await signOut(auth);
 
-              Alert.alert("Profile Deleted", "Your profile has been deleted.");
+              Alert.alert(
+                formatMessage({ id: "profileDeleted" }),
+                formatMessage({ id: "profileDeletedMessage" })
+              );
             } catch (error) {
               if (error.code === "auth/requires-recent-login") {
                 Alert.alert(
-                  "Re-authentication Required",
-                  "Please log in again to delete your profile."
+                  formatMessage({ id: "reAuthRequired" }),
+                  formatMessage({ id: "reAuthRequiredMessage" })
                 );
               } else {
-                Alert.alert("Error", error.message);
+                Alert.alert(formatMessage({ id: "error" }), error.message);
               }
               console.error("Delete error: ", error);
             }
@@ -112,7 +124,9 @@ const ProfileInfo = () => {
       headerComponent={
         <View style={styles.header}>
           <BackButton />
-          <Text style={styles.headerLabel}>Profile</Text>
+          <Text style={styles.headerLabel}>
+            <FormattedMessage id="profile" />
+          </Text>
         </View>
       }
     >
@@ -126,7 +140,10 @@ const ProfileInfo = () => {
             const user = auth.currentUser;
 
             try {
-              if (!user) throw new Error("No authenticated user found");
+              if (!user)
+                throw new Error(
+                  formatMessage({ id: "noAuthenticatedUserMessage" })
+                );
 
               const { name, email, password } = values;
               const updates = {};
@@ -151,10 +168,13 @@ const ProfileInfo = () => {
 
               resetForm({ values: { ...values, password: "" } });
 
-              Alert.alert("Success", "Profile updated successfully!");
+              Alert.alert(
+                formatMessage({ id: "success" }),
+                formatMessage({ id: "profileUpdateSuccessMessage" })
+              );
               setEditing(false);
             } catch (error) {
-              Alert.alert("Error", error.message);
+              Alert.alert(formatMessage({ id: "error" }), error.message);
             } finally {
               setSubmitting(false);
             }
@@ -170,22 +190,22 @@ const ProfileInfo = () => {
           }) => (
             <View style={styles.form}>
               <TextInput
-                label="Name"
+                label={<FormattedMessage id="name" />}
                 onChangeText={handleChange("name")}
                 value={values.name}
-                placeholder="Enter your name"
+                placeholder={formatMessage({ id: "namePlaceholder" })}
                 error={errors.name}
                 touched={touched.name}
                 disabled={!editing || isSubmitting}
               />
               <TextInput
-                label="Email"
+                label={<FormattedMessage id="email" />}
                 onChangeText={handleChange("email")}
                 value={values.email}
                 disabled={true}
               />
               <TextInput
-                label="Password"
+                label={<FormattedMessage id="password" />}
                 onChangeText={handleChange("password")}
                 value={values.password}
                 secureTextEntry={true}
@@ -197,13 +217,19 @@ const ProfileInfo = () => {
               <View>
                 <Button
                   variant={editing ? "contained" : "outlined"}
-                  label={editing ? "Save Changes" : "Edit Profile"}
+                  label={
+                    editing ? (
+                      <FormattedMessage id="saveChanges" />
+                    ) : (
+                      <FormattedMessage id="editProfile" />
+                    )
+                  }
                   onPress={() => (editing ? handleSubmit() : setEditing(true))}
                   loading={isSubmitting}
                   customBoxStyle={styles.editButton}
                 />
                 <Button
-                  label="Delete Profile"
+                  label={<FormattedMessage id="deleteProfile" />}
                   variant="outlined"
                   onPress={handleDeleteProfile}
                   customBoxStyle={{ borderColor: Colors.crimsonRed }}

@@ -2,6 +2,7 @@ import React from "react";
 import { View, Image, Alert } from "react-native";
 import { Formik } from "formik";
 import * as Yup from "yup";
+import { FormattedMessage, useIntl } from "react-intl";
 
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { ref, set } from "firebase/database";
@@ -16,26 +17,31 @@ import TextInput from "@/components/ui/TextInput";
 import MascotImage from "@assets/images/mascot_love.png";
 import { styles } from "./styles";
 
-const validationSchema = Yup.object().shape({
-  name: Yup.string()
-    .matches(/^[a-zA-Z\s]+$/, "only letters and spaces")
-    .required("required"),
-  email: Yup.string()
-    .matches(
-      /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
-      "invalid email"
-    )
-    .required("required"),
-  password: Yup.string().min(6, "min 6 characters").required("required"),
-});
-
 const Signup = () => {
+  const { formatMessage } = useIntl();
+
+  const validationSchema = Yup.object().shape({
+    name: Yup.string()
+      .matches(/^[a-zA-Z\s]+$/, formatMessage({ id: "validationName" }))
+      .required(formatMessage({ id: "required" })),
+    email: Yup.string()
+      .matches(
+        /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
+        formatMessage({ id: "validationEmail" })
+      )
+      .required(formatMessage({ id: "required" })),
+    password: Yup.string()
+      .min(6, formatMessage({ id: "validationPasswordLength" }))
+      .required(formatMessage({ id: "required" })),
+  });
   return (
     <Layout>
       <View style={styles.container}>
         <BackButton />
         <Image source={MascotImage} style={styles.image} />
-        <Text style={styles.title}>Create a Profile</Text>
+        <Text style={styles.title}>
+          <FormattedMessage id="createProfile" />
+        </Text>
 
         <Formik
           initialValues={{
@@ -69,22 +75,23 @@ const Signup = () => {
               });
 
               Alert.alert(
-                "Signup Successful",
-                "Your profile has been created!"
+                formatMessage({ id: "signupSuccess" }),
+                formatMessage({ id: "signupSuccessMessage" })
               );
             } catch (error) {
-              let message = "An error occurred. Please try again.";
+              let message = formatMessage({ id: "errorOccurred" });
 
               if (error.code === "auth/email-already-in-use") {
-                message =
-                  "This email is already in use. Please use a different email.";
+                message = formatMessage({
+                  id: "firebaseValidationEmailExists",
+                });
               } else if (error.code === "auth/weak-password") {
-                message = "Password is too weak. Use at least 6 characters.";
+                message = formatMessage({ id: "firebaseValidationPassword" });
               } else if (error.code === "auth/invalid-email") {
-                message = "Invalid email format";
+                message = formatMessage({ id: "firebaseValidationEmail" });
               }
 
-              Alert.alert("Signup Failed", message);
+              Alert.alert(formatMessage({ id: "signupFailed" }), message);
             } finally {
               setSubmitting(false);
             }
@@ -100,34 +107,34 @@ const Signup = () => {
           }) => (
             <View style={styles.form}>
               <TextInput
-                label="Name"
+                label={<FormattedMessage id="name" />}
                 onChangeText={handleChange("name")}
                 value={values.name}
-                placeholder="Enter your name"
+                placeholder={formatMessage({ id: "namePlaceholder" })}
                 error={errors.name}
                 touched={touched.name}
               />
               <TextInput
-                label="Email"
+                label={<FormattedMessage id="email" />}
                 onChangeText={handleChange("email")}
                 value={values.email}
-                placeholder="Enter your email"
+                placeholder={formatMessage({ id: "emailPlaceholder" })}
                 keyboardType="email-address"
                 error={errors.email}
                 touched={touched.email}
               />
               <TextInput
-                label="Password"
+                label={<FormattedMessage id="password" />}
                 onChangeText={handleChange("password")}
                 value={values.password}
-                placeholder="Enter your password"
+                placeholder={formatMessage({ id: "passwordPlaceholder" })}
                 secureTextEntry={true}
                 error={errors.password}
                 touched={touched.password}
               />
 
               <Button
-                label="Signup"
+                label={<FormattedMessage id="signup" />}
                 onPress={handleSubmit}
                 loading={isSubmitting}
                 customBoxStyle={styles.signupButton}

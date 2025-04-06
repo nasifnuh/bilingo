@@ -1,6 +1,7 @@
 import React from "react";
 import { View } from "react-native";
 import Slider from "@react-native-community/slider";
+import { FormattedMessage } from "react-intl";
 
 import { useFontSize } from "@/context/FontSizeContext";
 
@@ -23,13 +24,17 @@ const Accessibility = () => {
       headerComponent={
         <View style={styles.header}>
           <BackButton />
-          <Text style={styles.headerLabel}>Accessibility</Text>
+          <Text style={styles.headerLabel}>
+            <FormattedMessage id="accessibility" />
+          </Text>
         </View>
       }
     >
       <View style={styles.container}>
         <View style={styles.form}>
-          <Text style={styles.label}>Font Scale: {scale.toFixed(2)}</Text>
+          <Text style={styles.label}>
+            <FormattedMessage id="fontScale" />: {scale.toFixed(2)}
+          </Text>
           <Slider
             style={styles.slider}
             minimumValue={0.8}
@@ -40,7 +45,7 @@ const Accessibility = () => {
           />
           <Button
             variant="contained"
-            label="Reset to default"
+            label={<FormattedMessage id="resetToDefault" />}
             onPress={resetToDefault}
           />
         </View>

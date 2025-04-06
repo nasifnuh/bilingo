@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { View, Image, Alert } from "react-native";
 import { useNavigation, useFocusEffect } from "@react-navigation/native";
+import { FormattedMessage, useIntl } from "react-intl";
 
 import { get, ref, onValue } from "firebase/database";
 import { database, auth } from "@services/firebaseConfig";
@@ -17,12 +18,15 @@ const Header = () => {
   return (
     <View style={styles.header}>
       <BackButton />
-      <Text style={styles.headerLabel}>Saved lessons</Text>
+      <Text style={styles.headerLabel}>
+        <FormattedMessage id="savedLessons" />
+      </Text>
     </View>
   );
 };
 
 const Favorite = () => {
+  const { formatMessage } = useIntl();
   const navigation = useNavigation();
 
   const [currentLanguage, setCurrentLanguage] = useState(null);
@@ -74,7 +78,10 @@ const Favorite = () => {
             setFavoriteLessons([]);
           }
         } catch (error) {
-          Alert.alert("Error", "Failed to fetch favorites, try again.");
+          Alert.alert(
+            formatMessage({ id: "error" }),
+            formatMessage({ id: "favFetchFailed" })
+          );
         }
       };
 
@@ -122,7 +129,9 @@ const Favorite = () => {
       {units.length === 0 ? (
         <View style={styles.empty}>
           <Image source={MascotCry} style={styles.image} />
-          <Text style={styles.emptyText}>No favorites</Text>
+          <Text style={styles.emptyText}>
+            <FormattedMessage id="noFavorites" />
+          </Text>
         </View>
       ) : (
         <View style={styles.container}>

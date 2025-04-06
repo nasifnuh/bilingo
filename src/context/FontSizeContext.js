@@ -1,13 +1,13 @@
 import React, { createContext, useState, useContext, useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
+export const BASE_FONT_SIZE = 16;
+
 const FontSizeContext = createContext({
   scale: 1,
   setScale: () => {},
   BASE_FONT_SIZE: BASE_FONT_SIZE,
 });
-
-export const BASE_FONT_SIZE = 16;
 
 export const FontSizeProvider = ({ children }) => {
   const [scale, setScale] = useState(1);

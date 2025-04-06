@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { View, Dimensions, Image, Modal, TouchableOpacity } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import { LineChart, ContributionGraph } from "react-native-chart-kit";
+import { FormattedMessage, useIntl } from "react-intl";
 
 import { get, ref } from "firebase/database";
 import { database, auth } from "@services/firebaseConfig";
@@ -18,6 +19,8 @@ import { styles } from "./styles";
 const screenWidth = Dimensions.get("window").width;
 
 const Stats = () => {
+  const { formatMessage } = useIntl();
+
   const [xpData, setXpData] = useState([]);
   const [period, setPeriod] = useState("Weekly");
   const [tempSelectedPeriod, setTempSelectedPeriod] = useState(period);
@@ -138,7 +141,9 @@ const Stats = () => {
       headerComponent={
         <View style={styles.header}>
           <BackButton />
-          <Text style={styles.headerLabel}>Stats Screen</Text>
+          <Text style={styles.headerLabel}>
+            <FormattedMessage id="statsScreen" />
+          </Text>
         </View>
       }
     >
@@ -146,7 +151,7 @@ const Stats = () => {
         <View style={styles.emptyContainer}>
           <Image source={MascotEmpty} style={styles.image} />
           <Text style={styles.emptyText}>
-            Please complete a lesson to show stats
+            <FormattedMessage id="emptyStatsMessage" />
           </Text>
         </View>
       ) : (
@@ -189,7 +194,9 @@ const Stats = () => {
                         setSelectedLanguage(tempSelectedLanguage);
                       }}
                     >
-                      <Text style={styles.doneButtonText}>Done</Text>
+                      <Text style={styles.doneButtonText}>
+                        <FormattedMessage id="done" />
+                      </Text>
                     </TouchableOpacity>
                   </View>
                 </View>
@@ -213,8 +220,14 @@ const Stats = () => {
                       }
                       itemStyle={styles.pickerItem}
                     >
-                      <Picker.Item label="Weekly" value="Weekly" />
-                      <Picker.Item label="Monthly" value="Monthly" />
+                      <Picker.Item
+                        label={formatMessage({ id: "weekly" })}
+                        value="Weekly"
+                      />
+                      <Picker.Item
+                        label={formatMessage({ id: "monthly" })}
+                        value="Monthly"
+                      />
                     </Picker>
                     <TouchableOpacity
                       onPress={() => {
@@ -222,7 +235,9 @@ const Stats = () => {
                         setPeriod(tempSelectedPeriod);
                       }}
                     >
-                      <Text style={styles.doneButtonText}>Done</Text>
+                      <Text style={styles.doneButtonText}>
+                        <FormattedMessage id="done" />
+                      </Text>
                     </TouchableOpacity>
                   </View>
                 </View>
@@ -232,15 +247,21 @@ const Stats = () => {
 
           <View style={styles.overviewContainer}>
             <View style={styles.overviewHeader}>
-              <Text style={styles.overviewTitle}>Overview</Text>
+              <Text style={styles.overviewTitle}>
+                <FormattedMessage id="overview" />
+              </Text>
               <LanguageIcon icon={selectedLanguage} />
             </View>
             <View style={styles.overviewItem}>
-              <Text style={styles.overviewLabel}>Today's XP</Text>
+              <Text style={styles.overviewLabel}>
+                <FormattedMessage id="todaysXp" />
+              </Text>
               <Text style={styles.overviewValue}>{todaysXp}</Text>
             </View>
             <View style={styles.overviewItem}>
-              <Text style={styles.overviewLabel}>Total XP</Text>
+              <Text style={styles.overviewLabel}>
+                <FormattedMessage id="totalXp" />
+              </Text>
               <Text style={styles.overviewValue}>{totalXp}</Text>
             </View>
           </View>
@@ -249,7 +270,9 @@ const Stats = () => {
             <>
               <View style={styles.overviewContainer}>
                 <View style={styles.overviewHeader}>
-                  <Text style={styles.overviewTitle}>{period} XP</Text>
+                  <Text style={styles.overviewTitle}>
+                    {period} <FormattedMessage id="xp" />
+                  </Text>
                 </View>
                 <LineChart
                   data={chartData}
@@ -289,7 +312,9 @@ const Stats = () => {
               </View>
               <View style={styles.overviewContainer}>
                 <View style={styles.overviewHeader}>
-                  <Text style={styles.overviewTitle}>Overall XP</Text>
+                  <Text style={styles.overviewTitle}>
+                    <FormattedMessage id="overallXp" />
+                  </Text>
                 </View>
                 <ContributionGraph
                   values={contributionData}
@@ -319,7 +344,10 @@ const Stats = () => {
               </View>
             </>
           ) : (
-            <Text style={styles.loadingText}>Loading data...</Text>
+            <Text style={styles.loadingText}>
+              <FormattedMessage id="loadingData" />
+              ...
+            </Text>
           )}
         </View>
       )}

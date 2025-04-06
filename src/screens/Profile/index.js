@@ -2,6 +2,7 @@ import React, { useState, useCallback } from "react";
 import { View, TouchableOpacity, Image } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import { useNavigation, useFocusEffect } from "@react-navigation/native";
+import { FormattedMessage } from "react-intl";
 
 import { ref, get } from "firebase/database";
 import { auth, database } from "@services/firebaseConfig";
@@ -80,7 +81,8 @@ const Profile = () => {
         <View style={styles.section}>
           <Text style={styles.sectionLabel}>{userData.name}</Text>
           <Text style={styles.sectionSubLabel}>
-            Joined&nbsp;
+            <FormattedMessage id="joined" />
+            &nbsp;
             {new Date(userData.joinedDate).toLocaleDateString("en-US", {
               year: "numeric",
               month: "long",
@@ -89,7 +91,9 @@ const Profile = () => {
         </View>
 
         <View style={styles.section}>
-          <Text style={styles.sectionLabel}>Overview</Text>
+          <Text style={styles.sectionLabel}>
+            <FormattedMessage id="overview" />
+          </Text>
 
           <View style={styles.overviewInfoContainer}>
             <View style={styles.overviewInfoBox}>
@@ -97,27 +101,35 @@ const Profile = () => {
                 <Text style={styles.overviewInfoLabel}>🔥</Text>
                 <Text style={styles.overviewInfo}>{streak}</Text>
               </View>
-              <Text style={styles.overviewInfoSubLabel}>Day Streak</Text>
+              <Text style={styles.overviewInfoSubLabel}>
+                <FormattedMessage id="dayStreak" />
+              </Text>
             </View>
             <View style={styles.overviewInfoBox}>
               <View style={styles.overviewInfoSubBox}>
                 <Text style={styles.overviewInfoLabel}>⚡️</Text>
                 <Text style={styles.overviewInfo}>{totalXP}</Text>
               </View>
-              <Text style={styles.overviewInfoSubLabel}>Total XP</Text>
+              <Text style={styles.overviewInfoSubLabel}>
+                <FormattedMessage id="totalXp" />
+              </Text>
             </View>
             <View style={styles.overviewInfoBox}>
               <View style={styles.overviewInfoSubBox}>
                 <Text style={styles.overviewInfoLabel}>💎</Text>
                 <Text style={styles.overviewInfo}>{diamonds}</Text>
               </View>
-              <Text style={styles.overviewInfoSubLabel}>Diamonds</Text>
+              <Text style={styles.overviewInfoSubLabel}>
+                <FormattedMessage id="diamonds" />
+              </Text>
             </View>
           </View>
         </View>
 
         <View style={styles.section}>
-          <Text style={styles.sectionLabel}>Achievements</Text>
+          <Text style={styles.sectionLabel}>
+            <FormattedMessage id="achievements" />
+          </Text>
           <View style={styles.achievementContainer}>
             {userData.achievement?.streak_50 && (
               <Image source={Streak50} style={styles.achievementImage} />
