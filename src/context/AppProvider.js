@@ -9,7 +9,6 @@ const messages = { en, fr };
 
 const IntlWrapper = ({ children }) => {
   const { language } = useLanguage();
-  console.log("language: ", language);
 
   return (
     <IntlProvider locale={language} messages={messages[language]}>

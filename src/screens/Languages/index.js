@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { View, Image } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { FormattedMessage } from "react-intl";
 
 import { ref, onValue } from "firebase/database";
 import { database } from "@services/firebaseConfig";
@@ -36,7 +37,7 @@ const Languages = () => {
           <Image source={MascotLearn} style={styles.image} />
           <View style={styles.titleCard}>
             <Text style={styles.title}>
-              What language would you like to learn?
+              <FormattedMessage id="languageToLearnLabel" />
             </Text>
           </View>
         </View>

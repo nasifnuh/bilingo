@@ -3,6 +3,7 @@ import { View, Image, TouchableOpacity, Alert } from "react-native";
 import * as Progress from "react-native-progress";
 import { useNavigation } from "@react-navigation/native";
 import { FontAwesome } from "@expo/vector-icons";
+import { FormattedMessage } from "react-intl";
 
 import { ref, get, set, update, remove } from "firebase/database";
 import { auth, database } from "@services/firebaseConfig";
@@ -105,7 +106,7 @@ const Lesson = ({ route }) => {
         const currentXp = xpData[`"${today}"`] || 0;
         xpData[`"${today}"`] = currentXp + 10;
 
-        if(lastCompletionDate !== today ){
+        if (lastCompletionDate !== today) {
           streak += 1;
         }
 
@@ -124,7 +125,7 @@ const Lesson = ({ route }) => {
         navigation.replace("Achievements", {
           userData,
           isDaysFirstLesson: lastCompletionDate !== today,
-          streak
+          streak,
         });
 
         return;
@@ -173,7 +174,9 @@ const Lesson = ({ route }) => {
       }
     >
       <View style={styles.container}>
-        <Text style={styles.generalLabel}>Select the correct translation</Text>
+        <Text style={styles.generalLabel}>
+          <FormattedMessage id="selectTranslationLabel" />
+        </Text>
 
         <View style={styles.questionContainer}>
           <Image source={icons["girl"]} style={styles.image} />
@@ -225,11 +228,15 @@ const Lesson = ({ route }) => {
                 isCorrect ? styles.correctAnswerText : styles.wrongAnswerText,
               ]}
             >
-              {isCorrect ? "Correct Answer" : "Wrong Answer"}
+              {isCorrect ? (
+                <FormattedMessage id="correctAnswer" />
+              ) : (
+                <FormattedMessage id="wrongAnswer" />
+              )}
             </Text>
           )}
           <Button
-            label="Continue"
+            label={<FormattedMessage id="continue" />}
             onPress={handleContinue}
             disabled={selectedOption === null || !isCorrect}
           />

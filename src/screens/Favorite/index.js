@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { View, Image, Alert } from "react-native";
 import { useNavigation, useFocusEffect } from "@react-navigation/native";
+import { FormattedMessage } from "react-intl";
 
 import { get, ref, onValue } from "firebase/database";
 import { database, auth } from "@services/firebaseConfig";
@@ -17,7 +18,9 @@ const Header = () => {
   return (
     <View style={styles.header}>
       <BackButton />
-      <Text style={styles.headerLabel}>Saved lessons</Text>
+      <Text style={styles.headerLabel}>
+        <FormattedMessage id="savedLessons" />
+      </Text>
     </View>
   );
 };
@@ -122,7 +125,9 @@ const Favorite = () => {
       {units.length === 0 ? (
         <View style={styles.empty}>
           <Image source={MascotCry} style={styles.image} />
-          <Text style={styles.emptyText}>No favorites</Text>
+          <Text style={styles.emptyText}>
+            <FormattedMessage id="noFavorites" />
+          </Text>
         </View>
       ) : (
         <View style={styles.container}>
