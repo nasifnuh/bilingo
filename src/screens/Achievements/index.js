@@ -11,11 +11,15 @@ import XP50 from "@assets/images/achievement-badges/xp-50.png";
 import XP100 from "@assets/images/achievement-badges/xp-100.png";
 import { styles } from "./styles";
 import { ScrollView } from "react-native-gesture-handler";
+import { useTheme } from "@/context/ThemeContext"; // Import useTheme
 
 const Achievements = ({ route }) => {
   const navigation = useNavigation();
   const { isDaysFirstLesson, userData, streak } = route.params;
   const userId = auth.currentUser ? auth.currentUser.uid : null;
+
+  const { theme } = useTheme(); // Get the current theme
+  const themeStyles = styles(theme); // Apply theme styles dynamically
 
   const xpData = userData.xp || {};
   let totalXP = 10;
@@ -67,18 +71,20 @@ const Achievements = ({ route }) => {
   return unlockedAchievements.length > 0 ? (
     <Layout>
       <ScrollView>
-      <View style={styles.container}>
-        <View style={styles.achievementsContainer}> 
-        <Text style={styles.title}>Congratulations! You unlocked a new achievement</Text>
-          {unlockedAchievements.map(({ key, image }) => (
-            <Image key={key} source={image} style={styles.image} />
-          ))}
+        <View style={themeStyles.container}>
+          <View style={themeStyles.achievementsContainer}>
+            <Text style={themeStyles.title}>
+              Congratulations! You unlocked a new achievement
+            </Text>
+            {unlockedAchievements.map(({ key, image }) => (
+              <Image key={key} source={image} style={themeStyles.image} />
+            ))}
+          </View>
         </View>
-      </View>
       </ScrollView>
-      <View style={styles.buttonContainer}>
-          <Button label="Continue" onPress={handleContinue} />
-        </View>
+      <View style={themeStyles.buttonContainer}>
+        <Button label="Continue" onPress={handleContinue} />
+      </View>
     </Layout>
   ) : null;
 };
