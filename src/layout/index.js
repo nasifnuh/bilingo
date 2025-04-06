@@ -3,6 +3,7 @@ import { SafeAreaView, ScrollView } from "react-native";
 import { StatusBar } from "expo-status-bar";
 
 import Colors from "@constants/colors";
+import { useTheme } from "@/context/ThemeContext";
 
 import { styles } from "./styles";
 
@@ -13,15 +14,21 @@ const Layout = ({
   contentContainerStyle,
   ...scrollViewProps
 }) => {
+  const { theme } = useTheme();
+  const themeColors = Colors[theme];
+
   return (
     <>
-      <StatusBar style="dark" backgroundColor={Colors.white} />
-      <SafeAreaView style={styles.safeArea}>
+      <StatusBar style={theme === "dark" ? "light" : "dark"} />
+      <SafeAreaView
+        style={[styles.safeArea, { backgroundColor: themeColors.background }]}
+      >
         {headerComponent}
         <ScrollView
           contentContainerStyle={[
             styles.scrollViewContent,
             contentContainerStyle,
+            { backgroundColor: themeColors.background },
           ]}
           {...scrollViewProps}
         >
