@@ -15,7 +15,6 @@ export default {
   passwordPlaceholder: "Enter your password",
   signupSuccess: "Signup Successful",
   signupSuccessMessage: "Your profile has been created!",
-  errorOccurred: "An error occurred. Please try again.",
   firebaseValidationEmailExists:
     "This email is already in use. Please use a different email.",
   firebaseValidationPassword:
@@ -23,6 +22,12 @@ export default {
   firebaseValidationEmail: "Invalid email format",
   signupFailed: "Signup Failed",
   signup: "Signup",
+
+  // Login Screen
+  welcomeBack: "Welcome Back!",
+  firebaseValidationInvalidCred: "Invalid credentials.",
+  loginFailed: "Login Failed",
+  login: "Login",
 
   //Language Selection Screen
   languageToLearnLabel: "What language would you like to learn?",
@@ -83,6 +88,7 @@ export default {
 
   // Common
   noAuthenticatedUserMessage: "No authenticated user found",
+  errorOccurred: "An error occurred. Please try again.",
   success: "Success",
   error: "Error",
   save: "Save",
