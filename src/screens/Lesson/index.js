@@ -21,7 +21,7 @@ const icons = {
 
 const Lesson = ({ route }) => {
   const navigation = useNavigation();
-  const { lesson, language } = route.params; // Get selectedLanguage from route params
+  const { lesson, language } = route.params;
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [progress, setProgress] = useState(0);
@@ -99,15 +99,12 @@ const Lesson = ({ route }) => {
         let streak = userData.streak || 0;
         let diamonds = userData.diamonds || 0;
 
-        // Fetch current XP data for the selected language
         const xpSnapshot = await get(xpRef);
         const xpData = xpSnapshot.val() || {};
 
-        // Update XP for the current date
         const currentXp = xpData[`"${today}"`] || 0;
         xpData[`"${today}"`] = currentXp + 10;
 
-        // Update streak
         if(lastCompletionDate !== today ){
           streak += 1;
         }
@@ -118,7 +115,6 @@ const Lesson = ({ route }) => {
           lastCompletionDate: today,
         });
 
-        // Save updated XP data back to the database
         await update(xpRef, xpData);
 
         setProgress(1);
