@@ -5,6 +5,25 @@ export default {
   letsGo: "Let’s goo",
   alreadyHaveProfile: "I Already Have A Profile",
 
+  // Signup Screen
+  createProfile: "Create a Profile",
+  name: "Name",
+  namePlaceholder: "Enter your name",
+  email: "Email",
+  emailPlaceholder: "Enter your email",
+  password: "Password",
+  passwordPlaceholder: "Enter your password",
+  signupSuccess: "Signup Successful",
+  signupSuccessMessage: "Your profile has been created!",
+  errorOccurred: "An error occurred. Please try again.",
+  firebaseValidationEmailExists:
+    "This email is already in use. Please use a different email.",
+  firebaseValidationPassword:
+    "Password is too weak. Use at least 6 characters.",
+  firebaseValidationEmail: "Invalid email format",
+  signupFailed: "Signup Failed",
+  signup: "Signup",
+
   //Language Selection Screen
   languageToLearnLabel: "What language would you like to learn?",
   selectTranslationLabel: "Select the correct translation",
@@ -31,10 +50,6 @@ export default {
   accessibility: "Accessibility",
 
   // Profile Info Screen
-  name: "Name",
-  namePlaceholder: "Enter your name",
-  email: "Email",
-  password: "Password",
   saveChanges: "Save Changes",
   editProfile: "Edit Profile",
   deleteProfile: "Delete Profile",
