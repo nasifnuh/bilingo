@@ -19,12 +19,15 @@ import Text from "@/components/ui/Text";
 import BackButton from "@/components/BackButton";
 import Button from "@/components/ui/Button";
 import TextInput from "@/components/ui/TextInput";
+import { useTheme } from "@/context/ThemeContext"; // Import theme context
 
 import Colors from "@constants/colors";
 import { styles } from "./styles";
 
 const ProfileInfo = () => {
   const { formatMessage } = useIntl();
+  const { theme } = useTheme(); // Get the current theme
+  const themeStyles = styles(theme); // Apply theme styles dynamically
 
   const [editing, setEditing] = useState(false);
   const [userData, setUserData] = useState({
@@ -122,15 +125,15 @@ const ProfileInfo = () => {
   return (
     <Layout
       headerComponent={
-        <View style={styles.header}>
+        <View style={themeStyles.header}>
           <BackButton />
-          <Text style={styles.headerLabel}>
+          <Text style={themeStyles.headerLabel}>
             <FormattedMessage id="profile" />
           </Text>
         </View>
       }
     >
-      <View style={styles.container}>
+      <View style={themeStyles.container}>
         <Formik
           enableReinitialize
           initialValues={userData}
@@ -188,7 +191,7 @@ const ProfileInfo = () => {
             touched,
             isSubmitting,
           }) => (
-            <View style={styles.form}>
+            <View style={themeStyles.form}>
               <TextInput
                 label={<FormattedMessage id="name" />}
                 onChangeText={handleChange("name")}
@@ -197,12 +200,14 @@ const ProfileInfo = () => {
                 error={errors.name}
                 touched={touched.name}
                 disabled={!editing || isSubmitting}
+                customBoxStyle={themeStyles.inputBox}
               />
               <TextInput
                 label={<FormattedMessage id="email" />}
                 onChangeText={handleChange("email")}
                 value={values.email}
                 disabled={true}
+                customBoxStyle={themeStyles.inputBox}
               />
               <TextInput
                 label={<FormattedMessage id="password" />}
@@ -212,6 +217,7 @@ const ProfileInfo = () => {
                 error={errors.password}
                 touched={touched.password}
                 disabled={!editing || isSubmitting}
+                customBoxStyle={themeStyles.inputBox}
               />
 
               <View>
@@ -226,13 +232,13 @@ const ProfileInfo = () => {
                   }
                   onPress={() => (editing ? handleSubmit() : setEditing(true))}
                   loading={isSubmitting}
-                  customBoxStyle={styles.editButton}
+                  customBoxStyle={themeStyles.editButton}
                 />
                 <Button
                   label={<FormattedMessage id="deleteProfile" />}
                   variant="outlined"
                   onPress={handleDeleteProfile}
-                  customBoxStyle={{ borderColor: Colors.crimsonRed }}
+                  customBoxStyle={themeStyles.deleteButton}
                   customLabelStyle={{ color: Colors.crimsonRed }}
                 />
               </View>
