@@ -67,7 +67,7 @@ export const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     marginTop: 10,
-    gap: 5,
+    gap: 20,
   },
   achievementImage: {
     height: 75,

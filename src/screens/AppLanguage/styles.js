@@ -33,6 +33,10 @@ export const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: Colors.silverGray,
   },
+  cardContainerSelected: {
+    borderColor: Colors.royalPurple,
+    borderWidth: 3,
+  },
   cardIcon: {
     width: 30,
     height: 20,

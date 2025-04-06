@@ -5,6 +5,8 @@ import { useNavigation } from "@react-navigation/native";
 import { FontAwesome } from "@expo/vector-icons";
 import { FormattedMessage, useIntl } from "react-intl";
 
+import { useLanguage } from "@/context/LanguageContext";
+
 import { ref, get, set, update, remove } from "firebase/database";
 import { auth, database } from "@services/firebaseConfig";
 
@@ -21,6 +23,7 @@ const icons = {
 };
 
 const Lesson = ({ route }) => {
+  const { language: appLanguage } = useLanguage();
   const { formatMessage } = useIntl();
   const navigation = useNavigation();
   const { lesson, language } = route.params;
@@ -189,7 +192,7 @@ const Lesson = ({ route }) => {
           <Image source={icons["girl"]} style={styles.image} />
           <View style={styles.questionCard}>
             <Text style={styles.questionText}>
-              {lesson.questions[currentIndex].question}
+              {lesson.questions[currentIndex].question[appLanguage]}
             </Text>
           </View>
         </View>

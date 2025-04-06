@@ -29,28 +29,26 @@ const AppLanguage = () => {
         <TouchableOpacity
           style={[
             styles.cardContainer,
-            language === "en" && {
-              borderColor: Colors.freshGreen,
-              borderWidth: 3,
-            },
+            language === "en" && styles.cardContainerSelected,
           ]}
           onPress={() => setLanguage("en")}
         >
           <LanguageIcon icon="english" />
-          <Text style={styles.cardLabel}><FormattedMessage id="english" /></Text>
+          <Text style={styles.cardLabel}>
+            <FormattedMessage id="english" />
+          </Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={[
             styles.cardContainer,
-            language === "fr" && {
-              borderColor: Colors.freshGreen,
-              borderWidth: 3,
-            },
+            language === "fr" && styles.cardContainerSelected,
           ]}
           onPress={() => setLanguage("fr")}
         >
           <LanguageIcon icon="french" />
-          <Text style={styles.cardLabel}><FormattedMessage id="french" /></Text>
+          <Text style={styles.cardLabel}>
+            <FormattedMessage id="french" />
+          </Text>
         </TouchableOpacity>
       </View>
     </Layout>

@@ -1,7 +1,8 @@
 import React from "react";
 import { FontSizeProvider } from "@/context/FontSizeContext";
-import { LanguageProvider, useLanguage } from "@/context/LanguageContext";
 import { IntlProvider } from "react-intl";
+
+import { LanguageProvider, useLanguage } from "@/context/LanguageContext";
 import en from "@/locales/en";
 import fr from "@/locales/fr";
 

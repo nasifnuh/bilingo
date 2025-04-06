@@ -3,6 +3,8 @@ import { View, Image } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { FormattedMessage } from "react-intl";
 
+import { useLanguage } from "@/context/LanguageContext";
+
 import { ref, onValue } from "firebase/database";
 import { database } from "@services/firebaseConfig";
 
@@ -14,6 +16,7 @@ import MascotLearn from "@assets/images/mascot_learn.png";
 import { styles } from "./styles";
 
 const Languages = () => {
+  const { language: appLanguage } = useLanguage();
   const navigation = useNavigation();
 
   const [languages, setLanguages] = useState([]);
@@ -43,13 +46,22 @@ const Languages = () => {
         </View>
 
         <View style={styles.languages}>
-          {Object.values(languages).map((language, index) => (
-            <LanguageCard
-              key={index}
-              icon={language.icon}
-              name={language.name}
-            />
-          ))}
+          {Object.values(languages)
+            .filter(
+              // Filter out languages that are not Chinese, English, or French
+              // as other languages don't support 'en' & 'fr' app translations
+              (language) =>
+                language.icon === "chinese" ||
+                language.icon === "english" ||
+                language.icon === "french"
+            )
+            .map((language, index) => (
+              <LanguageCard
+                key={index}
+                icon={language.icon}
+                name={language.name[appLanguage]}
+              />
+            ))}
         </View>
       </View>
     </Layout>
