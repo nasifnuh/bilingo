@@ -4,9 +4,11 @@ import { useNavigation } from "@react-navigation/native";
 import { Octicons } from "@expo/vector-icons";
 
 import Colors from "@constants/colors";
+import { useTheme } from "@/context/ThemeContext"; 
 
 const BackButton = ({ screenName, style = {} }) => {
   const navigation = useNavigation();
+  const { theme } = useTheme(); 
 
   const handlePress = () => {
     if (screenName) {
@@ -18,7 +20,7 @@ const BackButton = ({ screenName, style = {} }) => {
 
   return (
     <TouchableOpacity onPress={handlePress} style={style}>
-      <Octicons name="chevron-left" size={24} color={Colors.darkGray} />
+      <Octicons name="chevron-left" size={24} color={theme === "dark" ? Colors.offWhite : Colors.darkGray } />
     </TouchableOpacity>
   );
 };

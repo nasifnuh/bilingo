@@ -9,7 +9,6 @@ import Layout from "@/layout";
 import BackButton from "@/components/BackButton";
 import LanguageIcon from "@components/LanguageIcon";
 
-import Colors from "@/constants/colors";
 import { styles } from "./styles";
 
 const AppLanguage = () => {
@@ -18,11 +17,12 @@ const AppLanguage = () => {
   const themeStyles = styles(theme); 
 
   return (
+    
     <Layout
       headerComponent={
-        <View style={styles.header}>
+        <View style={themeStyles.header}>
           <BackButton />
-          <Text style={styles.headerLabel}>
+          <Text style={themeStyles.headerLabel}>
             <FormattedMessage id="appLanguage" />
           </Text>
         </View>
@@ -31,25 +31,25 @@ const AppLanguage = () => {
       <View style={themeStyles.container}>
         <TouchableOpacity
           style={[
-            styles.cardContainer,
-            language === "en" && styles.cardContainerSelected,
+            themeStyles.cardContainer,
+            language === "en" && themeStyles.cardContainerSelected,
           ]}
           onPress={() => setLanguage("en")}
         >
           <LanguageIcon icon="english" />
-          <Text style={styles.cardLabel}>
+          <Text style={themeStyles.cardLabel}>
             <FormattedMessage id="english" />
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={[
-            styles.cardContainer,
-            language === "fr" && styles.cardContainerSelected,
+            themeStyles.cardContainer,
+            language === "fr" && themeStyles.cardContainerSelected,
           ]}
           onPress={() => setLanguage("fr")}
         >
           <LanguageIcon icon="french" />
-          <Text style={styles.cardLabel}>
+          <Text style={themeStyles.cardLabel}>
             <FormattedMessage id="french" />
           </Text>
         </TouchableOpacity>

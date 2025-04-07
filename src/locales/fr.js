@@ -83,6 +83,7 @@ export default {
   notifications: "Notifications",
   appLanguage: "Langue de l'application",
   accessibility: "Accessibilité",
+  themeMode: "Changer de thème",
 
   // Profile Info Screen
   saveChanges: "Enregistrer les modifications",
