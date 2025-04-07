@@ -18,8 +18,8 @@ import { styles } from "./styles";
 const Settings = () => {
   const { formatMessage } = useIntl();
   const navigation = useNavigation();
-  const { theme, toggleTheme } = useTheme(); 
-  const themeStyles = styles(theme); 
+  const { theme, toggleTheme } = useTheme();
+  const themeStyles = styles(theme);
 
   const handleLogout = async () => {
     try {
@@ -77,14 +77,18 @@ const Settings = () => {
           </Text>
         </TouchableOpacity>
 
+        <TouchableOpacity
+          style={themeStyles.option}
+          onPress={() => navigation.navigate("AppIcon")}
+        >
+          <Text style={themeStyles.optionLabel}>App Icon</Text>
+        </TouchableOpacity>
+
         <View style={themeStyles.option}>
           <Text style={themeStyles.optionLabel}>
             <FormattedMessage id="themeMode" />
           </Text>
-          <Switch
-            value={theme === "dark"}
-            onValueChange={toggleTheme}
-          />
+          <Switch value={theme === "dark"} onValueChange={toggleTheme} />
         </View>
 
         <Button
