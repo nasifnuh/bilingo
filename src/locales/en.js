@@ -4,6 +4,10 @@ export default {
   description: "Learn languages whenever and wherever you want. Free forever!",
   letsGo: "Let’s goo",
   alreadyHaveProfile: "I Already Have A Profile",
+  shakeToReport: "Shake to Report",
+  shakeToReportMessage:
+    "Shake your device to report any issues or suspicious activity. This helps us improve the safety of our community.",
+  shakeToReportButton: "Got it",
 
   // Signup Screen
   createProfile: "Create a Profile",

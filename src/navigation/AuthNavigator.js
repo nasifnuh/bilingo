@@ -10,13 +10,11 @@ import Login from "@screens/Login";
 const Stack = createStackNavigator();
 
 const AuthNavigator = () => (
-  <AppProvider>
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="Landing" component={Landing} />
-      <Stack.Screen name="Signup" component={Signup} />
-      <Stack.Screen name="Login" component={Login} />
-    </Stack.Navigator>
-  </AppProvider>
+  <Stack.Navigator screenOptions={{ headerShown: false }}>
+    <Stack.Screen name="Landing" component={Landing} />
+    <Stack.Screen name="Signup" component={Signup} />
+    <Stack.Screen name="Login" component={Login} />
+  </Stack.Navigator>
 );
 
 export default AuthNavigator;

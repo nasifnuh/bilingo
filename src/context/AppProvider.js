@@ -1,8 +1,10 @@
 import React from "react";
-import { FontSizeProvider } from "@/context/FontSizeContext";
 import { IntlProvider } from "react-intl";
 
-import { LanguageProvider, useLanguage } from "@/context/LanguageContext";
+import { FontSizeProvider } from "@context/FontSizeContext";
+import { ThemeProvider } from "@/context/ThemeContext";
+import { LanguageProvider, useLanguage } from "@context/LanguageContext";
+
 import en from "@/locales/en";
 import fr from "@/locales/fr";
 
@@ -20,11 +22,13 @@ const IntlWrapper = ({ children }) => {
 
 const AppProvider = ({ children }) => {
   return (
-    <FontSizeProvider>
-      <LanguageProvider>
-        <IntlWrapper>{children}</IntlWrapper>
-      </LanguageProvider>
-    </FontSizeProvider>
+    <ThemeProvider>
+      <FontSizeProvider>
+        <LanguageProvider>
+          <IntlWrapper>{children}</IntlWrapper>
+        </LanguageProvider>
+      </FontSizeProvider>
+    </ThemeProvider>
   );
 };
 
