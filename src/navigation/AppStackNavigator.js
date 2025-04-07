@@ -12,6 +12,7 @@ import Settings from "@screens/Settings";
 import ProfileInfo from "@screens/ProfileInfo";
 import Notification from "@/screens/Notification";
 import Accessibility from "@/screens/Accessibility";
+import AppIcon from "@/screens/AppIcon";
 import AppLanguage from "@/screens/AppLanguage";
 import Achievements from "@/screens/Achievements";
 
@@ -28,6 +29,7 @@ const AppStackNavigator = () => (
     <Stack.Screen name="ProfileInfo" component={ProfileInfo} />
     <Stack.Screen name="Notification" component={Notification} />
     <Stack.Screen name="Accessibility" component={Accessibility} />
+    <Stack.Screen name="AppIcon" component={AppIcon} />
     <Stack.Screen name="AppLanguage" component={AppLanguage} />
     <Stack.Screen name="Achievements" component={Achievements} />
   </Stack.Navigator>
