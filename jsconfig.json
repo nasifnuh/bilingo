@@ -14,6 +14,7 @@
       "@services/*": ["src/services/*"],
       "@translations/*": ["src/translations/*"],
       "@utils/*": ["src/utils/*"],
+      "@hooks/*": ["src/hooks/*"],
 
       "@firebase/auth": ["./node_modules/@firebase/auth/dist/index.rn.d.ts"]
     }

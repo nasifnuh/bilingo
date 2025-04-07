@@ -20,6 +20,7 @@ module.exports = function (api) {
             "@services": "./src/services",
             "@translations": "./src/translations",
             "@utils": "./src/utils",
+            "@hooks": "./src/hooks",
           },
         },
       ],
