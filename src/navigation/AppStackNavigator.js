@@ -18,21 +18,19 @@ import Achievements from "@/screens/Achievements";
 const Stack = createStackNavigator();
 
 const AppStackNavigator = () => (
-  <AppProvider>
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="App" component={BottomTabNavigator} />
-      <Stack.Screen name="Lesson" component={Lesson} />
-      <Stack.Screen name="LessonComplete" component={LessonComplete} />
-      <Stack.Screen name="StreakComplete" component={StreakComplete} />
-      <Stack.Screen name="Languages" component={Languages} />
-      <Stack.Screen name="Settings" component={Settings} />
-      <Stack.Screen name="ProfileInfo" component={ProfileInfo} />
-      <Stack.Screen name="Notification" component={Notification} />
-      <Stack.Screen name="Accessibility" component={Accessibility} />
-      <Stack.Screen name="AppLanguage" component={AppLanguage} />
-      <Stack.Screen name="Achievements" component={Achievements} />
-    </Stack.Navigator>
-  </AppProvider>
+  <Stack.Navigator screenOptions={{ headerShown: false }}>
+    <Stack.Screen name="App" component={BottomTabNavigator} />
+    <Stack.Screen name="Lesson" component={Lesson} />
+    <Stack.Screen name="LessonComplete" component={LessonComplete} />
+    <Stack.Screen name="StreakComplete" component={StreakComplete} />
+    <Stack.Screen name="Languages" component={Languages} />
+    <Stack.Screen name="Settings" component={Settings} />
+    <Stack.Screen name="ProfileInfo" component={ProfileInfo} />
+    <Stack.Screen name="Notification" component={Notification} />
+    <Stack.Screen name="Accessibility" component={Accessibility} />
+    <Stack.Screen name="AppLanguage" component={AppLanguage} />
+    <Stack.Screen name="Achievements" component={Achievements} />
+  </Stack.Navigator>
 );
 
 export default AppStackNavigator;
