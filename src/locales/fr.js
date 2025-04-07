@@ -5,6 +5,10 @@ export default {
     "Apprenez des langues quand vous voulez, où vous voulez. Gratuit pour toujours !",
   letsGo: "C'est parti",
   alreadyHaveProfile: "J'ai déjà un profil",
+  shakeToReport: "Secouer pour signaler",
+  shakeToReportMessage:
+    "Secouez votre appareil pour signaler tout problème ou activité suspecte. Cela nous aide à améliorer la sécurité de notre communauté.",
+  shakeToReportButton: "Compris",
 
   // Signup Screen
   createProfile: "Créer un profil",
