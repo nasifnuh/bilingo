@@ -16,10 +16,13 @@ import { styles } from "./styles";
 import { useTheme } from "@/context/ThemeContext"; 
 
 const Header = () => {
+  const { theme } = useTheme(); 
+  const themeStyles = styles(theme); 
+
   return (
-    <View style={styles.header}>
+    <View style={themeStyles.header}>
       <BackButton />
-      <Text style={styles.headerLabel}>
+      <Text style={themeStyles.headerLabel}>
         <FormattedMessage id="savedLessons" />
       </Text>
     </View>

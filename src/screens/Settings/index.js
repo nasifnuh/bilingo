@@ -1,5 +1,5 @@
 import React from "react";
-import { View, TouchableOpacity } from "react-native";
+import { View, TouchableOpacity, Switch } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { FormattedMessage, useIntl } from "react-intl";
 
@@ -77,11 +77,15 @@ const Settings = () => {
           </Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={themeStyles.option} onPress={toggleTheme}>
+        <View style={themeStyles.option}>
           <Text style={themeStyles.optionLabel}>
-            Switch to {theme === "light" ? "Dark" : "Light"} Mode
+            <FormattedMessage id="themeMode" />
           </Text>
-        </TouchableOpacity>
+          <Switch
+            value={theme === "dark"}
+            onValueChange={toggleTheme}
+          />
+        </View>
 
         <Button
           label={<FormattedMessage id="logout" />}
