@@ -37,11 +37,11 @@ const AppIcon = () => {
         <View style={themeStyles.form}>
           <View
             style={[
-              styles.settingItem,
+              themeStyles.settingItem,
               { flexDirection: "column", alignItems: "center" },
             ]}
           >
-            <Text style={[styles.label, { marginBottom: 10 }]}>
+            <Text style={[themeStyles.label, { marginBottom: 10 }]}>
               Selected App Icon
             </Text>
             <Image

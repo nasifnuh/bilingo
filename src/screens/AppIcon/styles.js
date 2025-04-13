@@ -15,7 +15,7 @@ export const styles = (theme) =>
       textAlign: "center",
       fontFamily: "BalooChettan-B",
       fontSize: 18,
-      color: Colors[theme].text, 
+      color: theme === "dark" ? Colors.white : Colors.black,
     },
     container: {
       paddingVertical: 18,
@@ -29,9 +29,15 @@ export const styles = (theme) =>
     label: {
       fontFamily: "BalooChettan-SB",
       fontSize: 16,
-      color: Colors[theme].text,
+      color: theme === "dark" ? Colors.white : Colors.black,
     },
     slider: {
       width: "100%",
+    },
+    settingItem: {
+      // backgroundColor: Colors[theme].cardBackground,
+      // padding: 15,
+      // borderRadius: 10,
+      // elevation: 3,
     },
   });

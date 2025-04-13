@@ -1,11 +1,15 @@
 import { Modal, View, Text } from "react-native";
 import { FormattedMessage } from "react-intl";
+import { useTheme } from "@/context/ThemeContext";
 
 import Button from "@components/ui/Button";
 
 import styles from "./styles";
 
 const ShakeToReportModal = ({ visible, onClose }) => {
+  const { theme } = useTheme();
+  const themeStyles = styles(theme);
+
   return (
     <Modal
       animationType="slide"
@@ -13,19 +17,19 @@ const ShakeToReportModal = ({ visible, onClose }) => {
       visible={visible}
       onRequestClose={onClose}
     >
-      <View style={styles.modalContainer}>
-        <View style={styles.modalContent}>
-          <Text style={styles.modalTitle}>
+      <View style={themeStyles.modalContainer}>
+        <View style={themeStyles.modalContent}>
+          <Text style={themeStyles.modalTitle}>
             <FormattedMessage id="shakeToReport" />
           </Text>
-          <Text style={styles.modalText}>
+          <Text style={themeStyles.modalText}>
             <FormattedMessage id="shakeToReportMessage" />
           </Text>
           <Button
             variant="contained"
             label={<FormattedMessage id="shakeToReportButton" />}
             onPress={onClose}
-            customBoxStyle={styles.ownerButton}
+            customBoxStyle={themeStyles.ownerButton}
           />
         </View>
       </View>
