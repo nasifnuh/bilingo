@@ -15,10 +15,14 @@ import Button from "@/components/ui/Button";
 import TextInput from "@/components/ui/TextInput";
 
 import MascotImage from "@assets/images/mascot_love.png";
+import { useTheme } from "@/context/ThemeContext"; // Import useTheme
+import Colors from "@constants/colors";
 import { styles } from "./styles";
 
 const Signup = () => {
   const { formatMessage } = useIntl();
+  const { theme } = useTheme(); // Get the current theme
+  const themeStyles = styles(theme); // Apply theme-based styles
 
   const validationSchema = Yup.object().shape({
     name: Yup.string()
@@ -34,12 +38,13 @@ const Signup = () => {
       .min(6, formatMessage({ id: "validationPasswordLength" }))
       .required(formatMessage({ id: "required" })),
   });
+
   return (
     <Layout>
-      <View style={styles.container}>
+      <View style={themeStyles.container}>
         <BackButton />
-        <Image source={MascotImage} style={styles.image} />
-        <Text style={styles.title}>
+        <Image source={MascotImage} style={themeStyles.image} />
+        <Text style={themeStyles.title}>
           <FormattedMessage id="createProfile" />
         </Text>
 
@@ -105,7 +110,7 @@ const Signup = () => {
             touched,
             isSubmitting,
           }) => (
-            <View style={styles.form}>
+            <View style={themeStyles.form}>
               <TextInput
                 label={<FormattedMessage id="name" />}
                 onChangeText={handleChange("name")}
@@ -113,6 +118,8 @@ const Signup = () => {
                 placeholder={formatMessage({ id: "namePlaceholder" })}
                 error={errors.name}
                 touched={touched.name}
+                customBoxStyle={themeStyles.inputBox} // Apply theme-based input styles
+                labelStyle={{ color: Colors[theme].text }} // Apply theme-based label color
               />
               <TextInput
                 label={<FormattedMessage id="email" />}
@@ -122,6 +129,8 @@ const Signup = () => {
                 keyboardType="email-address"
                 error={errors.email}
                 touched={touched.email}
+                customBoxStyle={themeStyles.inputBox}
+                labelStyle={{ color: Colors[theme].text }}
               />
               <TextInput
                 label={<FormattedMessage id="password" />}
@@ -131,13 +140,15 @@ const Signup = () => {
                 secureTextEntry={true}
                 error={errors.password}
                 touched={touched.password}
+                customBoxStyle={themeStyles.inputBox}
+                labelStyle={{ color: Colors[theme].text }}
               />
 
               <Button
                 label={<FormattedMessage id="signup" />}
                 onPress={handleSubmit}
                 loading={isSubmitting}
-                customBoxStyle={styles.signupButton}
+                customBoxStyle={themeStyles.signupButton} // Apply theme-based button styles
               />
             </View>
           )}

@@ -16,9 +16,13 @@ import TextInput from "@/components/ui/TextInput";
 import MascotImage from "@assets/images/mascot_excited.png";
 
 import { styles } from "./styles";
+import Colors from "@constants/colors";
+import { useTheme } from "@/context/ThemeContext"; // Import useTheme
 
 const Login = () => {
   const { formatMessage } = useIntl();
+  const { theme } = useTheme(); // Get the current theme
+  const themeStyles = styles(theme); // Apply theme-based styles
 
   const validationSchema = Yup.object().shape({
     email: Yup.string()
@@ -32,10 +36,10 @@ const Login = () => {
 
   return (
     <Layout>
-      <View style={styles.container}>
-        <BackButton style={styles.backButton} />
-        <Image source={MascotImage} style={styles.image} />
-        <Text style={styles.title}>
+      <View style={themeStyles.container}>
+        <BackButton style={themeStyles.backButton} />
+        <Image source={MascotImage} style={themeStyles.image} />
+        <Text style={themeStyles.title}>
           <FormattedMessage id="welcomeBack" />
         </Text>
 
@@ -77,7 +81,7 @@ const Login = () => {
             touched,
             isSubmitting,
           }) => (
-            <View style={styles.form}>
+            <View style={themeStyles.form}>
               <TextInput
                 label={<FormattedMessage id="email" />}
                 onChangeText={handleChange("email")}
@@ -86,6 +90,7 @@ const Login = () => {
                 keyboardType="email-address"
                 error={errors.email}
                 touched={touched.email}
+                labelStyle={{ color: Colors[theme].text }} // Apply theme-based label color
               />
               <TextInput
                 label={<FormattedMessage id="password" />}
@@ -95,13 +100,14 @@ const Login = () => {
                 secureTextEntry={true}
                 error={errors.password}
                 touched={touched.password}
+                labelStyle={{ color: Colors[theme].text }} // Apply theme-based label color
               />
 
               <Button
                 label={<FormattedMessage id="login" />}
                 onPress={handleSubmit}
                 loading={isSubmitting}
-                customBoxStyle={styles.loginButton}
+                customBoxStyle={themeStyles.loginButton} // Apply theme-based button styles
               />
             </View>
           )}
